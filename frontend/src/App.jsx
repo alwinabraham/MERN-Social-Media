@@ -4,6 +4,7 @@ import './App.css'
 import Page from './pages/Page'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
   return (
