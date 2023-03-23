@@ -13,6 +13,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/" element={<Page />} />
+        {/* <Route exact path="/otp_login" element={<OtpLogin />} /> */}
       </Routes>
     </BrowserRouter>
   )
