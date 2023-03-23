@@ -54,6 +54,9 @@ export default function Login() {
             <span>
                 Already have an account? <Link to="/register">Register</Link>
             </span>
+            <span>
+                Login using Otp? <Link to="/otp_login">Otp-Login</Link>
+            </span>
         </form>
     <ToastContainer />
     </div>

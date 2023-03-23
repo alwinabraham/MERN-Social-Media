@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true,"Password is Required"]
     },
+    phoneno:{
+        type:Number,
+        required:[true,"Phone Number is Required"],
+        unique:true,
+    }
 });
 
 userSchema.pre("save",async function(next){

@@ -10,7 +10,7 @@ const createToken = (id) =>{
 };
 
 const handleErrors = (err) =>{
-    let errors = {email:"",password:""}; 
+    let errors = {email:"",password:"",phoneno:""}; 
 
     if(err.message === "Incorrect Email") 
         errors.email = "That email is not registered"
@@ -49,8 +49,8 @@ module.exports.login = async (req,res,next)=>{
 
 module.exports.register = async (req,res,next)=>{
     try{
-        const {email,password} = req.body;
-        const user = await UserModel.create({email, password})
+        const {email,password,phoneno} = req.body;
+        const user = await UserModel.create({email, password, phoneno})
         const token = createToken(user._id);
 
         res.cookie("jwt",token,{

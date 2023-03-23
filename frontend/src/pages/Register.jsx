@@ -7,8 +7,11 @@ export default function Register() {
     const navigate = useNavigate();
     const [values, setValues] = useState({
         email: "",
-        password: ""
+        password: "",
+        phoneno: ""
     });
+    
+    console.log(values);
 
     const generateError = (err) => toast.error(err,{
         position:"bottom-right"
@@ -26,9 +29,10 @@ export default function Register() {
             if(data){
                 if(data.errors){
                     console.log(data.errors);
-                    const {email,password} = data.errors;
+                    const {email,password,phoneno} = data.errors;
                     if(email) generateError(email)
                     else if(password) generateError(password)
+                    else if(phoneno) generateError(phoneno)
                 }else{
                     navigate("/")
                 }
@@ -39,23 +43,29 @@ export default function Register() {
     }
 
   return (
+    <section className='flex items-center bg-emerald-900 justify-center h-screen'>
     <div className='container'>
-        <h2>Register Account</h2>
-        <form onSubmit={(e)=>handleSubmit(e)}>
-            <div>
-                <label htmlFor='email'>Email</label>
-                <input type="email" name="email" placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
+        <h2 className='text-center text-white font-medium text-2xl'>Register Account</h2>
+        <form  onSubmit={(e)=>handleSubmit(e)}>
+            <div class="relative mb-6" data-te-input-wrapper-init>
+                {/* <label htmlFor='email'>Email</label> */}
+                <input className='bg-white text-emerald-500 w-fit mx-auto p-2' type="email" name="email" placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
             </div>
-            <div>
-                <label htmlFor='password'>Password</label>
-                <input type="password" name="password" placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})} />
+            <div class="relative mb-6" data-te-input-wrapper-init>
+                {/* <label htmlFor='password'>Password</label> */}
+                <input className='bg-white text-emerald-500 w-fit mx-auto p-2' type="password" name="password" placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})} />
             </div>
-            <button type='submit'>Submit</button>
+            <div class="relative mb-6" data-te-input-wrapper-init>
+                {/* <label htmlFor='phoneno'>Phone Number</label> */}
+                <input className='bg-white text-emerald-500 w-fit mx-auto p-2 rounded- ' type="phoneno" name="phoneno" placeholder='phoneno' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})} />
+            </div>
+            <button className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded' type='submit'>Submit</button>
             <span>
                 Already have an account? <Link to="/login">Login</Link>
             </span>
         </form>
     <ToastContainer />
     </div>
+    </section>
   )
 }
