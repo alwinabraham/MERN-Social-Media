@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import {ToastContainer,toast} from "react-toastify"
-import Card from '../pages/mainPage/Card'
 import NavigationCard from './mainPage/NavigationCard'
 import PostFormCard from './mainPage/PostFormCard'
+import PostCard from './mainPage/PostCard'
 
 
 export default function Page() {
@@ -30,7 +30,6 @@ export default function Page() {
     }
     verifyUser();
   }, [cookies,navigate,removeCookie])
-  
 
   const logout = () =>{
     navigate("/login")
@@ -44,12 +43,12 @@ export default function Page() {
     //   <ToastContainer />
     // </>
     <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
-      <div className='w-1/3'>
+      <div className='w-3/12'>
         <NavigationCard />
       </div>
-        <div className='grow'>
+        <div className='w-9/12'>
           <PostFormCard />
-          <Card>from here</Card>
+          <PostCard />
         </div>
     </div>
   )
