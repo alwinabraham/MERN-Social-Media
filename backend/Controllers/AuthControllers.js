@@ -47,6 +47,26 @@ module.exports.login = async (req,res,next)=>{
     }
 }
 
+module.exports.otp_login = async(req,res,next)=>{
+    console.log(req.body);
+    try{
+        const {phoneno} = req.body;
+        const user = await UserModel.otp_login(phoneno)
+        const token = createToken(user._id);
+
+        res.cookie("jwt",token,{
+            withCredentials:true,
+            httpOnly: false,
+            maxAge:maxAge*1000
+        })
+        res.status(200).json({user:user._id, created:true})
+    }catch(err){
+        console.log(err);
+        const errors = handleErrors(err)
+        res.json({errors,created: false})
+    }
+}
+
 module.exports.register = async (req,res,next)=>{
     try{
         const {email,password,phoneno} = req.body;

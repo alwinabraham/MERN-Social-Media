@@ -1,17 +1,26 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
+import PhoneInput from "react-phone-input-2"
 
 export default function Register() {
     const navigate = useNavigate();
+    const [ phoneno,setPhoneno] = useState()
     const [values, setValues] = useState({
         email: "",
         password: "",
         phoneno: ""
     });
+
+    useEffect(() => {
+        setValues({...values,phoneno:phoneno})
+    }, [phoneno])
+    
+
     
     console.log(values);
+    console.log(phoneno);
 
     const generateError = (err) => toast.error(err,{
         position:"bottom-right"
@@ -43,29 +52,34 @@ export default function Register() {
     }
 
   return (
-    <section className='flex items-center bg-emerald-900 justify-center h-screen'>
-    <div className='container'>
-        <h2 className='text-center text-white font-medium text-2xl'>Register Account</h2>
-        <form  onSubmit={(e)=>handleSubmit(e)}>
-            <div class="relative mb-6" data-te-input-wrapper-init>
-                {/* <label htmlFor='email'>Email</label> */}
-                <input className='bg-white text-emerald-500 w-fit mx-auto p-2' type="email" name="email" placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
+    <div className="flex justify-center items-center h-screen bg-emerald-900">
+    <div className='w-96 p-6 shadow-lg bg-white rounded-md'>
+        <h1 className='text-3xl block text-center font-semibold'>Register</h1>
+        <hr className='mb-3'></hr>
+        <form onSubmit={(e)=>handleSubmit(e)}>
+        <div className='mb-3'>
+            <label htmlFor="email" className='block text-base mb-2'>Email</label>
+            <input type="email" name="email" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
+        </div>
+        <div className='mb-3'>
+            <label htmlFor="password" className='block text-base mb-2'>Password</label>
+            <input type="password" name="password" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
+        </div>
+        <div className='mb-3'>
+            <label htmlFor="phoneno" className='block text-base mb-2'>Phone Number</label>
+            <PhoneInput country={"in"} value={phoneno} onChange={setPhoneno} />
+        </div>
+        <div className='mt-3 flex justify-between items-center'>
+            <div>
+            Already have an account? <Link to="/login">Login</Link>
             </div>
-            <div class="relative mb-6" data-te-input-wrapper-init>
-                {/* <label htmlFor='password'>Password</label> */}
-                <input className='bg-white text-emerald-500 w-fit mx-auto p-2' type="password" name="password" placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})} />
-            </div>
-            <div class="relative mb-6" data-te-input-wrapper-init>
-                {/* <label htmlFor='phoneno'>Phone Number</label> */}
-                <input className='bg-white text-emerald-500 w-fit mx-auto p-2 rounded- ' type="phoneno" name="phoneno" placeholder='phoneno' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})} />
-            </div>
-            <button className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded' type='submit'>Submit</button>
-            <span>
-                Already have an account? <Link to="/login">Login</Link>
-            </span>
+        </div>
+        <div className="mt-5">
+            <button type='submit' className='border-2 border-emerald-700 bg-emerald-600 text-white py-1 px-5 w-full rounded-md hover:bg-transparent hover:text-emerald-700 font-semibold'>Register</button>
+        </div>
         </form>
-    <ToastContainer />
     </div>
-    </section>
+    <ToastContainer />
+</div>
   )
 }

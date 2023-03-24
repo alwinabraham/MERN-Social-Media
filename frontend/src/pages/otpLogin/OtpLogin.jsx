@@ -1,4 +1,5 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {BsFillShieldLockFill, BsTelephoneFill} from "react-icons/bs"
 import OtpInput from "otp-input-react"
 import {CgSpinner} from "react-icons/cg"
@@ -9,6 +10,7 @@ import {RecaptchaVerifier} from 'firebase/auth'
 import { Toaster } from 'react-hot-toast'
 import { toast } from 'react-toastify'
 import { signInWithPhoneNumber } from "firebase/auth";
+import axios from "axios"
 
 
 export default function OtpLogin() {
@@ -19,6 +21,8 @@ export default function OtpLogin() {
     const [showOTP,setShowOTP] = useState(false)
     const [user, setUser] = useState(null)
 
+    const navigate = useNavigate();
+    
     function onCaptchaVerify(){
         if(!window.recaptchaVerifier)
             window.recaptchaVerifier = new RecaptchaVerifier(
@@ -30,6 +34,32 @@ export default function OtpLogin() {
                 },
                 'expired-callback': () => {}
             }, auth);
+    }
+
+    console.log(ph);
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault()
+        try {
+            const {data} = await axios.post("http://localhost:4000/otp_login",{
+                ph
+            },
+            {
+                withCredentials:true,
+            })
+            if(data){
+                if(data.errors){
+                    console.log(data.errors);
+                    // const {email,password} = data.errors;
+                    // if(email) generateError(email)
+                    // else if(password) generateError(password)
+                }else{
+                    onSignup();
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     function onSignup(){
@@ -57,6 +87,7 @@ export default function OtpLogin() {
             console.log(res)
             setUser(res.user)
             setLoading(false)
+            navigate("/")
         }).catch(err=>{
             console.log(err);
             setLoading(false)
@@ -100,10 +131,13 @@ export default function OtpLogin() {
                             Verify your Phone Number
                         </label>
                         <PhoneInput country={"in"} value={ph} onChange={setPh} />
-                        <button onClick={onSignup} className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded'>
+                        <button onClick={handleSubmit} className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded'>
                             {loading && <CgSpinner size={20} className="mt-1 animate-spin"/>}
                             <span>Send Code via SMS</span>
                         </button>
+                        <label htmlFor='ph' className='font-bold text-x1 text-white text-center'>
+                            Register Your Phone Number ? <Link to="/Register">Register</Link>
+                        </label>
                     </>
             }
             </div>

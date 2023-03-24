@@ -33,7 +33,15 @@ userSchema.statics.login = async function(email,password){
         }
         throw Error("Incorrect password")
     }
-    throw Error("incorrect Email")
+    throw Error("Incorrect Email")
+}
+
+userSchema.statics.otp_login = async function(phoneno){
+    const user = await this.findOne(phoneno);
+    if(user){
+        return user;        
+    }
+    throw Error("Incorrect Phoneno")
 }
 
 module.exports = mongoose.model("Users", userSchema)

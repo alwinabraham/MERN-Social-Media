@@ -39,26 +39,35 @@ export default function Login() {
     }
 
   return (
-    <div className='container'>
-        <h2>Login Account</h2>
-        <form onSubmit={(e)=>handleSubmit(e)}>
-            <div>
-                <label htmlFor='email'>Email</label>
-                <input type="email" name="email" placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
+    <>
+    <div className="flex justify-center items-center h-screen bg-emerald-900">
+        <div className='w-96 p-6 shadow-lg bg-white rounded-md'>
+            <h1 className='text-3xl block text-center font-semibold'>Login</h1>
+            <hr className='mb-3'></hr>
+            <form onSubmit={(e)=>handleSubmit(e)}>
+            <div className='mb-3'>
+                <label htmlFor="email" className='block text-base mb-2'>Email</label>
+                <input type="email" name="email" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
             </div>
-            <div>
-                <label htmlFor='password'>Password</label>
-                <input type="password" name="password" placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})} />
+            <div className='mb-3'>
+                <label htmlFor="password" className='block text-base mb-2'>Password</label>
+                <input type="password" name="password" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
             </div>
-            <button type='submit'>Submit</button>
-            <span>
-                Already have an account? <Link to="/register">Register</Link>
-            </span>
-            <span>
-                Login using Otp? <Link to="/otp_login">Otp-Login</Link>
-            </span>
-        </form>
-    <ToastContainer />
+            <div className='mt-3 flex justify-between items-center'>
+                <div>
+                    <Link to="/register">Register</Link>
+                </div>
+                <div>
+                    <Link to="/otp_login">Otp-Login</Link>
+                </div>
+            </div>
+            <div className="mt-5">
+                <button type='submit' className='border-2 border-emerald-700 bg-emerald-600 text-white py-1 px-5 w-full rounded-md hover:bg-transparent hover:text-emerald-700 font-semibold'>Login</button>
+            </div>
+            </form>
+        </div>
     </div>
+    <ToastContainer />
+    </>
   )
 }
