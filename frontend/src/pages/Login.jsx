@@ -1,9 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
+import {useCookies} from 'react-cookie'
 
 export default function Login() {
+
+    const [cookies,setCookie,removeCookie] = useCookies([])
+ 
     const navigate = useNavigate();
     const [values, setValues] = useState({
         email: "",
@@ -37,6 +41,18 @@ export default function Login() {
             console.log(error);
         }
     }
+    const verifyUser=()=>{
+        if(!cookies.jwt){
+            navigate("/login")
+        }else{
+            navigate("/")
+        }
+    }
+
+    useEffect(() => {
+        verifyUser();
+    },[cookies])
+    
 
   return (
     <>

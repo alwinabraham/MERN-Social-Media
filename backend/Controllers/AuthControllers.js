@@ -1,5 +1,6 @@
 const UserModel = require("../Models/UserModel");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const PostModel = require("../Models/PostModel");
 
 const maxAge = 1*24*60*60
 
@@ -41,7 +42,6 @@ module.exports.login = async (req,res,next)=>{
         })
         res.status(200).json({user:user._id, created:true})
     }catch(err){
-        console.log(err);
         const errors = handleErrors(err)
         res.json({errors,created: false})
     }
@@ -61,7 +61,6 @@ module.exports.otp_login = async(req,res,next)=>{
         })
         res.status(200).json({user:user._id, created:true})
     }catch(err){
-        console.log(err);
         const errors = handleErrors(err)
         res.json({errors,created: false})
     }
@@ -80,8 +79,15 @@ module.exports.register = async (req,res,next)=>{
         })
         res.status(201).json({user:user._id, created:true})
     }catch(err){
-        console.log(err);
         const errors = handleErrors(err)
         res.json({errors,created: false})
     }
+}
+
+module.exports.upload_post = async (req,res,next)=>{
+    try{
+        let dateAndTime = new Date();
+        const {userId,content,Image} = req.body;
+        await PostModel.create({userId, content, Image, dateAndTime})
+    }catch(err){}
 }

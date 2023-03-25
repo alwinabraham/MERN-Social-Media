@@ -4,8 +4,8 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import {ToastContainer,toast} from "react-toastify"
 import NavigationCard from './mainPage/NavigationCard'
-import PostFormCard from './mainPage/PostFormCard'
 import PostCard from './mainPage/PostCard'
+import ProfileCover from './mainPage/ProfileCover'
 
 
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
         <NavigationCard />
       </div>
         <div className='w-9/12'>
-          <PostFormCard />
+          <ProfileCover />
           <PostCard />
         </div>
     </div>

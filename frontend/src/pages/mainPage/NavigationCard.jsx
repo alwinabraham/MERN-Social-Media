@@ -1,11 +1,21 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Card from './Card'
+import { useCookies } from 'react-cookie'
 
 export default function NavigationCard() {
     const activeElement = 'flex gap-4 py-3 bg-emerald-700 text-white -mx-10 px-10 rounded-md shadow-md shadow-gray-300'
     const nonActiveElement = 'flex gap-3 py-1 my-2 hover:bg-blue-500 hover:bg-opacity-20 -mx-4 px-4 rounded-md transition-all hover:scale-110'
-  return (
+
+    const navigate = useNavigate();
+    const [cookies,setCookie,removeCookie] = useCookies([])
+
+
+    const logout = () =>{
+        removeCookie("jwt")
+        navigate("/login")
+      }
+    return (
     <Card>
         <div className='px-4 py-2'>
             <h2 className='text-gray-400 mb-3'>Navigation</h2>
@@ -21,11 +31,11 @@ export default function NavigationCard() {
                 </svg>
             Friends
             </Link>
-            <Link to="/login" className={nonActiveElement}>
+            <Link to="/profile" className={nonActiveElement}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                 </svg>
-            Saved Posts
+            Profile
             </Link>
             <Link to="/login" className={nonActiveElement}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -33,12 +43,12 @@ export default function NavigationCard() {
                 </svg>
             Notifications
             </Link>
-            <Link to="/login" className={nonActiveElement}>
+            <a onClick={logout} className={nonActiveElement}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                 </svg>
             Logout
-            </Link>
+            </a>
         </div>
        </Card>
   )

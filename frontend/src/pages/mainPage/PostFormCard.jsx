@@ -1,8 +1,35 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import Card from './Card'
 import Avatar from './Avatar'
 
 export default function PostFormCard() {
+
+    // const navigate = useNavigate();
+
+    // const [cookies,setCookie,removeCookie] = useCookies([])
+  
+    // const verifyUser = async ()=>{
+    //   if(!cookies.jwt){
+    //     navigate("/login")
+    //   }else{
+    //     const {data} = await axios.post(
+    //       "http://localhost:4000",{},
+    //       {withCredentials: true}
+    //       );
+    //       if(!data.status){
+    //         removeCookie("jwt");
+    //         navigate("/login");
+    //       }else {};
+    //   }
+    // }
+
+    // useEffect(() => {
+    //     verifyUser();
+    //   }, [cookies,navigate,removeCookie])
+
   return (
     <Card>
         <div className='flex gap-2'>

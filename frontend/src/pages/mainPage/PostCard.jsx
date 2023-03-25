@@ -8,7 +8,7 @@ export default function PostCard() {
     <div className='flex gap-3'>
     <Avatar />
     <div>
-      <p><span className='font-semibold'>John Doe</span> shared a post</p>
+      <p><span className='font-semibold'>Alwin Abraham</span> shared a post</p>
       <p className='text-gray-500 text-sm'>2 hours ago</p>
     </div>
     </div>
