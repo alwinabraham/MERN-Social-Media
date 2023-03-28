@@ -14,3 +14,4 @@ router.post("/otp_login",otp_login)
 router.post("/upload_post",upload.single('image'),upload_post)
 
 module.exports = router
+

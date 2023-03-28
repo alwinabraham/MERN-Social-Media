@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Card from './Card'
 import Avatar from './Avatar'
+import { useSelector } from 'react-redux'
 
 export default function PostFormCard() {
 
@@ -31,13 +32,15 @@ export default function PostFormCard() {
     //   }, [cookies,navigate,removeCookie])
     const [file, setFile] = useState()
     const [caption, setCaption] = useState("")
-  
+    const {user} = useSelector((state)=>state.user)
+
     const navigate = useNavigate()
   
     const submit = async event => {
       event.preventDefault()
   
       const formData = new FormData();
+      formData.append("userId", user)
       formData.append("image", file)
       formData.append("caption", caption)
       await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})

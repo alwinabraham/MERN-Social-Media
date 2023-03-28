@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const PostModel = require("../Models/PostModel");
 const crypto = require('crypto')
 const sharp = require('sharp')
-const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3')
+const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 
 
 const maxAge = 1*24*60*60
@@ -17,14 +17,16 @@ const createToken = (id) =>{
 };
 
 const handleErrors = (err) =>{
-    let errors = {email:"",password:"",phoneno:""}; 
+    let errors = {name:"",email:"",password:"",phoneno:""}; 
 
+    if(err.message === "Incorrect Name") 
+        errors.email = "That name is not registered"
     if(err.message === "Incorrect Email") 
         errors.email = "That email is not registered"
     if(err.message === "Incorrect password")
         errors.email = "That password is incorrect"
     if(err.code===11000){
-        errors.email = "Email is already registered";
+        errors.email = "Email Or Phone Number is already registered";
         return errors;
     }
     if(err.message.includes("Users validation failed")){
@@ -74,8 +76,8 @@ module.exports.otp_login = async(req,res,next)=>{
 
 module.exports.register = async (req,res,next)=>{
     try{
-        const {email,password,phoneno} = req.body;
-        const user = await UserModel.create({email, password, phoneno})
+        const {name,email,password,phoneno} = req.body;
+        const user = await UserModel.create({name, email, password, phoneno})
         const token = createToken(user._id);
 
         res.cookie("jwt",token,{
@@ -85,6 +87,7 @@ module.exports.register = async (req,res,next)=>{
         })
         res.status(201).json({user:user._id, created:true})
     }catch(err){
+        console.log(err);
         const errors = handleErrors(err)
         res.json({errors,created: false})
     }
@@ -92,11 +95,9 @@ module.exports.register = async (req,res,next)=>{
 
 module.exports.upload_post = async (req,res,next)=>{
     try{
-        console.log("req.body",req.body);
-        console.log("req.file",req.file);
-
         const file = req.file
         const content = req.body.caption
+        const userId = req.body.userId
         const imageName = generateFileName()
         const dateAndTime = new Date();
       
@@ -107,6 +108,7 @@ module.exports.upload_post = async (req,res,next)=>{
         await uploadFile(fileBuffer, imageName, file.mimetype)
       
         const post = await PostModel.create({
+            userId,
             imageName,
             content,
             dateAndTime,

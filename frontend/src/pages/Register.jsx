@@ -3,11 +3,18 @@ import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
 import PhoneInput from "react-phone-input-2"
+import { useDispatch,useSelector } from 'react-redux';
+import { setLogin } from '../redux/userData';
 
 export default function Register() {
+
+    const {user} = useSelector((state)=>state.user)
+    
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ phoneno,setPhoneno] = useState()
     const [values, setValues] = useState({
+        name:"",
         email: "",
         password: "",
         phoneno: ""
@@ -17,10 +24,8 @@ export default function Register() {
         setValues({...values,phoneno:phoneno})
     }, [phoneno])
     
-
-    
     console.log(values);
-    console.log(phoneno);
+    console.log("redux",user);
 
     const generateError = (err) => toast.error(err,{
         position:"bottom-right"
@@ -38,11 +43,13 @@ export default function Register() {
             if(data){
                 if(data.errors){
                     console.log(data.errors);
-                    const {email,password,phoneno} = data.errors;
-                    if(email) generateError(email)
+                    const {name,email,password,phoneno} = data.errors;
+                    if(name) generateError(name)
+                    else if(email) generateError(email)
                     else if(password) generateError(password)
                     else if(phoneno) generateError(phoneno)
                 }else{
+                    dispatch(setLogin({user:data.user}))
                     navigate("/")
                 }
             }
@@ -57,6 +64,10 @@ export default function Register() {
         <h1 className='text-3xl block text-center font-semibold'>Register</h1>
         <hr className='mb-3'></hr>
         <form onSubmit={(e)=>handleSubmit(e)}>
+        <div className='mb-3'>
+            <label htmlFor="name" className='block text-base mb-2'>Name</label>
+            <input type="name" name="name" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Name' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
+        </div>
         <div className='mb-3'>
             <label htmlFor="email" className='block text-base mb-2'>Email</label>
             <input type="email" name="email" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}/>
