@@ -4,7 +4,9 @@ const mongoose = require("mongoose")
 const authRoutes = require("./Routes/AuthRoutes")
 const app = express()
 const cookieParser = require("cookie-parser")
+const dotenv = require('dotenv')
 
+dotenv.config()
 app.listen(4000,()=>{
     console.log(`Server started at 4000`);
 })

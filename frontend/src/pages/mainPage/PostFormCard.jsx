@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -29,14 +29,36 @@ export default function PostFormCard() {
     // useEffect(() => {
     //     verifyUser();
     //   }, [cookies,navigate,removeCookie])
+    const [file, setFile] = useState()
+    const [caption, setCaption] = useState("")
+  
+    const navigate = useNavigate()
+  
+    const submit = async event => {
+      event.preventDefault()
+  
+      const formData = new FormData();
+      formData.append("image", file)
+      formData.append("caption", caption)
+      await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+  
+      navigate("/")
+    }
+  
+    const fileSelected = event => {
+      const file = event.target.files[0]
+          setFile(file)
+      }
 
   return (
     <Card>
+        <form onSubmit={submit}>
         <div className='flex gap-2'>
         <div>
             <Avatar />
         </div>
-            <textarea className='grow p-3 h-14' placeholder={'Whats on your mind'} />
+            <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14' placeholder={'Whats on your mind'} />
+            <input onChange={fileSelected} type="file" accept="image/*"></input>
         </div>
         <div className='flex gap-3 items-center mt-2'>
             <div>
@@ -65,9 +87,10 @@ export default function PostFormCard() {
                 </button>
             </div>
             <div className='grow text-right'>
-                <button className='text-white bg-blue-400 px-6 py-1 rounded-md'>Share</button>
+                <button type='submit' className='text-white bg-blue-400 px-6 py-1 rounded-md'>Share</button>
             </div>
         </div>
+        </form>
     </Card>
   )
 }

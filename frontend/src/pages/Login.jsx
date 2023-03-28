@@ -28,6 +28,7 @@ export default function Login() {
                 withCredentials:true,
             })
             if(data){
+                console.log(data);
                 if(data.errors){
                     console.log(data.errors);
                     const {email,password} = data.errors;
