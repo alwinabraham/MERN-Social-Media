@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
@@ -9,6 +9,7 @@ import PostCard from './mainPage/PostCard'
 
 
 export default function Page() {
+  const [post,setPost] = useState()
   const navigate = useNavigate();
 
   const [cookies,setCookie,removeCookie] = useCookies([])
@@ -28,26 +29,36 @@ export default function Page() {
     }
   }
 
+  const fetchPosts = () =>{
+    axios.get('http://localhost:4000')
+        .then((response)=>{
+          console.log(response);
+          setPost(response)
+        })
+        .catch((error)=>{
+            console.log(error);
+        });
+  }
+
+  useEffect(() => {
+    fetchPosts();    
+  },[])
+  
+  
   useEffect(() => {
     verifyUser();
   }, [cookies,navigate,removeCookie])
 
-
+  
+  
   return (
-    // <>
-    //   <div className="private">
-    //     <h1>Page</h1>
-    //     <button onClick={logout}>Log Out</button>
-    //   </div>
-    //   <ToastContainer />
-    // </>
     <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
       <div className='w-3/12'>
         <NavigationCard />
       </div>
         <div className='w-9/12'>
           <PostFormCard />
-          <PostCard />
+          {post && <PostCard post={post}/>}
         </div>
     </div>
   )

@@ -3,10 +3,15 @@ import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
 import {useCookies} from 'react-cookie'
+import { useDispatch,useSelector } from 'react-redux';
+import { setLogin } from '../redux/userData';
 
 export default function Login() {
 
     const [cookies,setCookie,removeCookie] = useCookies([])
+
+    const dispatch = useDispatch();
+
  
     const navigate = useNavigate();
     const [values, setValues] = useState({
@@ -35,6 +40,7 @@ export default function Login() {
                     if(email) generateError(email)
                     else if(password) generateError(password)
                 }else{
+                    dispatch(setLogin({user:data.user}))
                     navigate("/")
                 }
             }

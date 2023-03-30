@@ -9,8 +9,8 @@ import { setLogin } from '../redux/userData';
 export default function Register() {
 
     const {user} = useSelector((state)=>state.user)
-    
     const dispatch = useDispatch();
+    
     const navigate = useNavigate();
     const [ phoneno,setPhoneno] = useState()
     const [values, setValues] = useState({

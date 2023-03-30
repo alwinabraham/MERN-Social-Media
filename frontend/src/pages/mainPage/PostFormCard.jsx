@@ -7,29 +7,6 @@ import Avatar from './Avatar'
 import { useSelector } from 'react-redux'
 
 export default function PostFormCard() {
-
-    // const navigate = useNavigate();
-
-    // const [cookies,setCookie,removeCookie] = useCookies([])
-  
-    // const verifyUser = async ()=>{
-    //   if(!cookies.jwt){
-    //     navigate("/login")
-    //   }else{
-    //     const {data} = await axios.post(
-    //       "http://localhost:4000",{},
-    //       {withCredentials: true}
-    //       );
-    //       if(!data.status){
-    //         removeCookie("jwt");
-    //         navigate("/login");
-    //       }else {};
-    //   }
-    // }
-
-    // useEffect(() => {
-    //     verifyUser();
-    //   }, [cookies,navigate,removeCookie])
     const [file, setFile] = useState()
     const [caption, setCaption] = useState("")
     const {user} = useSelector((state)=>state.user)
@@ -44,7 +21,7 @@ export default function PostFormCard() {
       formData.append("image", file)
       formData.append("caption", caption)
       await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
-  
+        
       navigate("/")
     }
   
@@ -52,6 +29,7 @@ export default function PostFormCard() {
       const file = event.target.files[0]
           setFile(file)
       }
+    
 
   return (
     <Card>
