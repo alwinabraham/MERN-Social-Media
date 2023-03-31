@@ -1,4 +1,5 @@
 const PostModel = require("../Models/PostModel");
+const mongoose = require('mongoose')
 const crypto = require('crypto')
 const sharp = require('sharp')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
@@ -39,8 +40,25 @@ module.exports.posts = async (req,res,next)=>{
             // post[i] = {...post[i], imageUrl}
             post[i].imageName = imageUrl
           }
-        console.log(post);
         res.send(post)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports.like_post = async (req,res,next)=>{
+    try {
+      console.log(req.body)
+        console.log(req.body.postData.postId);
+        const post = await PostModel.findById(req.body.postData.postId)
+        const likedPost = post.likes.find((id)=>id == req.body.postData.userId)
+        if(!likedPost){
+          post.likes.push(req.body.postData.userId)
+        }else{
+          post.likes.pull(req.body.postData.userId)
+        }
+        post.save()
+        
     } catch (error) {
         console.log(error);
     }

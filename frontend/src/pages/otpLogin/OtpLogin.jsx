@@ -11,7 +11,8 @@ import { Toaster } from 'react-hot-toast'
 import { toast } from 'react-toastify'
 import { signInWithPhoneNumber } from "firebase/auth";
 import axios from "axios"
-
+import { useDispatch,useSelector } from 'react-redux';
+import { setLogin } from '../../redux/userData'
 
 export default function OtpLogin() {
    
@@ -22,6 +23,7 @@ export default function OtpLogin() {
     const [user, setUser] = useState(null)
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     
     function onCaptchaVerify(){
         if(!window.recaptchaVerifier)
@@ -48,11 +50,9 @@ export default function OtpLogin() {
                 withCredentials:true,
             })
             if(data){
+                dispatch(setLogin({user:data.user}))
                 if(data.errors){
                     console.log(data.errors);
-                    // const {email,password} = data.errors;
-                    // if(email) generateError(email)
-                    // else if(password) generateError(password)
                 }else{
                     onSignup();
                 }

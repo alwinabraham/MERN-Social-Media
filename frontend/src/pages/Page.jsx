@@ -6,11 +6,13 @@ import {ToastContainer,toast} from "react-toastify"
 import NavigationCard from './mainPage/NavigationCard'
 import PostFormCard from './mainPage/PostFormCard'
 import PostCard from './mainPage/PostCard'
-
+import { useDispatch,useSelector } from 'react-redux';
+import { setLogin } from '../redux/userData';
 
 export default function Page() {
   const [post,setPost] = useState()
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [cookies,setCookie,removeCookie] = useCookies([])
   
@@ -22,6 +24,7 @@ export default function Page() {
         "http://localhost:4000",{},
         {withCredentials: true}
         );
+        dispatch(setLogin({user:data.user._id}))
         if(!data.status){
           removeCookie("jwt");
           navigate("/login");
@@ -32,7 +35,6 @@ export default function Page() {
   const fetchPosts = () =>{
     axios.get('http://localhost:4000')
         .then((response)=>{
-          console.log(response);
           setPost(response)
         })
         .catch((error)=>{

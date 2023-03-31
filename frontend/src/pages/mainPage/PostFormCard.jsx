@@ -21,15 +21,13 @@ export default function PostFormCard() {
       formData.append("image", file)
       formData.append("caption", caption)
       await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
-        
       navigate("/")
     }
   
     const fileSelected = event => {
       const file = event.target.files[0]
           setFile(file)
-      }
-    
+    }
 
   return (
     <Card>
