@@ -37,7 +37,6 @@ module.exports.posts = async (req,res,next)=>{
 
           for (let i = 0; i < post.length; i++) {
             imageUrl = await getObjectSignedUrl(post[i].imageName);
-            // post[i] = {...post[i], imageUrl}
             post[i].imageName = imageUrl
           }
         res.send(post)
@@ -58,8 +57,9 @@ module.exports.like_post = async (req,res,next)=>{
           post.likes.pull(req.body.postData.userId)
         }
         post.save()
-        
+        res.status(201).send({likes:post.likes.length})
     } catch (error) {
         console.log(error);
     }
 }
+

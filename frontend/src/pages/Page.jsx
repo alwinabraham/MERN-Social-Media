@@ -6,12 +6,13 @@ import {ToastContainer,toast} from "react-toastify"
 import NavigationCard from './mainPage/NavigationCard'
 import PostFormCard from './mainPage/PostFormCard'
 import PostCard from './mainPage/PostCard'
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLogin } from '../redux/userData';
 
 export default function Page() {
   const [post,setPost] = useState()
   const navigate = useNavigate();
+  
   const dispatch = useDispatch();
 
   const [cookies,setCookie,removeCookie] = useCookies([])
@@ -46,13 +47,11 @@ export default function Page() {
     fetchPosts();    
   },[])
   
-  
   useEffect(() => {
     verifyUser();
   }, [cookies,navigate,removeCookie])
 
-  
-  
+
   return (
     <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
       <div className='w-3/12'>
