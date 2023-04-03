@@ -13,7 +13,7 @@ export default function Page() {
   const [posts,setPosts] = useState()
   const [check,setCheck] = useState()
   const [cookies,setCookie,removeCookie] = useCookies([])
-
+  
   const verifyUser = async ()=>{
     if(!cookies.jwt){
       navigate("/login")
@@ -22,15 +22,16 @@ export default function Page() {
         "http://localhost:4000",{},
         {withCredentials: true}
         );
-        console.log(data.user._id);
-        setId(data.user._id)
+        console.log(data.user);
+        setId(data.user)
         if(!data.status){
           removeCookie("jwt");
           navigate("/login");
         }else {};
+      }
     }
-  }
-
+    console.log("idd");
+    
   const fetchPosts = async()=>{
       try {
           const {data} =  await axios.post("http://localhost:4000/profile_post",{
@@ -50,7 +51,7 @@ export default function Page() {
   }
   useEffect(() => {
     verifyUser()
-  })
+  },[])
   
   useEffect(() => {
     fetchPosts()
@@ -64,7 +65,7 @@ export default function Page() {
       </div>
         <div className='w-9/12'>
           <ProfileCover />
-          {posts && <ProfilePostCard posts={posts} />}
+          {posts && <ProfilePostCard posts={posts} data={id} />}
         </div>
     </div>
   )

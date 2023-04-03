@@ -11,8 +11,8 @@ import { setLogin } from '../redux/userData';
 
 export default function Page() {
   const [post,setPost] = useState()
+
   const navigate = useNavigate();
-  
   const dispatch = useDispatch();
 
   const [cookies,setCookie,removeCookie] = useCookies([])
@@ -36,6 +36,7 @@ export default function Page() {
   const fetchPosts = () =>{
     axios.get('http://localhost:4000')
         .then((response)=>{
+          console.log(response);
           setPost(response)
         })
         .catch((error)=>{
@@ -59,7 +60,7 @@ export default function Page() {
       </div>
         <div className='w-9/12'>
           <PostFormCard />
-          {post && <PostCard post={post}/>}
+          {post && <PostCard post={post} />}
         </div>
     </div>
   )

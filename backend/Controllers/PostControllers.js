@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const crypto = require('crypto')
 const sharp = require('sharp')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
+const UserModel = require("../Models/UserModel");
+const { log } = require("console");
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
 module.exports.upload_post = async (req,res,next)=>{
@@ -39,6 +41,13 @@ module.exports.posts = async (req,res,next)=>{
             imageUrl = await getObjectSignedUrl(post[i].imageName);
             post[i].imageName = imageUrl
           }
+
+          for (let i=0;i<post.length;i++){
+            userName = await UserModel.findById(post[i].userId);
+            // post[i].dateAndTime = userName.name
+            post[i] = {...post[i],name:userName.name}
+          }
+          // console.log(post);
         res.send(post)
     } catch (error) {
         console.log(error);

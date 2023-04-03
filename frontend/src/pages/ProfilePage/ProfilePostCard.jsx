@@ -6,7 +6,9 @@ import axios from 'axios'
 export default function ProfilePostCard(props) {
   
   const post = props.posts
+  const data = props.data
   console.log(post);
+  console.log(data);
 
   return (
     <>
@@ -15,7 +17,7 @@ export default function ProfilePostCard(props) {
           <div className='flex gap-3'>
           <Avatar />
           <div>
-            <p><span className='font-semibold'>Alwin Abraham</span> shared a post</p>
+            <p><span className='font-semibold'>{data.name}</span> shared a post</p>
             <p className='text-gray-500 text-sm'>2 hours ago</p>
             </div>
             </div>
