@@ -4,15 +4,15 @@ import { useCookies } from 'react-cookie'
 
 export default function FriendsCard(props) {
 
-  const user = props?.users?.data
+  const userDetails = props?.users?.data
   const [addFriend, setAddFriend] = useState()
   const [id,setId] = useState()
+  const [check,setCheck] = useState()
   const [userData,setUserData] = useState()
-//   const [check,setCheck] = useState(true)
+  const user = userDetails.filter(use => use._id.toString() !== id);
       
   useEffect(() => {
     addNewFriend()
-    // setCheck(!check)
   }, [addFriend])
   
   useEffect(() => {
@@ -52,6 +52,9 @@ export default function FriendsCard(props) {
         {
             withCredentials:true,
         })
+        console.log(data.check);
+        setCheck(data?.check)
+        setAddFriend("")
     } catch (error) {
         
     }

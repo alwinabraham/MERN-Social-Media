@@ -3,12 +3,13 @@ const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s
 
 module.exports.friends = async (req,res,next)=>{
     try {
-        const post = await UserModel.find({}).sort({ _id: -1 })
-          for (let i=0;i<post.length;i++){
-            imageUrl = await getObjectSignedUrl(post[i].imageName);
-            post[i].imageName = imageUrl
+        const user = await UserModel.find({}).sort({ _id: -1 })
+          for (let i=0;i<user.length;i++){
+            imageUrl = await getObjectSignedUrl(user[i].imageName);
+            user[i].imageName = imageUrl
           }
-        res.send(post)
+          // post.filter
+        res.send(user)
     } catch (error) {
         console.log(error);
     }
@@ -16,7 +17,7 @@ module.exports.friends = async (req,res,next)=>{
 
 module.exports.send_friendRequest = async (req,res,next)=>{
     try {
-      console.log(req.body);
+      
       const {targetId, userId} = req.body.addObject
       const user = await UserModel.findById(targetId)
       const alreadySend = user.pending_requests.find((id)=>id == userId)
@@ -36,8 +37,16 @@ module.exports.send_friendRequest = async (req,res,next)=>{
       }
       target.save()
 
-      res.status(201).send({user:user,target:target})
+      res.status(201).send({})
     } catch (error) {
       
     }
+}
+
+module.exports.friend_requests = async (req,res,next)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
 }
