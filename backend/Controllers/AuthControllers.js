@@ -1,5 +1,9 @@
 const UserModel = require("../Models/UserModel");
 const jwt = require("jsonwebtoken");
+const crypto = require('crypto')
+const sharp = require('sharp')
+const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
+const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
 const maxAge = 1*24*60*60
 
@@ -70,15 +74,31 @@ module.exports.otp_login = async(req,res,next)=>{
 module.exports.register = async (req,res,next)=>{
     try{
         const {name,email,password,phoneno} = req.body;
-        const user = await UserModel.create({name, email, password, phoneno})
-        const token = createToken(user._id);
+        const file = req.file
+        const imageName = generateFileName()
+
+        const fileBuffer = await sharp(file.buffer)
+          .resize({ height: 1000, width: 1000, fit: "contain" })
+          .toBuffer()
+      
+        await uploadFile(fileBuffer, imageName, file.mimetype)
+        
+        const post = await UserModel.create({
+            name,
+            email,
+            imageName,
+            password,
+            phoneno,
+        })
+
+        const token = createToken(post._id);
 
         res.cookie("jwt",token,{
             withCredentials:true,
             httpOnly: false,
             maxAge:maxAge*1000
         })
-        res.status(201).json({user:user._id, created:true})
+        res.status(201).json({user:post._id, created:true})
     }catch(err){
         console.log(err);
         const errors = handleErrors(err)

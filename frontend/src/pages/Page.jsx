@@ -1,10 +1,10 @@
 import React,{useEffect,useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
-import {ToastContainer,toast} from "react-toastify"
 import NavigationCard from './mainPage/NavigationCard'
 import PostFormCard from './mainPage/PostFormCard'
+import Search from './search/search'
 import PostCard from './mainPage/PostCard'
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../redux/userData';
@@ -59,6 +59,7 @@ export default function Page() {
         <NavigationCard />
       </div>
         <div className='w-9/12'>
+          <Search/>
           <PostFormCard />
           {post && <PostCard post={post} />}
         </div>

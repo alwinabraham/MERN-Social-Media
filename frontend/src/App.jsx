@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import "react-toastify/dist/ReactToastify.css"
+import Friends from './pages/Friends'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/" element={<Page />} />
         <Route exact path="/otp_login" element={<OtpLogin />} />
         <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/friends" element={<Friends />} />
       </Routes>
     </BrowserRouter>
   )

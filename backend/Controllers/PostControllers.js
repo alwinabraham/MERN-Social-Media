@@ -4,7 +4,6 @@ const crypto = require('crypto')
 const sharp = require('sharp')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 const UserModel = require("../Models/UserModel");
-const { log } = require("console");
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
 module.exports.upload_post = async (req,res,next)=>{
@@ -44,10 +43,11 @@ module.exports.posts = async (req,res,next)=>{
 
           for (let i=0;i<post.length;i++){
             userName = await UserModel.findById(post[i].userId);
+            // console.log(userName);
             // post[i].dateAndTime = userName.name
-            post[i] = {...post[i],name:userName.name}
+            imageUrl = await getObjectSignedUrl(userName.imageName);
+            post[i] = {...post[i],name:userName.name,imageUrl:imageUrl}
           }
-          // console.log(post);
         res.send(post)
     } catch (error) {
         console.log(error);
@@ -56,8 +56,6 @@ module.exports.posts = async (req,res,next)=>{
 
 module.exports.like_post = async (req,res,next)=>{
     try {
-      console.log(req.body)
-        console.log(req.body.postData.postId);
         const post = await PostModel.findById(req.body.postData.postId)
         const likedPost = post.likes.find((id)=>id == req.body.postData.userId)
         if(!likedPost){

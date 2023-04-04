@@ -5,6 +5,7 @@ import axios from 'axios'
 import NavigationCard from './mainPage/NavigationCard'
 import ProfilePostCard from './ProfilePage/ProfilePostCard'
 import ProfileCover from './mainPage/ProfileCover'
+import Search from './search/search'
 
 export default function Page() {
 
@@ -22,7 +23,6 @@ export default function Page() {
         "http://localhost:4000",{},
         {withCredentials: true}
         );
-        console.log(data.user);
         setId(data.user)
         if(!data.status){
           removeCookie("jwt");
@@ -30,7 +30,6 @@ export default function Page() {
         }else {};
       }
     }
-    console.log("idd");
     
   const fetchPosts = async()=>{
       try {
@@ -64,7 +63,8 @@ export default function Page() {
         <NavigationCard />
       </div>
         <div className='w-9/12'>
-          <ProfileCover />
+          <Search />
+          <ProfileCover data={id} posts={posts} />
           {posts && <ProfilePostCard posts={posts} data={id} />}
         </div>
     </div>

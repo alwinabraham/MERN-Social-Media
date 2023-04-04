@@ -19,6 +19,24 @@ const userSchema = new mongoose.Schema({
         type:Number,
         required:[true,"Phone Number is Required"],
         unique:true,
+    },
+    imageName:{
+        type:String,
+    },
+    followers:{
+        type:[String]
+    },
+    pending_requests:{
+        type:[String]
+    },
+    request_send:{
+        type:[String]
+    },
+    following:{
+        type:[String]
+    },
+    comments:{
+        type:[String]
     }
 });
 

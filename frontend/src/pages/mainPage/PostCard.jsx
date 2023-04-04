@@ -10,7 +10,6 @@ export default function PostCard(props) {
     const [comment,setComment] = useState()
     const [share,setShare] = useState()
     const posts = props.post.data
-    console.log(posts);
     const {user} = useSelector((state)=>state.user)
     // console.log(user);
 
@@ -40,7 +39,7 @@ export default function PostCard(props) {
         {posts.map(obj=>(
             <Card>
             <div className='flex gap-3'>
-            <Avatar />
+            <Avatar file={obj.imageUrl} />
             <div>
             <p><span className='font-semibold'>{obj.name}</span> shared a post</p>
             <p className='text-gray-500 text-sm'>2 hours ago</p>
