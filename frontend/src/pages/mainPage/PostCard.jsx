@@ -3,6 +3,7 @@ import Card from './Card'
 import Avatar from './Avatar'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from "axios"
+import Timeago from 'react-timeago'
 
 export default function PostCard(props) {
 
@@ -42,7 +43,7 @@ export default function PostCard(props) {
             <Avatar file={obj.imageUrl} />
             <div>
             <p><span className='font-semibold'>{obj.name}</span> shared a post</p>
-            <p className='text-gray-500 text-sm'>2 hours ago</p>
+            <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
             </div>
             </div>
             <div>

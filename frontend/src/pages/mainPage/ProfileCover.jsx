@@ -3,7 +3,7 @@ import Card from './Card'
 import Avatar from './Avatar'
 
 export default function ProfileCover(props) {
-    console.log(props.posts);
+    // console.log(props.posts);
     const data = props.data
     const value = props.posts ? props.posts[0].imageUser : ""
     // console.log(props.data?.imageName);
@@ -19,14 +19,22 @@ export default function ProfileCover(props) {
              />
         </div>
         <div className='p-4 pb-20'>
-        <div className='flex justify-between'>
+        <div className='flex justify-between text-center'>
             <div className='ml-40'>
                 <h1 className='text-3xl font-bold'>
                     {data?.name}
                 </h1>
-                <div className='text-gray-500 leading-4'>
-                    Kerala,India
-                </div>
+            </div>
+            <div>
+                <p className="text-gray-900 dark:text-white text-lg">Posts</p>
+            </div>
+            <div>
+                <p className="text-gray-900 dark:text-white text-lg">Followers</p>
+                <p>{data?.followers.length}</p>
+            </div>
+            <div>
+                <p className="text-gray-900 dark:text-white text-lg">Following</p>
+                <p>{data?.following.length}</p>
             </div>
             <div>
             <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">

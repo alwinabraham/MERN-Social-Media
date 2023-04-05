@@ -15,7 +15,6 @@ module.exports.profile_post = async (req,res,next)=>{
           imageUser = await getObjectSignedUrl(user.imageName);
           post[i] = ({...post[i],imageUser:imageUser})
         }
-        console.log(post);
       res.send(post)
     } catch (error) {
       console.log(error);
@@ -23,7 +22,6 @@ module.exports.profile_post = async (req,res,next)=>{
   }
 
 module.exports.profile_image = async (req,res,next)=>{
-  console.log(req.body);
   try {
     const {userId} = req.body
     const post = await UserModel.findById(userId).sort({ _id: -1 })

@@ -1,18 +1,19 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 
-export default function RequestsCard(props) {
-
+export default function UsersFriendsCard(props) {
+  console.log(props.id);
   const [followers,setFollowers] = useState()
 
   const FollowersList = async()=>{
     try {            
-        const {data} = await axios.post("http://localhost:4000/followers",{
+        const {data} = await axios.post("http://localhost:4000/following",{
             userId:props.id
         },
         {
             withCredentials:true,
         })
+        console.log(data);
         setFollowers(data)
     } catch (error) {
         

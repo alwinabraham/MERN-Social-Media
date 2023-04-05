@@ -43,8 +43,6 @@ module.exports.posts = async (req,res,next)=>{
 
           for (let i=0;i<post.length;i++){
             userName = await UserModel.findById(post[i].userId);
-            // console.log(userName);
-            // post[i].dateAndTime = userName.name
             imageUrl = await getObjectSignedUrl(userName.imageName);
             post[i] = {...post[i],name:userName.name,imageUrl:imageUrl}
           }

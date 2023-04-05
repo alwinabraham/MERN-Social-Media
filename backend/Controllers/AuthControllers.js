@@ -53,7 +53,6 @@ module.exports.login = async (req,res,next)=>{
 }
 
 module.exports.otp_login = async(req,res,next)=>{
-    console.log(req.body);
     try{
         const {phoneno} = req.body;
         const user = await UserModel.otp_login(phoneno)
@@ -100,7 +99,6 @@ module.exports.register = async (req,res,next)=>{
         })
         res.status(201).json({user:post._id, created:true})
     }catch(err){
-        console.log(err);
         const errors = handleErrors(err)
         res.json({errors,created: false})
     }
