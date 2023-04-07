@@ -3,10 +3,11 @@ import Card from './Card'
 import Avatar from './Avatar'
 
 export default function ProfileCover(props) {
-    // console.log(props.posts);
+
+    const postNo = props?.posts?.length
     const data = props.data
     const value = props.posts ? props.posts[0].imageUser : ""
-    // console.log(props.data?.imageName);
+
     return (
     <Card noPadding={true}>
     <div className='relative overflow-hidden rounded-md'>
@@ -27,6 +28,7 @@ export default function ProfileCover(props) {
             </div>
             <div>
                 <p className="text-gray-900 dark:text-white text-lg">Posts</p>
+                <p>{postNo}</p>
             </div>
             <div>
                 <p className="text-gray-900 dark:text-white text-lg">Followers</p>
