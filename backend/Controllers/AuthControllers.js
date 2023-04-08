@@ -2,6 +2,7 @@ const UserModel = require("../Models/UserModel");
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto')
 const sharp = require('sharp')
+const bcrypt = require('bcrypt')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
@@ -72,7 +73,11 @@ module.exports.otp_login = async(req,res,next)=>{
 
 module.exports.register = async (req,res,next)=>{
     try{
-        const {name,email,password,phoneno} = req.body;
+        // const {name,email,password,phoneno} = req.body;
+        const name = req.body.name
+        const email = req.body.email
+        let password = req.body.password
+        const phoneno = req.body.phoneno
         const file = req.file
         const imageName = generateFileName()
 
@@ -81,6 +86,10 @@ module.exports.register = async (req,res,next)=>{
           .toBuffer()
       
         await uploadFile(fileBuffer, imageName, file.mimetype)
+
+        const salt = await bcrypt.genSalt();
+        password = await bcrypt.hash(password,salt)
+        console.log(password);
         
         const post = await UserModel.create({
             name,

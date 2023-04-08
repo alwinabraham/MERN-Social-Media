@@ -23,6 +23,7 @@ export default function PostFormCard() {
       
       console.log(formData);
       await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+      setCaption("")
       navigate("/")
     }
   
@@ -38,8 +39,10 @@ export default function PostFormCard() {
         <div>
             <Avatar />
         </div>
+        <div className='flex items-center'>
             <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14' placeholder={'Whats on your mind'} />
             <input onChange={fileSelected} type="file" accept="image/*"></input>
+        </div>
         </div>
         <div className='flex gap-3 items-center mt-2'>
             <div>

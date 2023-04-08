@@ -8,7 +8,10 @@ module.exports.addMessage = async (req,res) =>{
         text
     })
     try {
-        const result = await message.save()
+        if(text == ""){
+        }else{
+            const result = await message.save()
+        }
         res.status(200).json(result)
     } catch (error) {
         res.status(500).json(error)

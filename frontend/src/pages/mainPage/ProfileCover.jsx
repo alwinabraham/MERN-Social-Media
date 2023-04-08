@@ -3,7 +3,7 @@ import Card from './Card'
 import Avatar from './Avatar'
 
 export default function ProfileCover(props) {
-
+    
     const postNo = props?.posts?.length
     const data = props.data
     const value = props.posts ? props.posts[0].imageUser : ""

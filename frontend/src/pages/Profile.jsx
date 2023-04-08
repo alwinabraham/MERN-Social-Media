@@ -23,7 +23,7 @@ export default function Page() {
         "http://localhost:4000",{},
         {withCredentials: true}
         );
-        setId(data.user) 
+        setId(data?.user) 
         if(!data.status){
           removeCookie("jwt");
           navigate("/login");

@@ -3,8 +3,11 @@ const UserModel = require('../Models/UserModel')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 
 module.exports.createChat = async(req,res)=>{
+    if(req.body?.addChat[0]==null){
+        console.log("none");
+    }
     const newChat = new ChatModel({
-        members: [req.body.senderId, req.body.receiverId]
+        members: [req.body.addChat.senderId, req.body.addChat.receiverId]
     });
     try {
         const result = await newChat.save()

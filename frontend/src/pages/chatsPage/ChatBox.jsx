@@ -5,11 +5,18 @@ import Timeago from 'react-timeago'
 import InputEmoji from "react-input-emoji"
 import { addMessage } from '../../api/MessageRequests'
 
-export default function ChatBox({chat, currentUserId, setSendMessage}) {
+export default function ChatBox({chat, currentUserId, setSendMessage, receiveMessage}) {
 
   const [userData, setUserData] = useState(null)
   const [messages, setMessages] = useState([])
   const [newMessages, setNewMessages] = useState("")
+
+  useEffect(() => {
+    if(receiveMessage!==null && receiveMessage.chatId===chat._id){
+        setMessages([...messages,receiveMessage])
+    }
+  }, [receiveMessage])
+  
 
   useEffect(() => {
     const userId = chat?.members?.find((id)=>id!==currentUserId)
@@ -55,7 +62,7 @@ export default function ChatBox({chat, currentUserId, setSendMessage}) {
     } catch (error) {
         console.log(error);
     }
-    const receiverId = chat.members.find((id)=>id !== currentUser)
+    const receiverId = chat.members.find((id)=>id !== currentUserId)
     setSendMessage({...message, receiverId})
   }
 

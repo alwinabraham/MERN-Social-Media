@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Chats from './pages/Chats'
+import Notification from './pages/Notification'
 import "react-toastify/dist/ReactToastify.css"
 import Friends from './pages/Friends'
 import axios from 'axios'
@@ -41,6 +42,7 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/friends" element={<Friends />} />
         <Route exact path="/chats" element={<Chats />} />
+        <Route exact path="/notification" element={<Notification />} />
       </Routes>
     </BrowserRouter>
   )

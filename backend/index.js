@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser")
 const dotenv = require('dotenv')
 const ChatRoutes = require("./Routes/ChatRoutes")
 const MessageRoutes = require("./Routes/MessageRoutes")
+const NotificationRoutes = require("./Routes/NotificationRoutes")
 
 dotenv.config()
 app.listen(4000,()=>{
@@ -35,3 +36,4 @@ app.use(express.json());
 app.use("/",authRoutes)
 app.use("/chat",ChatRoutes)
 app.use("/message", MessageRoutes)
+app.use("/notification", NotificationRoutes)

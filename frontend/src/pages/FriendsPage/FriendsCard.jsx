@@ -7,6 +7,7 @@ export default function FriendsCard(props) {
   const userDetails = props?.users?.data
   const [addFriend, setAddFriend] = useState()
   const [id,setId] = useState()
+  const [chat,setChat] = useState()
   const [check,setCheck] = useState()
   const [userData,setUserData] = useState()
   const user = userDetails.filter(use => use._id.toString() !== id);
@@ -23,6 +24,11 @@ export default function FriendsCard(props) {
   const addObject = {
     targetId:addFriend,
     userId:id
+  }
+
+  const addChat = {
+    senderId:id,
+    receiverId:chat
   }
 
   const [cookies,setCookie,removeCookie] = useCookies([])
@@ -44,9 +50,24 @@ export default function FriendsCard(props) {
     }
   }
 
+  const chatSetting = async () =>{
+    console.log(addChat);
+    try {            
+      const {data} = await axios.post("http://localhost:4000/chat",{
+          addChat
+      },
+      {
+          withCredentials:true,
+      })
+      console.log(data);
+  } catch (error) {
+      
+  }
+}
+
   const addNewFriend = async()=>{
     try {            
-        const {data} = await axios.post("http://localhost:4000/send_friendRequest",{
+        const {data} = await axios.post("http://localhost:4000/chat/createUser",{
             addObject
         },
         {
@@ -57,7 +78,12 @@ export default function FriendsCard(props) {
     } catch (error) {
         
     }
-}
+  }
+  
+  useEffect(() => {
+    chatSetting()
+  },[chat])
+
   return (
     <>
         {user.map(obj=>(
@@ -73,7 +99,9 @@ export default function FriendsCard(props) {
                                 return userid === obj._id
                                 }) ? "Unfollow":"Follow"}
                         </button>
-                        <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Message</button>
+                        <button onClick={()=>setChat(obj._id)} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">
+                          Message
+                        </button>
                     </div>
                 </div>
             </div>

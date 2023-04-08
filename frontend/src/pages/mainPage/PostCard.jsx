@@ -39,13 +39,13 @@ export default function PostCard(props) {
     <>
         {posts.map(obj=>(
             <Card>
-            <div className='flex gap-3'>
-            <Avatar file={obj.imageUrl} />
-            <div>
-            <p><span className='font-semibold'>{obj.name}</span> shared a post</p>
-            <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
-            </div>
-            </div>
+                <div className='flex gap-3'>
+                <Avatar file={obj.imageUrl} />
+                    <div>
+                        <p><span className='font-semibold'>{obj.name}</span> shared a post</p>
+                        <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
+                    </div>
+                </div>
             <div>
                 <p className='my-3 text-sm'>
                 {obj._doc.content}

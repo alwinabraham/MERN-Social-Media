@@ -17,6 +17,8 @@ export default function Chats() {
   const [currentChat, setCurrentChat] = useState(null)
   const [onlineUsers, setOnlineUsers] = useState([])
   const [sendMessage, setSendMessage] = useState(null)
+  const [receiveMessage, setReceiveMessage] = useState(null)
+
   const socket = useRef()
   
   useEffect(() => {
@@ -27,6 +29,13 @@ export default function Chats() {
       console.log(onlineUsers);
     })
   }, [user])
+
+  useEffect(() => {
+    socket.current.on("receive-message",(data)=>{
+      setReceiveMessage(data)
+    })
+  }, [])
+  
   
   useEffect(() => {
     if (sendMessage!==null) {
@@ -49,6 +58,7 @@ export default function Chats() {
   return (
     <div className='Chat'>
       <div className='Left-side-chat'>
+      <NavigationCard />
         <h2>Chats</h2>
         <div className='Chat-list'>
           {chats.map((chat)=>(
@@ -59,7 +69,7 @@ export default function Chats() {
         </div>
       </div>
       <div className='Right-side-chat'>
-        <ChatBox chat={currentChat} currentUserId = {user} setSendMessage={setSendMessage} />
+        <ChatBox chat={currentChat} currentUserId = {user} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
       </div>
     </div>
     // <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
