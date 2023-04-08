@@ -1,4 +1,6 @@
 const ChatModel = require('../Models/ChatModel')
+const UserModel = require('../Models/UserModel')
+const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 
 module.exports.createChat = async(req,res)=>{
     const newChat = new ChatModel({
@@ -31,5 +33,18 @@ module.exports.findChat = async (req,res)=>{
         res.status(200).json(chat)
     } catch (error) {
         res.status(500).json(error)
+    }
+}
+
+module.exports.getUser = async (req,res)=>{
+    try {
+        const userData = await UserModel.findById(req.params.userId)
+        imageUser = await getObjectSignedUrl(userData.imageName);
+        userData.imageName = imageUser
+        console.log(userData);
+        res.status(200).json(userData)
+    } catch (error) {
+        res.status(500).json(error)
+
     }
 }
