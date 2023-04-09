@@ -44,8 +44,10 @@ module.exports.posts = async (req,res,next)=>{
           for (let i=0;i<post.length;i++){
             userName = await UserModel.findById(post[i].userId);
             imageUrl = await getObjectSignedUrl(userName.imageName);
+            post[i].likes.includes()
             post[i] = {...post[i],name:userName.name,imageUrl:imageUrl}
           }
+
         res.send(post)
     } catch (error) {
         console.log(error);
@@ -54,15 +56,18 @@ module.exports.posts = async (req,res,next)=>{
 
 module.exports.like_post = async (req,res,next)=>{
     try {
+        let data = null
         const post = await PostModel.findById(req.body.postData.postId)
         const likedPost = post.likes.find((id)=>id == req.body.postData.userId)
         if(!likedPost){
           post.likes.push(req.body.postData.userId)
+          data = {like:true}
         }else{
           post.likes.pull(req.body.postData.userId)
+          data = {like:false}
         }
         post.save()
-        res.status(201).send({likes:post.likes.length})
+        res.status(201).send({likes:post.likes.length,data})
     } catch (error) {
         console.log(error);
     }

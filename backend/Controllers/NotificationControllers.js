@@ -1,7 +1,7 @@
 const NotificationModel = require('../Models/NotificationModel')
 
 module.exports.createNotification = async (req,res) =>{
-    const {userId,notification} = req.body.NotificationBody
+    const {userId,notification} = req.body
     const notificationData = new NotificationModel({
         userId,
         notification
@@ -15,11 +15,11 @@ module.exports.createNotification = async (req,res) =>{
 }
 
 module.exports.getNotification = async (req,res) =>{
-    console.log(req.body);
+    console.log("value",req.params.id);
     try {
-        const data = await NotificationModel.find({userId:req.body.user.id})
-        req.status(200).json(data)
+        const data = await NotificationModel.find({userId:req.params.id})
+        res.status(200).json(data)
     } catch (error) {
-        req.status(500).json(error)
+        res.status(500).json(error)
     }
 }

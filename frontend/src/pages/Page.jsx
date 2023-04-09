@@ -11,7 +11,7 @@ import { setLogin } from '../redux/userData';
 
 export default function Page() {
   const [post,setPost] = useState()
-
+  const [user,setUser] = useState()
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,6 +26,7 @@ export default function Page() {
         {withCredentials: true}
         );
         dispatch(setLogin({user:data.user._id}))
+        setUser(data.user._id)
         if(!data.status){
           removeCookie("jwt");
           navigate("/login");
@@ -33,6 +34,15 @@ export default function Page() {
     }
   }
 
+  
+  useEffect(() => {
+    fetchPosts();    
+  },[])
+  
+  useEffect(() => {
+    verifyUser();
+  }, [cookies,navigate,removeCookie])
+  
   const fetchPosts = () =>{
     axios.get('http://localhost:4000')
         .then((response)=>{
@@ -43,15 +53,6 @@ export default function Page() {
             console.log(error);
         });
   }
-
-  useEffect(() => {
-    fetchPosts();    
-  },[])
-  
-  useEffect(() => {
-    verifyUser();
-  }, [cookies,navigate,removeCookie])
-
 
   return (
     <div className='flex mt-4 max-w-4xl mx-auto gap-6'>

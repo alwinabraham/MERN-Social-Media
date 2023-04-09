@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function NotificationCard() {
+export default function NotificationCard({notifications}) {
   return (
     <div class="w-full p-3 mt-8 bg-white rounded flex">
         <div tabindex="0" aria-label="heart icon" role="img" class="focus:outline-none w-8 h-8 border rounded-full border-gray-200 flex items-center justify-center">

@@ -12,7 +12,6 @@ export default function PostCard(props) {
     const [share,setShare] = useState()
     const posts = props.post.data
     const {user} = useSelector((state)=>state.user)
-    // console.log(user);
 
     const postData = {
         postId:post,
@@ -30,6 +29,7 @@ export default function PostCard(props) {
             {
                 withCredentials:true,
             })
+            console.log("like",data);
         } catch (error) {
             
         }
@@ -76,7 +76,7 @@ export default function PostCard(props) {
             </div>
             <div className='flex mt-2 gap-3'>
                 <div>
-                    <Avatar />
+                    <Avatar file={obj.imageUrl}/>
                 </div>
                 <div className='border grow rounded-full'>
                     <textarea className='block border grow p-3 px-4 h-12 overflow-hidden rounded-full' placeholder='leave a comment' />

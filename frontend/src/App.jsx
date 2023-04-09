@@ -16,7 +16,6 @@ import { setLogin } from './redux/userData'
 
 function App() {
 
-  // const [id, setId] = useState()
   const dispatch = useDispatch();
   
   const verifyUser = async ()=>{
@@ -24,7 +23,6 @@ function App() {
         "http://localhost:4000",{},
         {withCredentials: true}
         );
-        // setId(data?.user?._id)
         dispatch(setLogin({user:data?.user?._id}))
     }
 
