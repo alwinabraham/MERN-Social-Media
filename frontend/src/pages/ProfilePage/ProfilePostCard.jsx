@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import Card from '../mainPage/Card'
 import Avatar from '../mainPage/Avatar'
-import axios from 'axios'
 import Timeago from 'react-timeago'
 
 export default function ProfilePostCard(props) {

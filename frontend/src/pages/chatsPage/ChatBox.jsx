@@ -16,7 +16,6 @@ export default function ChatBox({chat, currentUserId, setSendMessage, receiveMes
         setMessages([...messages,receiveMessage])
     }
   }, [receiveMessage])
-  
 
   useEffect(() => {
     const userId = chat?.members?.find((id)=>id!==currentUserId)
@@ -36,7 +35,6 @@ export default function ChatBox({chat, currentUserId, setSendMessage, receiveMes
         try {
             const {data} = await getMessages(chat._id)
             setMessages(data)
-            console.log(data);
         } catch (error) {
             console.log(error);
         }

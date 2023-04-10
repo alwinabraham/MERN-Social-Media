@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react'
-import { useCookies } from 'react-cookie'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Card from './Card'
@@ -21,7 +20,6 @@ export default function PostFormCard() {
       formData.append("image", file)
       formData.append("caption", caption)
       
-      console.log(formData);
       await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
       setCaption("")
       navigate("/")

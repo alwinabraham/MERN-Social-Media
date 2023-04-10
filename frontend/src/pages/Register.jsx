@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
 import PhoneInput from "react-phone-input-2"
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLogin } from '../redux/userData';
 
 export default function Register() {
@@ -13,24 +13,9 @@ export default function Register() {
     const [password, setPassword] = useState("")
     const [phoneno,setPhoneno] = useState()
     const [file, setFile] = useState()
-
-    const {user} = useSelector((state)=>state.user)
     const dispatch = useDispatch();
     
     const navigate = useNavigate();
-    // const [values, setValues] = useState({
-    //     name:"",
-    //     email: "",
-    //     password: "",
-    //     phoneno: "",
-
-    // });
-
-    // useEffect(() => {
-    //     setPhoneno(phoneno)
-    // }, [phoneno])
-    
-    // console.log(values);
 
     const generateError = (err) => toast.error(err,{
         position:"bottom-right"
@@ -48,7 +33,6 @@ export default function Register() {
         try {
             const {data} = await axios.post("http://localhost:4000/register", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             if(data){
-                console.log(data);
                 if(data.errors){
                     const {name,email,password,phoneno,image} = data.errors;
                     if(name) generateError(name)

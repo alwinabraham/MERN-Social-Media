@@ -32,7 +32,6 @@ export default function Friends() {
     }
   }
 
-
   const fetchUsers = () =>{
     axios.get('http://localhost:4000/friends')
         .then((response)=>{
@@ -69,8 +68,6 @@ export default function Friends() {
           {followerPage && userId && <RequestsCard id={userId} />}
           {followingPage && userId && <FollowingCard id={userId} />}
           </div>
-          {/* <ProfileCover data={id} posts={posts} /> */}
-          {/* {posts && <ProfilePostCard posts={posts} data={id} />} */}
         </div>
     </div>
   )

@@ -17,6 +17,7 @@ export default function PostCard(props) {
         postId:post,
         userId:user
     }
+    
     useEffect(() => {
         addLike()       
     })
@@ -29,9 +30,7 @@ export default function PostCard(props) {
             {
                 withCredentials:true,
             })
-            console.log("like",data);
         } catch (error) {
-            
         }
     }
     

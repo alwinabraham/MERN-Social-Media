@@ -26,7 +26,6 @@ export default function Chats() {
     socket.current.emit('new-user-add', user)
     socket.current.on('get-users',(users)=>{
       setOnlineUsers(users);
-      console.log(onlineUsers);
     })
   }, [user])
 
@@ -72,14 +71,5 @@ export default function Chats() {
         <ChatBox chat={currentChat} currentUserId = {user} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
       </div>
     </div>
-    // <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
-    //   <div className='w-3/12'>
-    //     <NavigationCard />
-    //   </div>
-    //     <div className='w-9/12'>
-    //       <Search />
-    //       <ChatsCard />
-    //     </div>
-    // </div>
   )
 }

@@ -73,7 +73,6 @@ module.exports.otp_login = async(req,res,next)=>{
 
 module.exports.register = async (req,res,next)=>{
     try{
-        // const {name,email,password,phoneno} = req.body;
         const name = req.body.name
         const email = req.body.email
         let password = req.body.password
@@ -89,7 +88,6 @@ module.exports.register = async (req,res,next)=>{
 
         const salt = await bcrypt.genSalt();
         password = await bcrypt.hash(password,salt)
-        console.log(password);
         
         const post = await UserModel.create({
             name,

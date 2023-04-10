@@ -1,6 +1,5 @@
 import React,{ useState,useEffect } from 'react'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import './App.css'
 import OtpLogin from './pages/otpLogin/OtpLogin'
 import Page from './pages/Page'
 import Login from './pages/Login'

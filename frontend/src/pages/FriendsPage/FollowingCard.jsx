@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 
 export default function UsersFriendsCard(props) {
-  console.log(props.id);
+
   const [followers,setFollowers] = useState()
 
   const FollowersList = async()=>{
@@ -13,11 +13,8 @@ export default function UsersFriendsCard(props) {
         {
             withCredentials:true,
         })
-        console.log(data);
         setFollowers(data)
-    } catch (error) {
-        
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {

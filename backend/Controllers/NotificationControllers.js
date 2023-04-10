@@ -15,7 +15,6 @@ module.exports.createNotification = async (req,res) =>{
 }
 
 module.exports.getNotification = async (req,res) =>{
-    console.log("value",req.params.id);
     try {
         const data = await NotificationModel.find({userId:req.params.id})
         res.status(200).json(data)

@@ -46,7 +46,6 @@ export default function Page() {
   const fetchPosts = () =>{
     axios.get('http://localhost:4000')
         .then((response)=>{
-          console.log(response);
           setPost(response)
         })
         .catch((error)=>{

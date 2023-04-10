@@ -51,7 +51,6 @@ export default function FriendsCard(props) {
   }
 
   const chatSetting = async () =>{
-    console.log(addChat);
     try {            
       const {data} = await axios.post("http://localhost:4000/chat",{
           addChat
@@ -59,7 +58,6 @@ export default function FriendsCard(props) {
       {
           withCredentials:true,
       })
-      console.log(data);
   } catch (error) {
       
   }

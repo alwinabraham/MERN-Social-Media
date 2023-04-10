@@ -4,7 +4,6 @@ const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s
 
 module.exports.createChat = async(req,res)=>{
     if(req.body?.addChat[0]==null){
-        console.log("none");
     }
     const newChat = new ChatModel({
         members: [req.body.addChat.senderId, req.body.addChat.receiverId]
@@ -44,7 +43,6 @@ module.exports.getUser = async (req,res)=>{
         const userData = await UserModel.findById(req.params.userId)
         imageUser = await getObjectSignedUrl(userData.imageName);
         userData.imageName = imageUser
-        console.log(userData);
         res.status(200).json(userData)
     } catch (error) {
         res.status(500).json(error)
