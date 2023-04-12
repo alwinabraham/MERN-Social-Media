@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
 import {useCookies} from 'react-cookie'
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLogin } from '../redux/userData';
 
 export default function Login() {

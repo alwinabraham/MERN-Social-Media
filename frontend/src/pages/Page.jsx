@@ -6,27 +6,26 @@ import NavigationCard from './mainPage/NavigationCard'
 import PostFormCard from './mainPage/PostFormCard'
 import Search from './search/search'
 import PostCard from './mainPage/PostCard'
-import { useDispatch } from 'react-redux';
-import { setLogin } from '../redux/userData';
+import { useSelector } from 'react-redux';
 
 export default function Page() {
+
+  const {user} = useSelector((state)=>state.user)
+  // const {search} = useSelector((state)=>state.search)
   const [post,setPost] = useState()
-  const [user,setUser] = useState()
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [cookies,setCookie,removeCookie] = useCookies([])
-  
+  console.log(user);
+
   const verifyUser = async ()=>{
     if(!cookies.jwt){
       navigate("/login")
     }else{
       const {data} = await axios.post(
-        "http://localhost:4000",{},
+        `http://localhost:4000`,{},
         {withCredentials: true}
         );
-        dispatch(setLogin({user:data.user._id}))
-        setUser(data.user._id)
         if(!data.status){
           removeCookie("jwt");
           navigate("/login");
@@ -37,14 +36,14 @@ export default function Page() {
   
   useEffect(() => {
     fetchPosts();    
-  },[])
+  },[user])
   
   useEffect(() => {
     verifyUser();
   }, [cookies,navigate,removeCookie])
   
   const fetchPosts = () =>{
-    axios.get('http://localhost:4000')
+    axios.get(`http://localhost:4000/${user}`)
         .then((response)=>{
           setPost(response)
         })

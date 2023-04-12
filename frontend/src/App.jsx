@@ -10,8 +10,8 @@ import Notification from './pages/Notification'
 import "react-toastify/dist/ReactToastify.css"
 import Friends from './pages/Friends'
 import axios from 'axios'
-import { useDispatch } from 'react-redux';
-import { setLogin } from './redux/userData'
+import { useDispatch, useSelector } from 'react-redux';
+import { setLogin,setSearch } from './redux/userData'
 
 function App() {
 
@@ -23,11 +23,16 @@ function App() {
         {withCredentials: true}
         );
         dispatch(setLogin({user:data?.user?._id}))
+        dispatch(setSearch({search:"kitti mone"}))
     }
 
     useEffect(() => {
       verifyUser()
     }, [])
+
+    const user = useSelector((state) => state.user);
+    const search = useSelector((state) => state.search);
+    console.log(user.search);
 
   return (
     <BrowserRouter>

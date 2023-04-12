@@ -1,6 +1,5 @@
 import React,{useState, useEffect} from 'react'
 import axios from 'axios'
-import { useCookies } from 'react-cookie'
 
 export default function FriendsCard(props) {
 
@@ -10,7 +9,7 @@ export default function FriendsCard(props) {
   const [chat,setChat] = useState()
   const [check,setCheck] = useState()
   const [userData,setUserData] = useState()
-  const user = userDetails.filter(use => use._id.toString() !== id);
+  const user = userDetails.filter(use => use._doc._id.toString() !== id);
   
   useEffect(() => {
     addNewFriend()
@@ -19,7 +18,6 @@ export default function FriendsCard(props) {
   useEffect(() => {
     verifyUser()
   },[])
-  
 
   const addObject = {
     targetId:addFriend,
@@ -30,33 +28,19 @@ export default function FriendsCard(props) {
     senderId:id,
     receiverId:chat
   }
-
-  const [cookies,setCookie,removeCookie] = useCookies([])
   
   const verifyUser = async ()=>{
-    if(!cookies.jwt){
-      navigate("/login")
-    }else{
       const {data} = await axios.post(
-        "http://localhost:4000",{},
-        {withCredentials: true}
+        "http://localhost:4000"
         );
         setId(data?.user?._id)
         setUserData(data?.user)
-        if(!data.status){
-          removeCookie("jwt");
-          navigate("/login");
-        }else {};
-    }
   }
 
   const chatSetting = async () =>{
     try {            
       const {data} = await axios.post("http://localhost:4000/chat",{
           addChat
-      },
-      {
-          withCredentials:true,
       })
   } catch (error) {
       
@@ -67,9 +51,6 @@ export default function FriendsCard(props) {
     try {            
         const {data} = await axios.post("http://localhost:4000/chat/createUser",{
             addObject
-        },
-        {
-            withCredentials:true,
         })
         setCheck(data?.check)
         setAddFriend("")
@@ -88,7 +69,7 @@ export default function FriendsCard(props) {
             <div className="m-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-end px-4 pt-4"></div>
                 <div className="m-2 flex flex-col items-center pb-10">
-                    <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={obj.imageName} />
+                    <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={obj.imageUrl} />
                     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{obj.name}</h5>
                     <span className="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
                     <div className="flex mt-4 space-x-3 md:mt-6">

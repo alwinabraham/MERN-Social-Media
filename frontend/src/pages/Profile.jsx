@@ -35,9 +35,6 @@ export default function Page() {
       try {
           const {data} =  await axios.post("http://localhost:4000/profile_post",{
               userId:id
-          },
-          {
-              withCredentials:true,
           })
           if(data.length == 0){
             setCheck(check+1)
