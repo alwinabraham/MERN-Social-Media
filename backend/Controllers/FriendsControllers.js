@@ -1,7 +1,7 @@
 const UserModel = require('../Models/UserModel')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 
-module.exports.friends = async (req,res,next)=>{
+module.exports.getSuggestions = async (req,res,next)=>{
     try {
         const user = await UserModel.find({}).sort({ _id: -1 })
           for (let i=0;i<user.length;i++){

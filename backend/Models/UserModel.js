@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     following:{
         type:[String]
     },
-    comments:{
-        type:[String]
+    Bio:{
+        type:String
     }
 });
 

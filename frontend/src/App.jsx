@@ -32,7 +32,7 @@ function App() {
 
     const user = useSelector((state) => state.user);
     const search = useSelector((state) => state.search);
-    console.log(user.search);
+    // console.log(user.search);
 
   return (
     <BrowserRouter>

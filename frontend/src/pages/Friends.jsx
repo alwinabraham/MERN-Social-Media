@@ -6,9 +6,12 @@ import NavigationCard from './mainPage/NavigationCard'
 import Search from './search/search'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
+import { getFriends } from '../api/FriendsRequests'
 
 export default function Friends() {
 
+  const navigate = useNavigate();
   const [users, setUsers] = useState()
   const [followingPage,setFollowingPage] = useState(false)
   const [followerPage,setFollowerPage] = useState(false)
@@ -32,14 +35,9 @@ export default function Friends() {
     }
   }
 
-  const fetchUsers = () =>{
-    axios.get('http://localhost:4000/friends')
-        .then((response)=>{
-          setUsers(response)
-        })
-        .catch((error)=>{
-            console.log(error);
-        });
+  const fetchUsers = async () =>{
+      const userData = await getFriends()
+      setUsers(userData)
   }
 
   useEffect(() => {
@@ -52,11 +50,11 @@ export default function Friends() {
   
 
   return (
-    <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
-      <div className='w-3/12'>
+    <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+      <div className='w-2/12'>
         <NavigationCard />
       </div>
-        <div className='w-9/12'>
+        <div className='w-10/12'>
           <Search />
            <div className='flex'>
             <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(true);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Suggestions</button>

@@ -53,11 +53,11 @@ export default function Page() {
   }
 
   return (
-    <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
-      <div className='w-3/12'>
+    <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+      <div className='w-2/12'>
         <NavigationCard />
       </div>
-        <div className='w-9/12'>
+        <div className='w-10/12'>
           <Search/>
           <PostFormCard />
           {post && <PostCard post={post} />}

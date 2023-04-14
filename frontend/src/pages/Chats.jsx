@@ -55,21 +55,24 @@ export default function Chats() {
   
 
   return (
-    <div className='Chat'>
-      <div className='Left-side-chat'>
-      <NavigationCard />
+    <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+      <div className='w-2/12'>
+        <NavigationCard />
         <h2>Chats</h2>
-        <div className='Chat-list'>
-          {chats.map((chat)=>(
-            <div onClick={()=>setCurrentChat(chat)}>
-              <Conversation data={chat} currentUserId={user}/>
-            </div>
-          ))}
+          <div className='Chat-list'>
+            {chats.map((chat)=>(
+              <div onClick={()=>setCurrentChat(chat)}>
+                <Conversation data={chat} currentUserId={user}/>
+              </div>
+            ))}
+          </div>
+      </div>
+        <div className='w-10/12'>
+          <Search />
+          <div className='Right-side-chat'>
+          <ChatBox chat={currentChat} currentUserId = {user} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
+        </div>
         </div>
       </div>
-      <div className='Right-side-chat'>
-        <ChatBox chat={currentChat} currentUserId = {user} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
-      </div>
-    </div>
   )
 }

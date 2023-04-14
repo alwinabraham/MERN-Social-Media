@@ -31,7 +31,7 @@ module.exports.upload_post = async (req,res,next)=>{
     }
 }
 
-module.exports.posts = async (req,res,next)=>{
+module.exports.getPosts = async (req,res,next)=>{
     const user = req.params.user
     try {
         const post = await PostModel.find({}).sort({ _id: -1 })
@@ -47,7 +47,6 @@ module.exports.posts = async (req,res,next)=>{
             const check = post[i].likes.includes(user)
             post[i] = {...post[i],name:userName.name,imageUrl:imageUrl,check:check}
           }
-          console.log(post);
         res.send(post)
     } catch (error) {
         console.log(error);

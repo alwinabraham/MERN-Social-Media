@@ -26,17 +26,19 @@ export default function ProfileCover(props) {
                     {data?.name}
                 </h1>
             </div>
-            <div>
-                <p className="text-gray-900 dark:text-white text-lg">Posts</p>
-                <p>{postNo}</p>
-            </div>
-            <div>
-                <p className="text-gray-900 dark:text-white text-lg">Followers</p>
-                <p>{data?.followers.length}</p>
-            </div>
-            <div>
-                <p className="text-gray-900 dark:text-white text-lg">Following</p>
-                <p>{data?.following.length}</p>
+            <div className='flex gap-32'>
+                <div>
+                    <p className="text-gray-900 dark:text-white text-lg">Posts</p>
+                    <p>{postNo}</p>
+                </div>
+                <div>
+                    <p className="text-gray-900 dark:text-white text-lg">Followers</p>
+                    <p>{data?.followers.length}</p>
+                </div>
+                <div>
+                    <p className="text-gray-900 dark:text-white text-lg">Following</p>
+                    <p>{data?.following.length}</p>
+                </div>
             </div>
             <div>
             <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">

@@ -9,6 +9,7 @@ export default function Notification() {
 
     const {user} = useSelector((state)=>state.user)
     const [notifications,setNotifications] = useState()
+    console.log(notifications);
 
     useEffect(() => {
         const getUserData = async()=>{
@@ -24,13 +25,13 @@ export default function Notification() {
     console.log(notifications);
 
     return (
-    <div className='flex mt-4 max-w-4xl mx-auto gap-6'>
-        <div className='w-3/12'>
+        <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+        <div className='w-2/12'>
         <NavigationCard />
         </div>
-        <div className='w-9/12'>
+        <div className='w-10/12'>
             <Search/>
-            <NotificationCard notifications={notifications}/>
+            {notifications && <NotificationCard notifications={notifications}/>}
         </div>
     </div>
   )

@@ -46,6 +46,8 @@ module.exports.login = async (req,res,next)=>{
             httpOnly: false,
             maxAge:maxAge*1000
         })
+        console.log(res.cookie);
+        
         res.status(200).json({user:user._id, created:true})
     }catch(err){
         const errors = handleErrors(err)
@@ -108,6 +110,33 @@ module.exports.register = async (req,res,next)=>{
     }catch(err){
         const errors = handleErrors(err)
         res.json({errors,created: false})
+    }
+}
+
+module.exports.editProfile = async (req,res,next) =>{
+    try{
+        const name = req.body.name
+        const email = req.body.email
+        let password = req.body.password
+        const phoneno = req.body.phoneno
+        const file = req.file
+        const imageName = generateFileName()
+
+        const fileBuffer = await sharp(file.buffer)
+          .resize({ height: 1000, width: 1000, fit: "contain" })
+          .toBuffer()
+      
+        await uploadFile(fileBuffer, imageName, file.mimetype)
+
+        const post = await UserModel.create({
+            name,
+            email,
+            imageName,
+            password,
+            phoneno,
+        })
+    }catch(error){
+        res.status(500).json(error)
     }
 }
 

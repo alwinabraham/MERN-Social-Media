@@ -4,6 +4,8 @@ const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s
 
 
 module.exports.profile_post = async (req,res,next)=>{
+  console.log("here1");
+
     try {
         const {userId} = req.body
         const post = await PostModel.find({userId:userId}).sort({ _id: -1 })
@@ -22,6 +24,8 @@ module.exports.profile_post = async (req,res,next)=>{
   }
 
 module.exports.profile_image = async (req,res,next)=>{
+  console.log("here1");
+
   try {
     const {userId} = req.body
     const post = await UserModel.findById(userId).sort({ _id: -1 })
