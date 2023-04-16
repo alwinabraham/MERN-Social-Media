@@ -61,7 +61,7 @@ export default function Friends() {
             <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(false);setFollowerPage(true)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Followers</button>
             <button onClick={()=>{setFollowingPage(true);setSuggestionsPage(false);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Following</button>
            </div>
-          <div className='flex'>
+          <div>
           {suggestionsPage && users && <FriendsCard users={users}/>}
           {followerPage && userId && <RequestsCard id={userId} />}
           {followingPage && userId && <FollowingCard id={userId} />}

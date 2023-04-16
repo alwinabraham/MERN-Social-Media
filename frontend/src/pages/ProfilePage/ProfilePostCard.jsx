@@ -5,8 +5,8 @@ import Timeago from 'react-timeago'
 
 export default function ProfilePostCard(props) {
   
-  const post = props.posts
-  const data = props.data
+  const post = props?.posts
+  const data = props?.data
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function ProfilePostCard(props) {
           <div className='flex gap-3'>
           <Avatar file={obj.imageUser} />
           <div>
-            <p><span className='font-semibold'>{data.name}</span> shared a post</p>
+            <p><span className='font-semibold'>{data?.name}</span> shared a post</p>
             <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
             </div>
             </div>

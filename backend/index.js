@@ -10,6 +10,7 @@ const MessageRoutes = require("./Routes/MessageRoutes")
 const NotificationRoutes = require("./Routes/NotificationRoutes")
 const CommentRoutes = require("./Routes/CommentRoutes")
 const FriendsRoutes = require("./Routes/FriendsRoutes")
+const SearchPageRoutes = require("./Routes/SearchPageRoutes")
 
 dotenv.config()
 app.listen(4000,()=>{
@@ -42,3 +43,4 @@ app.use("/message", MessageRoutes)
 app.use("/notification", NotificationRoutes)
 app.use("/comment", CommentRoutes)
 app.use("/friends", FriendsRoutes)
+app.use("/searchPage", SearchPageRoutes)

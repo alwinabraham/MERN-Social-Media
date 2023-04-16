@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import Card from './Card'
+import NameComponent from './NameComponent'
 import Avatar from './Avatar'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import axios from "axios"
 import Timeago from 'react-timeago'
 import { createComment, getComment } from '../../api/CommentRequests'
@@ -19,17 +20,18 @@ export default function PostCard(props) {
     const posts = props.post.data
     const [data,setData] = useState()
     const [showModal, setShowModal] = useState(false);
-    const {user} = useSelector((state)=>state.user)
+    const user = useSelector((state)=>state.user)
 
     const postData = {
         postId:post,
-        userId:user
+        userId:user?.user
     }
 
     const commentData = {
         postId:comment,
-        userId:user,
+        userId:user.user,
         comment:commentValue,
+        sender:user
     }
     
     useEffect(() => {
@@ -53,7 +55,6 @@ export default function PostCard(props) {
     const addComment = async()=>{
         try {
             const {data} = await createComment(commentData)
-            console.log(data);
         }catch(error){}
     }
 
@@ -61,7 +62,6 @@ export default function PostCard(props) {
         try{
             const {data} = await getComment({postId:postIdSetter})
             setShowComment(data)
-            console.log(data);
         }catch(error){
             console.log(error);
         }
@@ -75,8 +75,11 @@ export default function PostCard(props) {
             <Card>
                 <div className='flex gap-3'>
                 <Avatar file={obj.imageUrl} />
-                    <div>
-                        <p><span className='font-semibold'>{obj.name}</span> shared a post</p>
+                    <div >
+                        <div className='flex items-center gap-1'>
+                            <span className='flex font-semibold'><NameComponent userId={obj._doc.userId}/></span>
+                            <p> shared a post</p>
+                        </div>
                         <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
                     </div>
                 </div>

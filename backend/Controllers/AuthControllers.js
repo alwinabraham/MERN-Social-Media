@@ -113,30 +113,46 @@ module.exports.register = async (req,res,next)=>{
     }
 }
 
-module.exports.editProfile = async (req,res,next) =>{
-    try{
-        const name = req.body.name
-        const email = req.body.email
-        let password = req.body.password
-        const phoneno = req.body.phoneno
-        const file = req.file
-        const imageName = generateFileName()
-
-        const fileBuffer = await sharp(file.buffer)
-          .resize({ height: 1000, width: 1000, fit: "contain" })
-          .toBuffer()
-      
-        await uploadFile(fileBuffer, imageName, file.mimetype)
-
-        const post = await UserModel.create({
-            name,
-            email,
-            imageName,
-            password,
-            phoneno,
-        })
-    }catch(error){
+module.exports.updateProfile = async (req,res,next)=>{
+    console.log(req.body);
+    try {
+        if(req.file){
+            const file = req.file
+            const imageName = generateFileName()
+    
+            const fileBuffer = await sharp(file.buffer)
+              .resize({ height: 1000, width: 1000, fit: "contain" })
+              .toBuffer()
+          
+            await uploadFile(fileBuffer, imageName, file.mimetype)
+    
+            await UserModel.updateOne({_id:req.body.userId},{$set:{name:req.body.name,bio:req.body.bio,imageName:imageName}})
+        }else{
+            await UserModel.updateOne({_id:req.body.userId},{$set:{name:req.body.name,bio:req.body.bio}})
+        }
+        res.status(201).json({created:true})
+    } catch (error) {
+        console.log(error);
         res.status(500).json(error)
     }
 }
 
+module.exports.getMembers = async (req, res, next) => {
+    const name = req.body.value;
+    console.log(name);
+    try {
+        if(name){
+            const regex = new RegExp(`^${name}`, "i");
+            const members = await UserModel.find({ name: regex });
+
+            const imageUrl = await getObjectSignedUrl(members.imageName);
+            members.imageName = imageUrl
+            res.status(200).json(members);
+        }else{
+            res.status(200).json();
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json(error);
+    }
+  };

@@ -61,7 +61,7 @@ export default function Page() {
       </div>
         <div className='w-10/12'>
           <Search />
-          <ProfileCover data={id} posts={posts} />
+          {id && <ProfileCover data={id} posts={posts} />}
           {posts && <ProfilePostCard posts={posts} data={id} />}
         </div>
     </div>

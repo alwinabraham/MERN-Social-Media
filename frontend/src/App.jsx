@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Chats from './pages/Chats'
 import Notification from './pages/Notification'
+import SearchPage from './pages/SearchPage'
 import "react-toastify/dist/ReactToastify.css"
 import Friends from './pages/Friends'
 import axios from 'axios'
@@ -23,7 +24,6 @@ function App() {
         {withCredentials: true}
         );
         dispatch(setLogin({user:data?.user?._id}))
-        dispatch(setSearch({search:"kitti mone"}))
     }
 
     useEffect(() => {
@@ -31,8 +31,7 @@ function App() {
     }, [])
 
     const user = useSelector((state) => state.user);
-    const search = useSelector((state) => state.search);
-    // console.log(user.search);
+    console.log(user);
 
   return (
     <BrowserRouter>
@@ -45,6 +44,7 @@ function App() {
         <Route exact path="/friends" element={<Friends />} />
         <Route exact path="/chats" element={<Chats />} />
         <Route exact path="/notification" element={<Notification />} />
+        <Route exact path="/searchPage" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   )

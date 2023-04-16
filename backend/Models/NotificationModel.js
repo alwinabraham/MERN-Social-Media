@@ -7,6 +7,9 @@ const NotificationSchema = new mongoose.Schema({
     notification:{
         type:String
     },
+    sender:{
+        type:String
+    }
 },{
     timestamps: true
 })

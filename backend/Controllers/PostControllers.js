@@ -1,4 +1,5 @@
 const PostModel = require("../Models/PostModel");
+const NotificationModel = require("../Models/NotificationModel")
 const crypto = require('crypto')
 const sharp = require('sharp')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
@@ -56,16 +57,23 @@ module.exports.getPosts = async (req,res,next)=>{
 module.exports.like_post = async (req,res,next)=>{
     try {
         let value = null
+        const userId = req.body.postData.userId;
+        const notification = "Liked";
         const post = await PostModel.findById(req.body.postData.postId)
         const likedPost = post.likes.find((id)=>id == req.body.postData.userId)
         if(!likedPost){
           post.likes.push(req.body.postData.userId)
+          NotificationModel.create({
+            userId,
+            notification
+          })
           value = {value:true}
         }else{
           post.likes.pull(req.body.postData.userId)
           value = {value:false}
         }
         post.save()
+
         res.status(201).send({likes:post.likes.length,value})
     } catch (error) {
         console.log(error);

@@ -11,12 +11,10 @@ import { useSelector } from 'react-redux';
 export default function Page() {
 
   const {user} = useSelector((state)=>state.user)
-  // const {search} = useSelector((state)=>state.search)
   const [post,setPost] = useState()
   const navigate = useNavigate();
 
   const [cookies,setCookie,removeCookie] = useCookies([])
-  console.log(user);
 
   const verifyUser = async ()=>{
     if(!cookies.jwt){

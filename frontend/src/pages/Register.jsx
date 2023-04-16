@@ -10,9 +10,9 @@ export default function Register() {
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
+    const [file, setFile] = useState()
     const [password, setPassword] = useState("")
     const [phoneno,setPhoneno] = useState()
-    const [file, setFile] = useState()
     const dispatch = useDispatch();
     
     const navigate = useNavigate();
@@ -30,6 +30,7 @@ export default function Register() {
         formData.append("password", password)
         formData.append("phoneno", phoneno)
         formData.append("image", file)
+        console.log(formData);
         try {
             const {data} = await axios.post("http://localhost:4000/register", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             if(data){
