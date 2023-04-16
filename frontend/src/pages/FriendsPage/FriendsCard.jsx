@@ -54,9 +54,7 @@ export default function FriendsCard(props) {
         })
         setCheck(data?.check)
         setAddFriend("")
-    } catch (error) {
-        
-    }
+    } catch (error) {}
   }
   
   useEffect(() => {

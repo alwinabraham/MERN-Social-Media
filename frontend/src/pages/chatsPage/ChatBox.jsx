@@ -4,6 +4,7 @@ import { getMessages } from '../../api/MessageRequests'
 import Timeago from 'react-timeago'
 import InputEmoji from "react-input-emoji"
 import { addMessage } from '../../api/MessageRequests'
+import '../Chats'
 
 export default function ChatBox({chat, currentUserId, setSendMessage, receiveMessage}) {
 
@@ -66,40 +67,55 @@ export default function ChatBox({chat, currentUserId, setSendMessage, receiveMes
 
   return (
     <>
-        <div className='ChatBox-container'>
-           {chat?(
+        <div className='flex items-center'>
+            <img className="w-16 rounded-full overflow-hidden" src={userData?.imageName} />
+            <div className="name" style={{ fontSize: "0.8rem" }}>
+            <span className='font-bold text-xl'>{userData?.name}</span>
+            </div>
+        </div>
+        <div className='ChatBox-container' style={{
+            position: "relative",
+            display: "grid",
+            gap: "1rem",
+            }}>
+        {chat ? (
             <>
-                <div className='chat-header'>
-                    <div className='follower'>
-                        <div>
-                            <img className='followerImage' style={{width: '50px', height:'50px'}} src={userData?.imageName} />
-                            <div className="name" style={{fontSize:"0.8rem"}}>
-                            <span>{userData?.name}</span>
-                            </div>
-                        </div>
-                    </div>
+            <div className='chat-body' style={{display: "flex",flexDirection: "column",gap: "1rem",padding: "1rem",overflowY: "scroll",maxHeight: "calc(80vh - 150px)",}}>
+                {messages.map((message) => (
+                <div className={message.senderId === currentUserId ? "message own" : "message"} style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "0.5rem",
+                    alignItems: message.senderId === currentUserId ? "flex-end" : "flex-start",
+                }}>
+                    <span>{message.text}</span>
+                    <span style={{ fontSize: "0.7rem", color: "#555" }}><Timeago date={message.createdAt} /></span>
                 </div>
-                <div className='chat-body'>
-                    {messages.map((message)=>(
-                        <>
-                            <div className={message.senderId === currentUserId?"message own": "message"}>
-                                <span>{message.text}</span>
-                                <span><Timeago date={message.createdAt} /></span>
-                            </div>
-                        </>
-                    ))}
-                </div>
-                <div className='chat-sender'>
-                    <div>+</div>
-                    <InputEmoji value={newMessages} onChange={handleChange} />
-                    <button className='send-button button' onClick={handleSend}>Send</button>
-                </div>
+                ))}
+            </div>
+            <div className='flex'>
+                <div style={{ fontSize: "1.5rem" }}>+</div>
+                <InputEmoji value={newMessages} onChange={handleChange} />
+                <button className='send-button button' style={{
+                background: "#3f51b5",
+                color: "#fff",
+                border: "none",
+                padding: "0.5rem 1rem",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+                }} onClick={handleSend}>Send</button>
+            </div>
             </>
-            ):(
-                <span className='chatbox-empty-message'>
-                    Tap on a Chat to Start Conversation...
-                </span>
-            )}
+        ) : (
+            <span className='chatbox-empty-message' style={{
+            display: "flex",
+            alignSelf: "center",
+            justifyContent: "center",
+            fontSize: "20px",
+            }}>
+            Tap on a Chat to Start Conversation...
+            </span>
+        )}
         </div>
     </>
   )

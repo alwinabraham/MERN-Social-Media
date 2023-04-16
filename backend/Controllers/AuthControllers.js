@@ -139,14 +139,15 @@ module.exports.updateProfile = async (req,res,next)=>{
 
 module.exports.getMembers = async (req, res, next) => {
     const name = req.body.value;
-    console.log(name);
     try {
         if(name){
             const regex = new RegExp(`^${name}`, "i");
             const members = await UserModel.find({ name: regex });
-
-            const imageUrl = await getObjectSignedUrl(members.imageName);
-            members.imageName = imageUrl
+            console.log(members);
+            for (let i = 0; i < members.length; i++) {
+                imageUrl = await getObjectSignedUrl(members[i].imageName);
+                members[i].imageName = imageUrl
+              }
             res.status(200).json(members);
         }else{
             res.status(200).json();

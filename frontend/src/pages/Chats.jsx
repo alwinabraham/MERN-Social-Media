@@ -3,10 +3,8 @@ import '../pages/chatsPage/Chats.css'
 import { useSelector } from 'react-redux'
 import NavigationCard from './mainPage/NavigationCard'
 import Search from './search/search'
-import ChatsCard from './chatsPage/Conversation'
 import { userChats } from '../api/ChatRequests'
 import Conversation from './chatsPage/Conversation'
-import { addMessage } from '../api/MessageRequests'
 import ChatBox from './chatsPage/ChatBox'
 import {io} from 'socket.io-client'
 
@@ -34,7 +32,6 @@ export default function Chats() {
       setReceiveMessage(data)
     })
   }, [])
-  
   
   useEffect(() => {
     if (sendMessage!==null) {

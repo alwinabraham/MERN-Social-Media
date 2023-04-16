@@ -22,11 +22,9 @@ export default function Conversation({data, currentUserId}) {
   return (
     <div className='follower conversation'>
       <div>
-        <div className='online-dot'></div>
-        <img className='followerImage' style={{width: '50px', height:'50px'}} src={userData?.imageName} />
-        <div className="name" style={{fontSize:"0.8rem"}}>
-          <span>{userData?.name}</span>
-          <span>Online</span>
+        <img className="w-16 rounded-full overflow-hidden" src={userData?.imageName} />
+        <div className="name mt-3" style={{fontSize:"0.8rem"}}>
+          <span className='font-semibold text-base'>{userData?.name}</span>
         </div>
       </div>
     </div>

@@ -47,11 +47,9 @@ export default function Search() {
         <ul className="mt-2">
           {results.map((member) => (
             <>
-            <div className="flex">
-                <div>
-                    <img className="w-16 h-16 mb-3 rounded-full shadow-lg" src={member.imageName} />
-                </div>
-                <div className="w-full p-3 mt-8 bg-white rounded flex" key={member._id}>
+            <div className="flex items-center">
+                <img className="w-16 h-16 mb-3 rounded-full shadow-lg" src={member.imageName} />
+                <div className="w-full p-3 bg-white rounded flex" key={member._id}>
                     <NameComponent userId={member._id}/>
                 </div>
             </div>
