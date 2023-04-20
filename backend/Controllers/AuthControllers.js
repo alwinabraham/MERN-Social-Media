@@ -36,6 +36,7 @@ const handleErrors = (err) =>{
 }
  
 module.exports.login = async (req,res,next)=>{
+    console.log(req.body);
     try{
         const {email,password} = req.body;
         const user = await UserModel.login(email, password)
@@ -50,8 +51,8 @@ module.exports.login = async (req,res,next)=>{
         
         res.status(200).json({user:user._id, created:true})
     }catch(err){
-        const errors = handleErrors(err)
-        res.json({errors,created: false})
+        const error = handleErrors(err)
+        res.json({error,created: false})
     }
 }
 
@@ -81,6 +82,7 @@ module.exports.register = async (req,res,next)=>{
         const phoneno = req.body.phoneno
         const file = req.file
         const imageName = generateFileName()
+        const status = "block"
 
         const fileBuffer = await sharp(file.buffer)
           .resize({ height: 1000, width: 1000, fit: "contain" })
@@ -97,6 +99,7 @@ module.exports.register = async (req,res,next)=>{
             imageName,
             password,
             phoneno,
+            status,
         })
 
         const token = createToken(post._id);

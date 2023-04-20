@@ -8,25 +8,34 @@ const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex
 
 module.exports.upload_post = async (req,res,next)=>{
     try{
+      const content = req.body.caption
+      const userId = req.body.userId
+      const dateAndTime = new Date();
+      if(req.file){
         const file = req.file
-        const content = req.body.caption
-        const userId = req.body.userId
         const imageName = generateFileName()
-        const dateAndTime = new Date();
-      
-        const fileBuffer = await sharp(file.buffer)
-          .resize({ height: 1080, width: 1920, fit: "contain" })
-          .toBuffer()
-      
-        await uploadFile(fileBuffer, imageName, file.mimetype)
-      
+        
+          const fileBuffer = await sharp(file.buffer)
+            .resize({ height: 1080, width: 1920, fit: "contain" })
+            .toBuffer()
+        
+          await uploadFile(fileBuffer, imageName, file.mimetype)
+        
+          const post = await PostModel.create({
+              userId,
+              imageName,
+              content,
+              dateAndTime,
+          })
+          res.status(201).send(post)
+      }else{
         const post = await PostModel.create({
-            userId,
-            imageName,
-            content,
-            dateAndTime,
-        })
-        res.status(201).send(post)
+          userId,
+          content,
+          dateAndTime,
+      })
+      res.status(201).send(post)
+      }
     }catch(err){
         console.log(err);
     }

@@ -13,6 +13,10 @@ import Friends from './pages/Friends'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogin,setSearch } from './redux/userData'
+import AdminLogin from './pages/AdminPage/AdminLogin'
+import AdminDashboard from './pages/AdminPage/AdminDashboard'
+import AdminUsers from './pages/AdminPage/AdminUsers'
+import AdminReports from './pages/AdminPage/AdminReports'
 
 function App() {
 
@@ -45,6 +49,10 @@ function App() {
         <Route exact path="/chats" element={<Chats />} />
         <Route exact path="/notification" element={<Notification />} />
         <Route exact path="/searchPage" element={<SearchPage />} />
+        <Route exact path="/admin" element={<AdminLogin />} />
+        <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route exact path="/admin/userDetails" element={<AdminUsers />} />
+        <Route exact path="/admin/reports" element={<AdminReports />} />
       </Routes>
     </BrowserRouter>
   )

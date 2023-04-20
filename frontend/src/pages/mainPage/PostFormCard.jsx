@@ -22,6 +22,7 @@ export default function PostFormCard() {
       
       await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
       setCaption("")
+      setFile("")
       navigate("/")
     }
   
