@@ -67,7 +67,7 @@ export default function Chats() {
         <div className='w-10/12'>
           <Search />
           <div className='Right-side-chat'>
-          <ChatBox chat={currentChat} currentUserId = {user} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
+          <ChatBox chat={currentChat} currzentUserId = {user} setSendMessage={setSendMessage} receiveMessage={receiveMessage} />
         </div>
         </div>
       </div>

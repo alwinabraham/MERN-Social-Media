@@ -10,10 +10,9 @@ import { useSelector } from 'react-redux';
 
 export default function Page() {
 
-  const {user} = useSelector((state)=>state.user)
+  const user = useSelector((state)=>state.user)
   const [post,setPost] = useState()
   const navigate = useNavigate();
-
   const [cookies,setCookie,removeCookie] = useCookies([])
 
   const verifyUser = async ()=>{
@@ -28,9 +27,8 @@ export default function Page() {
           removeCookie("jwt");
           navigate("/login");
         }else {};
-    }
+      }
   }
-
   
   useEffect(() => {
     fetchPosts();    

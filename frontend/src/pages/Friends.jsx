@@ -8,10 +8,13 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { getFriends } from '../api/FriendsRequests'
+import { useSelector } from 'react-redux'
 
 export default function Friends() {
 
   const navigate = useNavigate();
+  const user = useSelector((state)=>state.user)
+  console.log(user);
   const [users, setUsers] = useState()
   const [followingPage,setFollowingPage] = useState(false)
   const [followerPage,setFollowerPage] = useState(false)
@@ -42,7 +45,7 @@ export default function Friends() {
 
   useEffect(() => {
     fetchUsers()
-  }, [])
+  }, [user])
   
   useEffect(()=>{
     verifyUser()

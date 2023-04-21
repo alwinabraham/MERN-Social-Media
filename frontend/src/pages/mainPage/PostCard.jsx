@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import axios from "axios"
 import Timeago from 'react-timeago'
 import { createComment, getComment } from '../../api/CommentRequests'
+import DropDownComponent from './DropDownComponent'
 
 export default function PostCard(props) {
 
@@ -67,20 +68,23 @@ export default function PostCard(props) {
         }
     }
 
-    
-
   return (
     <>
         {posts.map(obj=>(
             <Card>
-                <div className='flex gap-3'>
-                <Avatar file={obj.imageUrl} />
-                    <div >
-                        <div className='flex items-center gap-1'>
-                            <span className='flex font-semibold'><NameComponent userId={obj._doc.userId}/></span>
-                            <p> shared a post</p>
+                <div className='flex justify-between'>
+                    <div className='flex gap-3'>
+                        <Avatar file={obj.imageUrl} />
+                        <div>
+                            <div className='flex items-center gap-1'>
+                                <span className='flex font-semibold'><NameComponent userId={obj._doc.userId}/></span>
+                                <p> shared a post</p>
+                            </div>
+                            <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
                         </div>
-                        <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
+                    </div>
+                    <div>
+                        <DropDownComponent />
                     </div>
                 </div>
             <div>

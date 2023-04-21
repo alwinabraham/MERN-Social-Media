@@ -6,64 +6,85 @@ import InputEmoji from "react-input-emoji"
 import { addMessage } from '../../api/MessageRequests'
 import '../Chats'
 
-export default function ChatBox({chat, currentUserId, setSendMessage, receiveMessage}) {
-
-  const [userData, setUserData] = useState(null)
-  const [messages, setMessages] = useState([])
-  const [newMessages, setNewMessages] = useState("")
-
-  useEffect(() => {
-    if(receiveMessage!==null && receiveMessage.chatId===chat._id){
-        setMessages([...messages,receiveMessage])
-    }
-  }, [receiveMessage])
-
-  useEffect(() => {
-    const userId = chat?.members?.find((id)=>id!==currentUserId)
-    const getUserData = async () => {
-        try {
-            const {data} = await getUser(userId)
-            setUserData(data)
-        } catch (error) {
-            console.log(error);
-        }
-    }
-    if(chat!==null) getUserData()
-  }, [chat,currentUserId])
+const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
+  console.log(chat,currentUser)
+    const [userData, setUserData] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState("");
   
-  useEffect(() => {
-    const fetchMessages = async ()=>{
-        try {
-            const {data} = await getMessages(chat._id)
-            setMessages(data)
-        } catch (error) {
-            console.log(error);
-        }
+    const handleChange = (newMessage)=> {
+      setNewMessage(newMessage)
     }
-    if(chat !== null) fetchMessages()
-  }, [chat])
   
-  const handleChange = (newMessages) => {
-    setNewMessages(newMessages)
-  }
-
-  const handleSend = async (e) =>{
-    e.preventDefault();
-    const message = {
-        senderId: currentUserId,
-        text: newMessages,
-        chatId:chat._id
+    // fetching data for header
+    useEffect(() => {
+      const userId = chat?.members?.find((id) => id !== currentUser);
+      const getUserData = async () => {
+        try {
+          const { data } = await getUser(userId);
+          setUserData(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+  
+      if (chat !== null) getUserData();
+    }, [chat, currentUser]);
+  
+  
+    // fetch messages
+    useEffect(() => {
+      const fetchMessages = async () => {
+        try {
+          const { data } = await getMessages(chat._id);
+          setMessages(data);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+  
+      if (chat !== null) fetchMessages();
+    }, [chat]);
+  
+  
+    // Always scroll to last Message
+    useEffect(()=> {
+      scroll.current?.scrollIntoView({ behavior: "smooth" });
+    },[messages])
+  
+  
+  
+    // Send Message
+    const handleSend = async(e)=> {
+      e.preventDefault()
+      const message = {
+        senderId : currentUser,
+        text: newMessage,
+        chatId: chat._id,
     }
-    try {
-        const {data} = await addMessage(message)
-        setMessages([...messages,data])
-        setNewMessages("")
-    } catch (error) {
-        console.log(error);
-    }
-    const receiverId = chat.members.find((id)=>id !== currentUserId)
+    const receiverId = chat.members.find((id)=>id!==currentUser);
+    // send message to socket server
     setSendMessage({...message, receiverId})
+    // send message to database
+    try {
+      const { data } = await addMessage(message);
+      setMessages([...messages, data]);
+      setNewMessage("");
+    }
+    catch
+    {
+      console.log("error")
+    }
   }
+  
+  // Receive Message from parent component
+  useEffect(()=> {
+    console.log("Message Arrived: ", receivedMessage)
+    if (receivedMessage !== null && receivedMessage?.chatId === chat?._id) {
+      setMessages([...messages, receivedMessage]);
+    }
+  
+  },[receivedMessage])
 
   return (
     <>
@@ -82,11 +103,11 @@ export default function ChatBox({chat, currentUserId, setSendMessage, receiveMes
             <>
             <div className='chat-body' style={{display: "flex",flexDirection: "column",gap: "1rem",padding: "1rem",overflowY: "scroll",maxHeight: "calc(80vh - 150px)",}}>
                 {messages.map((message) => (
-                <div className={message.senderId === currentUserId ? "message own" : "message"} style={{
+                <div className={message.senderId === currentUser ? "message own" : "message"} style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "0.5rem",
-                    alignItems: message.senderId === currentUserId ? "flex-end" : "flex-start",
+                    alignItems: message.senderId === currentUser ? "flex-end" : "flex-start",
                 }}>
                     <span>{message.text}</span>
                     <span style={{ fontSize: "0.7rem", color: "#555" }}><Timeago date={message.createdAt} /></span>
@@ -95,7 +116,7 @@ export default function ChatBox({chat, currentUserId, setSendMessage, receiveMes
             </div>
             <div className='flex'>
                 <div style={{ fontSize: "1.5rem" }}>+</div>
-                <InputEmoji value={newMessages} onChange={handleChange} />
+                <InputEmoji value={newMessage} onChange={handleChange} />
                 <button className='send-button button' style={{
                 background: "#3f51b5",
                 color: "#fff",
@@ -120,3 +141,5 @@ export default function ChatBox({chat, currentUserId, setSendMessage, receiveMes
     </>
   )
 }
+
+export default ChatBox;

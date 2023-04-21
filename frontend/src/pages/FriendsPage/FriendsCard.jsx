@@ -13,10 +13,6 @@ export default function FriendsCard(props) {
   const user = userDetails.filter(use => use._id !== id);
   
   useEffect(() => {
-    addNewFriend()
-  }, [addFriend])
-  
-  useEffect(() => {
     verifyUser()
   },[id])
 
@@ -49,9 +45,10 @@ export default function FriendsCard(props) {
 
   const addNewFriend = async()=>{
     try {            
-        const {data} = await axios.post("http://localhost:4000/chat/createUser",{
+        const {data} = await axios.post("http://localhost:4000/send_friendRequest",{
             addObject
         })
+        console.log(data);
         setCheck(data?.check)
         setAddFriend("")
     } catch (error) {}
@@ -61,6 +58,10 @@ export default function FriendsCard(props) {
     chatSetting()
   },[chat])
 
+  useEffect(() => {
+    addNewFriend()
+  }, [addFriend])
+  
   return (
     <>
         {user.map(obj=>(

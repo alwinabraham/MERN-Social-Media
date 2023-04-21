@@ -6,6 +6,7 @@ const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s
 module.exports.profile_post = async (req,res,next)=>{
     try {
         const {userId} = req.body
+        console.log(userId);
         const post = await PostModel.find({userId:userId}).sort({ _id: -1 })
         const user = await UserModel.findById(userId)
 

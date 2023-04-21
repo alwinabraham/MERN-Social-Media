@@ -19,36 +19,37 @@ import AdminUsers from './pages/AdminPage/AdminUsers'
 import AdminReports from './pages/AdminPage/AdminReports'
 
 function App() {
-
-  const dispatch = useDispatch();
   
+  let check = false;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  console.log(user);  
   const verifyUser = async ()=>{
       const {data} = await axios.post(
         "http://localhost:4000",{},
         {withCredentials: true}
         );
         dispatch(setLogin({user:data?.user?._id}))
-    }
-
-    useEffect(() => {
-      verifyUser()
-    }, [])
-
-    const user = useSelector((state) => state.user);
-    console.log(user);
-
+      }
+      
+      useEffect(() => {
+        verifyUser()
+      }, [])
+    
+      check = user.user == null ? false : true    
+    
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/" element={<Page />} />
-        <Route exact path="/otp_login" element={<OtpLogin />} />
-        <Route exact path="/profile" element={<Profile />} />
-        <Route exact path="/friends" element={<Friends />} />
-        <Route exact path="/chats" element={<Chats />} />
-        <Route exact path="/notification" element={<Notification />} />
-        <Route exact path="/searchPage" element={<SearchPage />} />
+        <Route exact path="/register" element={check && <Register />} />
+        <Route exact path="/login" element={check && <Login />} />
+        <Route exact path="/" element={check && <Page />} />
+        <Route exact path="/otp_login" element={check && <OtpLogin />} />
+        <Route exact path="/profile" element={check && <Profile />} />
+        <Route exact path="/friends" element={check && <Friends />} />
+        <Route exact path="/chats" element={check && <Chats />} />
+        <Route exact path="/notification" element={check && <Notification />} />
+        <Route exact path="/searchPage" element={check && <SearchPage />} />
         <Route exact path="/admin" element={<AdminLogin />} />
         <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
         <Route exact path="/admin/userDetails" element={<AdminUsers />} />

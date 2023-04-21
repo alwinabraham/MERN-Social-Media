@@ -6,6 +6,7 @@ import NavigationCard from './mainPage/NavigationCard'
 import ProfilePostCard from './ProfilePage/ProfilePostCard'
 import ProfileCover from './mainPage/ProfileCover'
 import Search from './search/search'
+import { useSelector } from 'react-redux'
 
 export default function Page() {
 
@@ -14,6 +15,8 @@ export default function Page() {
   const [check,setCheck] = useState()
   const navigate = useNavigate()
   const [cookies,setCookie,removeCookie] = useCookies([])
+  const user = useSelector((state)=>state.user)
+  console.log(user);
   
   const verifyUser = async ()=>{
     if(!cookies.jwt){
@@ -34,7 +37,7 @@ export default function Page() {
   const fetchPosts = async()=>{
       try {
           const {data} =  await axios.post("http://localhost:4000/profile_post",{
-              userId:id
+              userId:user?.user
           })
           if(data.length == 0){
             setCheck(check+1)
@@ -47,11 +50,11 @@ export default function Page() {
   }
   useEffect(() => {
     verifyUser()
-  },[])
+  },[user])
   
   useEffect(() => {
     fetchPosts()
-  },[check])
+  },[check,user])
 
 
   return (

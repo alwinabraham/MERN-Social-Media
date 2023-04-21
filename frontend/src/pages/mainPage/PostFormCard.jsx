@@ -1,26 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Card from './Card'
 import Avatar from './Avatar'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setCheck } from '../../redux/userData'
 
 export default function PostFormCard() {
+
     const [file, setFile] = useState()
     const [caption, setCaption] = useState("")
-    const {user} = useSelector((state)=>state.user)
+    const user = useSelector((state)=>state.user)
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
-  
+    
     const submit = async event => {
-      event.preventDefault()
-  
-      const formData = new FormData();
-      formData.append("userId", user)
-      formData.append("image", file)
-      formData.append("caption", caption)
-      
-      await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        event.preventDefault()
+        
+        const formData = new FormData();
+        formData.append("userId", user.user)
+        formData.append("image", file)
+        formData.append("caption", caption)
+        
+        const {data} = await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        console.log(data);
+        dispatch(setCheck({id:data._id}))
       setCaption("")
       setFile("")
       navigate("/")
@@ -28,20 +33,36 @@ export default function PostFormCard() {
   
     const fileSelected = event => {
       const file = event.target.files[0]
-          setFile(file)
+        setFile(file)
     }
+
+    const handleFileSelected = (event) => {
+        const file = event.target.files[0];
+        // Code to display the image, e.g., by setting the src attribute of an image element
+        const imageElement = document.createElement('img');
+        imageElement.src = URL.createObjectURL(file);
+        document.body.appendChild(imageElement);
+      };
 
   return (
     <Card>
         <form onSubmit={submit}>
-        <div className='flex gap-2'>
-        <div>
-            <Avatar />
-        </div>
-        <div className='flex items-center'>
-            <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14' placeholder={'Whats on your mind'} />
-            <input onChange={fileSelected} type="file" accept="image/*"></input>
-        </div>
+        <div className='flex'>
+            <div>
+                <Avatar />
+            </div>
+            <div className='flex'>
+                <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14' placeholder={'Whats on your mind'} />
+                <div className='flex items-center'>
+                    <input id="fileInput" onChange={fileSelected} type="file" className="hidden" accept="image/*"></input>
+                    <label htmlFor="fileInput" className="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                        Click to select an image
+                    </label>
+                </div>
+            </div>
         </div>
         <div className='flex gap-3 items-center mt-2'>
             <div>
