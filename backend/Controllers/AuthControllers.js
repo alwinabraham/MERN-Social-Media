@@ -146,7 +146,6 @@ module.exports.getMembers = async (req, res, next) => {
         if(name){
             const regex = new RegExp(`^${name}`, "i");
             const members = await UserModel.find({ name: regex });
-            console.log(members);
             for (let i = 0; i < members.length; i++) {
                 imageUrl = await getObjectSignedUrl(members[i].imageName);
                 members[i].imageName = imageUrl

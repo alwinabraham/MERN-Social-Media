@@ -24,7 +24,7 @@ export default function ProfilePostCard(props) {
                 {obj._doc.content}
                 </p>
                 <div className='rounded-md overflow-hidden'>
-                <img src={obj._doc.imageName} />
+                    <img src={obj._doc.imageName} />
                 </div>
             </div>
             <div className='mt-3 flex gap-8' onClick={()=>setPost(obj._doc._id)}>

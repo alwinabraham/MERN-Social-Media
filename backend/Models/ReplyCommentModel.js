@@ -17,6 +17,6 @@ const ReplyCommentSchema = mongoose.Schema(
     }
 )
 
-const ReplyCommentModel = mongoose.Model("ReplyComment", ReplyCommentSchema)
+const ReplyCommentModel = mongoose.model("ReplyComment", ReplyCommentSchema)
 
 module.exports = ReplyCommentModel

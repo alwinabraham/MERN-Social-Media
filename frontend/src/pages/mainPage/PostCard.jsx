@@ -7,6 +7,8 @@ import axios from "axios"
 import Timeago from 'react-timeago'
 import { createComment, getComment } from '../../api/CommentRequests'
 import DropDownComponent from './DropDownComponent'
+import ReplyComponent from '../CommentPage/ReplyComponent'
+import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
 
 export default function PostCard(props) {
 
@@ -143,11 +145,20 @@ export default function PostCard(props) {
                         {/*body*/}
                             <div className="relative p-6 flex-auto">
                             {showComment.map((obj)=>(
-                                <div className='flex items-center justify-between'>
-                                    <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                                        {obj.comment}
-                                    </p>
-                                    <Timeago date={obj.createdAt} />
+                                <div className='mb-4'>
+                                    <div className='flex justify-between'>
+                                        <div className='flex gap-2'>
+                                            <ProfileImageComponent userId={obj.userId} />
+                                            <div>
+                                                <NameComponent userId={obj.userId} />
+                                                <p className="font-light">
+                                                    {obj.comment}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <Timeago date={obj.createdAt} />
+                                    </div>
+                                <ReplyComponent commentId={obj._id} />
                                 </div>
                                 ))}
                             </div>
