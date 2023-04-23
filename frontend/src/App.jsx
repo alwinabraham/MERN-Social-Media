@@ -41,8 +41,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/register" element={check && <Register />} />
-        <Route exact path="/login" element={check && <Login />} />
+        <Route exact path="/register" element= {<Register />} />
+        <Route exact path="/login" element= {<Login />} />
         <Route exact path="/" element={check && <Page />} />
         <Route exact path="/otp_login" element={check && <OtpLogin />} />
         <Route exact path="/profile" element={check && <Profile />} />

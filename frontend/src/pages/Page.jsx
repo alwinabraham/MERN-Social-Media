@@ -23,10 +23,14 @@ export default function Page() {
         `http://localhost:4000`,{},
         {withCredentials: true}
         );
+        console.log(data);
         if(!data.status){
           removeCookie("jwt");
           navigate("/login");
-        }else {};
+        }else if(data.user.status == "Unblock"){
+          removeCookie("jwt");
+          navigate("/login");
+        }else{}
       }
   }
   

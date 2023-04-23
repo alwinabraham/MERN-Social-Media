@@ -4,6 +4,7 @@ const crypto = require('crypto')
 const sharp = require('sharp')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 const UserModel = require("../Models/UserModel");
+const ReportModel = require("../Models/ReportModel");
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
 module.exports.upload_post = async (req,res,next)=>{
@@ -89,3 +90,36 @@ module.exports.like_post = async (req,res,next)=>{
     }
 }
 
+module.exports.deletePost = async (req,res,next)=>{
+    try{
+      let postId = req.body.postId
+      const result = await PostModel.deleteOne({ _id: postId });
+      res.status(201).json({"id":postId})
+    }catch(error){
+      console.log(error);
+    }
+}
+
+module.exports.updatePost = async (req,res,next) =>{
+    try{
+      await PostModel.updateOne({_id:req.body.postId},{$set:{content:req.body.content}})
+      res.status(201).json({id:req.body.postId})
+      }catch (error) {
+      console.log(error);
+      res.status(500).json(error)
+    }
+}
+
+module.exports.reportPost = async (req,res,next) => {
+  const {userId,postId,reason} = req.body
+  try {
+    const report = await ReportModel.create({
+      userId,
+      postId,
+      reason
+    })
+    res.status(200).send(report)
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}

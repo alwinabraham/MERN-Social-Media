@@ -67,6 +67,10 @@ export default function PostCard(props) {
             console.log(error);
         }
     }
+    useEffect(() => {
+
+    }, [user])
+    
 
   return (
     <>
@@ -84,7 +88,7 @@ export default function PostCard(props) {
                         </div>
                     </div>
                     <div>
-                        <DropDownComponent />
+                        <DropDownComponent postId={obj._doc._id} userId={user.user}/>
                     </div>
                 </div>
             <div>

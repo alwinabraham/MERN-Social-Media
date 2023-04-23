@@ -82,7 +82,7 @@ module.exports.register = async (req,res,next)=>{
         const phoneno = req.body.phoneno
         const file = req.file
         const imageName = generateFileName()
-        const status = "block"
+        const status = "Block"
 
         const fileBuffer = await sharp(file.buffer)
           .resize({ height: 1000, width: 1000, fit: "contain" })

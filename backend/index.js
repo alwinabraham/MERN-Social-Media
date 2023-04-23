@@ -12,7 +12,7 @@ const CommentRoutes = require("./Routes/CommentRoutes")
 const FriendsRoutes = require("./Routes/FriendsRoutes")
 const SearchPageRoutes = require("./Routes/SearchPageRoutes")
 const AdminRoutes = require("./Routes/AdminRoutes")
-
+const PostRoutes = require("./Routes/PostRoutes")
 dotenv.config()
 app.listen(4000,()=>{
     console.log(`Server started at 4000`);
@@ -46,3 +46,4 @@ app.use("/comment", CommentRoutes)
 app.use("/friends", FriendsRoutes)
 app.use("/searchPage", SearchPageRoutes)
 app.use("/Admin", AdminRoutes)
+app.use("/post", PostRoutes)
