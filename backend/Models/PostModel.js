@@ -24,6 +24,8 @@ const postSchema = new mongoose.Schema({
     status:{
         type:String
     }
+},{
+    timestamps: true
 });
 
 module.exports = mongoose.model("Posts", postSchema)

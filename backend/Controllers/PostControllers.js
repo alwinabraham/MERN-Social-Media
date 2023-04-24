@@ -12,6 +12,7 @@ module.exports.upload_post = async (req,res,next)=>{
       const content = req.body.caption
       const userId = req.body.userId
       const dateAndTime = new Date();
+      const status = "Block"
       if(req.file){
         const file = req.file
         const imageName = generateFileName()
@@ -45,7 +46,7 @@ module.exports.upload_post = async (req,res,next)=>{
 module.exports.getPosts = async (req,res,next)=>{
     const user = req.params.user
     try {
-        const post = await PostModel.find({}).sort({ _id: -1 })
+        const post = await PostModel.find({ status: { $ne: 'Unblock' } }).sort({ _id: -1 })
 
           for (let i = 0; i < post.length; i++) {
             imageUrl = await getObjectSignedUrl(post[i].imageName);
@@ -70,11 +71,13 @@ module.exports.like_post = async (req,res,next)=>{
         const userId = req.body.postData.userId;
         const notification = "Liked";
         const post = await PostModel.findById(req.body.postData.postId)
+        const senderId = post.userId
         const likedPost = post.likes.find((id)=>id == req.body.postData.userId)
         if(!likedPost){
           post.likes.push(req.body.postData.userId)
           NotificationModel.create({
             userId,
+            senderId,
             notification
           })
           value = {value:true}

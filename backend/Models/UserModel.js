@@ -41,6 +41,8 @@ const userSchema = new mongoose.Schema({
     status:{
         type:String
     }
+},{
+    timestamps:true
 });
 
 userSchema.statics.login = async function(email,password){

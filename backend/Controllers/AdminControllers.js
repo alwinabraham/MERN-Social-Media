@@ -99,3 +99,119 @@ module.exports.blockAPost = async (req,res,next)=>{
         res.status(500).json(error)
     }
 }
+
+module.exports.dailyPost = async(req,res)=>{
+    try {
+        PostModel.aggregate([
+        {
+            // Group by the date portion of the dataAndTime field
+            $group: {
+            _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+            count: { $sum: 1 },
+            },
+        },
+        {
+            $sort: { _id: 1 },
+        },
+        ])
+        .then(result => {
+            const formattedResult = result.map(item => {
+              return {
+                date: item._id,
+                count: item.count,
+              };
+            });
+            res.status(200).json(formattedResult);
+          })
+          .catch(error => {
+            res.status(500).json({ error: 'Failed to get posts count' });
+          });
+        }catch(error){
+            console.log(error);
+            res.status(500).json({ error: 'Failed to get posts count' });
+    }
+}
+
+module.exports.monthlyPost = async(req,res)=>{
+    try {
+        PostModel.aggregate([
+        {
+            // Group by the month and year portion of the createdAt field
+            $group: {
+                _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
+                count: { $sum: 1 },
+            },
+        },
+        {
+            $sort: { _id: 1 },
+        },
+        ])
+        .then(result => {
+            const formattedResult = result.map(item => {
+                return {
+                    date: item._id,
+                    count: item.count,
+                };
+            });
+            res.status(200).json(formattedResult);
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Failed to get posts count' });
+        });
+    } catch(error){
+        console.log(error);
+        res.status(500).json({ error: 'Failed to get posts count' });
+    }
+}
+
+module.exports.yearlyPost = async(req,res)=>{
+    try {
+        PostModel.aggregate([
+        {
+            // Group by the year portion of the dataAndTime field
+            $group: {
+            _id: { $dateToString: { format: '%Y', date: '$createdAt' } },
+            count: { $sum: 1 },
+            },
+        },
+        {
+            $sort: { _id: 1 },
+        },
+        ])
+        .then(result => {
+            const formattedResult = result.map(item => {
+              return {
+                date: item._id,
+                count: item.count,
+              };
+            });
+            res.status(200).json(formattedResult);
+          })
+          .catch(error => {
+            res.status(500).json({ error: 'Failed to get posts count' });
+          });
+        }catch(error){
+            console.log(error);
+            res.status(500).json({ error: 'Failed to get posts count' });
+    }
+}
+
+module.exports.countAllPost = async(req,res) => {
+    try{
+        const data = PostModel.find({})
+        const count = (await data).length
+        res.status(200).json(count);
+    }catch(error){
+        res.status(200).json(error);
+    }
+}
+
+module.exports.countAllUsers = async (req,res) => {
+    try{
+        const data = UserModel.find({})
+        const count = (await data).length
+        res.status(200).json(count);
+    }catch(error){
+        res.status(200).json(error);
+    }
+}

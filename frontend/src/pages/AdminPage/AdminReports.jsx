@@ -19,9 +19,11 @@ const AdminReports = () => {
   
 
   return (
-    <div>
-        <AdminNav />
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <AdminNav />
+      <div style={{marginTop: '5rem', alignSelf: 'center'}}>
         {posts && <AdminBlockedPosts posts={posts}/>}
+      </div>
     </div>
   )
 }

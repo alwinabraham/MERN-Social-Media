@@ -10,7 +10,7 @@ export default function FriendsCard(props) {
   const [chat,setChat] = useState()
   const [check,setCheck] = useState()
   const [userData,setUserData] = useState()
-  const user = userDetails.filter(use => use._id !== id);
+  const userValue = userDetails.filter(use => use._id !== id);
   
   useEffect(() => {
     verifyUser()
@@ -35,36 +35,25 @@ export default function FriendsCard(props) {
         setUserData(data?.user)
   }
 
-  const chatSetting = async () =>{
-    try {            
-      const {data} = await axios.post("http://localhost:4000/chat",{
-          addChat
-      })
-  } catch (error) {}
-}
-
-  const addNewFriend = async()=>{
-    try {            
-        const {data} = await axios.post("http://localhost:4000/send_friendRequest",{
-            addObject
-        })
-        console.log(data);
-        setCheck(data?.check)
-        setAddFriend("")
-    } catch (error) {}
-  }
-  
   useEffect(() => {
+    const chatSetting = async () =>{
+      const {data} = await axios.post("http://localhost:4000/chat",addChat)
+    }
     chatSetting()
   },[chat])
 
   useEffect(() => {
+    const addNewFriend = async()=>{
+        const {data} = await axios.post("http://localhost:4000/send_friendRequest",addObject)
+        setCheck(data?.check)
+        setAddFriend("")
+      }  
     addNewFriend()
   }, [addFriend])
   
   return (
     <>
-        {user.map(obj=>(
+        {userValue.map(obj=>(
           <>
             <div className="p-3 max-w-7xl mt-1 bg-white rounded flex justify-between border">
             <div className='flex items-center gap-7'>

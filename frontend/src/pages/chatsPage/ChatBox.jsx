@@ -6,19 +6,20 @@ import InputEmoji from "react-input-emoji"
 import { addMessage } from '../../api/MessageRequests'
 import '../Chats'
 
-const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
-  console.log(chat,currentUser)
+const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
+
+    console.log("chatbox", receivedMessage);
     const [userData, setUserData] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
-  
+
     const handleChange = (newMessage)=> {
       setNewMessage(newMessage)
     }
   
     // fetching data for header
     useEffect(() => {
-      const userId = chat?.members?.find((id) => id !== currentUser);
+      const userId = chat?.members?.find((id) => id !== currentUserId);
       const getUserData = async () => {
         try {
           const { data } = await getUser(userId);
@@ -29,7 +30,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
       };
   
       if (chat !== null) getUserData();
-    }, [chat, currentUser]);
+    }, [chat, currentUserId]);
   
   
     // fetch messages
@@ -38,6 +39,7 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
         try {
           const { data } = await getMessages(chat._id);
           setMessages(data);
+          console.log("messages",data);
         } catch (error) {
           console.log(error);
         }
@@ -58,11 +60,12 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
     const handleSend = async(e)=> {
       e.preventDefault()
       const message = {
-        senderId : currentUser,
+        senderId : currentUserId,
         text: newMessage,
         chatId: chat._id,
+        createdAt:new Date()
     }
-    const receiverId = chat.members.find((id)=>id!==currentUser);
+    const receiverId = chat.members.find((id)=>id!==currentUserId);
     // send message to socket server
     setSendMessage({...message, receiverId})
     // send message to database
@@ -102,15 +105,15 @@ const ChatBox = ({ chat, currentUser, setSendMessage,  receivedMessage }) => {
         {chat ? (
             <>
             <div className='chat-body' style={{display: "flex",flexDirection: "column",gap: "1rem",padding: "1rem",overflowY: "scroll",maxHeight: "calc(80vh - 150px)",}}>
-                {messages.map((message) => (
-                <div className={message.senderId === currentUser ? "message own" : "message"} style={{
+                {messages?.map((message) => (
+                <div className={message?.senderId === currentUserId ? "message own" : "message"} style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "0.5rem",
-                    alignItems: message.senderId === currentUser ? "flex-end" : "flex-start",
+                    alignItems: message?.senderId === currentUserId ? "flex-end" : "flex-start",
                 }}>
-                    <span>{message.text}</span>
-                    <span style={{ fontSize: "0.7rem", color: "#555" }}><Timeago date={message.createdAt} /></span>
+                    <span>{message?.text}</span>
+                    <span style={{ fontSize: "0.7rem", color: "#555" }}><Timeago date={message?.createdAt} /></span>
                 </div>
                 ))}
             </div>

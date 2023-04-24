@@ -25,7 +25,6 @@ const ReplyComponent = ({commentId}) => {
     const ReplyComments = async () =>{
         const {data} = await getReplyComments({commentId:commentId})
         setReplied(data)
-        console.log(data);
     }
 
     useEffect(() => {

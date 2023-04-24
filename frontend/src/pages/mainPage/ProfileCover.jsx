@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Card from './Card'
 import Avatar from './Avatar'
 import axios from 'axios'
 import {Link, useNavigate} from "react-router-dom"
-import { useDispatch } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import { setCheck } from '../../redux/userData'
 
 export default function ProfileCover(props) {
@@ -14,10 +14,14 @@ export default function ProfileCover(props) {
     const value = props.posts ? props.posts[0].imageUser : ""
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate()
+    const user = useSelector((state)=>state.user)
+    const target = localStorage.getItem("targetId")
+    const [owner,setOwner] = useState(false)
 
     const [name, setName] = useState(data.name)
     const [bio, setBio] = useState(data?.bio)
     const [file, setFile] = useState()
+    const [chat,setChat] = useState(false)
 
     const handleSubmit = async e =>{
         e.preventDefault()
@@ -31,7 +35,7 @@ export default function ProfileCover(props) {
         try {
             const {data} = await axios.post("http://localhost:4000/updateProfile", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             navigate("/profile")
-            dispatch(setCheck({id:data._id}))
+            dispatch(setCheck({check:data._id}))
         } catch (error) {
             console.log(error);
         }
@@ -41,6 +45,30 @@ export default function ProfileCover(props) {
         const file = event.target.files[0]
             setFile(file)
       }
+
+      const addChat = {
+        senderId:user?.user,
+        receiverId:target
+      }
+
+      useEffect(() => {
+        const chatSetting = async () =>{
+          const {data} = await axios.post("http://localhost:4000/chat",addChat)
+        }
+        chatSetting()
+      },[chat])
+
+      useEffect(() => {
+        const checkUser = () =>{
+            if(user?.user!=target){
+                setOwner(false)
+            }else{
+                setOwner(true)
+            }
+        }
+        checkUser()
+      }, [user])
+      
 
     return (
     <Card noPadding={true}>
@@ -80,9 +108,15 @@ export default function ProfileCover(props) {
                 </div>
             </div>
             <div>
+            {owner?            
             <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full" onClick={() => setShowModal(true)}>
                 Edit
             </button>
+            :            
+            <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full" onClick={()=>setChat(true)}>
+                Chat
+            </button>}
+
             {showModal ? (
                 <>
                 <div

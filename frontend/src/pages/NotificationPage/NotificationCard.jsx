@@ -1,4 +1,7 @@
 import React from 'react'
+import NameComponent from '../mainPage/NameComponent'
+import Timeago from 'react-timeago'
+
 
 export default function NotificationCard({notifications}) {
   return (
@@ -11,8 +14,8 @@ export default function NotificationCard({notifications}) {
                 </svg>
             </div>
             <div className="pl-3">
-                <p tabindex="0" className="focus:outline-none text-sm leading-none"><span className="text-indigo-700">James Doe</span> {obj.notification} <span className="text-indigo-700">item</span></p>
-                <p tabindex="0" className="focus:outline-none text-xs leading-3 pt-1 text-gray-500">2 hours ago</p>
+                <div className='flex'><NameComponent userId={obj.userId}/><p>__</p>{obj.notification}<p>__</p>item</div>
+                <p tabindex="0" className="focus:outline-none text-xs leading-3 pt-1 text-gray-500"><Timeago date={obj.createdAt} /></p>
             </div>
         </div>
       ))}

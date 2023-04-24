@@ -18,9 +18,11 @@ const AdminUsers = () => {
   }, [user])
   
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <AdminNav />
-     {value && <AdminBlockList user={value}/>}
+      <div style={{ marginTop: '5rem', alignSelf: 'center'}}>
+      {value && <AdminBlockList user={value}/>}
+      </div>
     </div>
   )
 }

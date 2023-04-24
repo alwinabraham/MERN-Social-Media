@@ -19,7 +19,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    // remove user from active users
+  
     activeUsers = activeUsers.filter((user) => user.socketId !== socket.id);
     console.log("User Disconnected", activeUsers);
     // send all active users to all users
@@ -29,6 +29,7 @@ io.on("connection", (socket) => {
   // send message to a specific user
   socket.on("send-message", (data) => {
     const { receiverId } = data;
+    console.log("ActiveUsers",activeUsers);
     const user = activeUsers.find((user) => user.userId === receiverId);
     console.log("Sending from socket to :", receiverId)
     console.log("Data: ", data)
