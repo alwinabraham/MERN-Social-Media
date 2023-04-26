@@ -65,16 +65,16 @@ module.exports.getPosts = async (req,res,next)=>{
     }
 }
 
-module.exports.like_post = async (req,res,next)=>{
-    try {
+module.exports.likePost = async (req,res,next)=>{
+  try {
         let value = null
-        const userId = req.body.postData.userId;
+        const userId = req.body.userId;
         const notification = "Liked";
-        const post = await PostModel.findById(req.body.postData.postId)
+        const post = await PostModel.findById(req.body.postId)
         const senderId = post.userId
-        const likedPost = post.likes.find((id)=>id == req.body.postData.userId)
+        const likedPost = post.likes.find((id)=>id == req.body.userId)
         if(!likedPost){
-          post.likes.push(req.body.postData.userId)
+          post.likes.push(req.body.userId)
           NotificationModel.create({
             userId,
             senderId,
@@ -82,7 +82,7 @@ module.exports.like_post = async (req,res,next)=>{
           })
           value = {value:true}
         }else{
-          post.likes.pull(req.body.postData.userId)
+          post.likes.pull(req.body.userId)
           value = {value:false}
         }
         post.save()
@@ -108,7 +108,6 @@ module.exports.updatePost = async (req,res,next) =>{
       await PostModel.updateOne({_id:req.body.postId},{$set:{content:req.body.content}})
       res.status(201).json({id:req.body.postId})
       }catch (error) {
-      console.log(error);
       res.status(500).json(error)
     }
 }

@@ -2,7 +2,6 @@ import React,{useEffect} from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 export default function BarChartComponent({data, color}) {
-    console.log(data);
   return (
     <BarChart
       width={500}

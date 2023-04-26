@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 const ChatSchema = mongoose.Schema(
     {
         members:{
-            type:Array,
-        },
+            type:Array
+        }
     },
     {
         timestamps: true

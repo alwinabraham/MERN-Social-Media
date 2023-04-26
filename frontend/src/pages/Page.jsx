@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
@@ -7,6 +7,7 @@ import PostFormCard from './mainPage/PostFormCard'
 import Search from './search/search'
 import PostCard from './mainPage/PostCard'
 import { useSelector } from 'react-redux';
+import {io} from 'socket.io-client'
 
 export default function Page() {
 
@@ -14,6 +15,19 @@ export default function Page() {
   const [post,setPost] = useState()
   const navigate = useNavigate();
   const [cookies,setCookie,removeCookie] = useCookies([])
+  const socket = useRef()
+  const [onlineUsers, setOnlineUsers] = useState()
+
+  useEffect(() => {
+    socket.current = io('http://localhost:8800')
+    socket.current.emit('login-user-add', user.user)
+    socket.current.emit('get-users-count')
+    socket.current.on('logged-users',(users)=>{
+      setOnlineUsers(users);
+    })
+  }, [user])
+
+  // console.log("OnlineUsers",onlineUsers);
 
   const verifyUser = async ()=>{
     if(!cookies.jwt){

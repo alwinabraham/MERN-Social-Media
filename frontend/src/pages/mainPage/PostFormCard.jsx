@@ -24,7 +24,6 @@ export default function PostFormCard() {
         formData.append("caption", caption)
         
         const {data} = await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
-        console.log(data);
         dispatch(setCheck({id:data._id}))
       setCaption("")
       setFile("")

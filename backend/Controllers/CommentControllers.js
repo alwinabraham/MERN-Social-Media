@@ -59,3 +59,19 @@ module.exports.getReplyComments = async (req,res)=>{
         res.status(500).send(error)
     }
 }
+
+module.exports.commentCount = async (req,res) => {
+    try {
+        var total = 0
+        const data = await CommentModel.find({postId:req.body.postId})
+        const mainComment = data.length
+        for(let i=0;i<data.length;i++){
+            const reply = await ReplyCommentModel.find({commentId:data[i]._id})
+            total += reply.length
+        }
+        total = total + mainComment
+        res.status(200).json(total)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}

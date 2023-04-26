@@ -29,7 +29,6 @@ export default function Chats() {
 
   useEffect(() => {
     socket.current.on("recieve-message",(data)=>{
-      console.log("data",data);
       setReceiveMessage(data)
     })
   })
@@ -50,8 +49,6 @@ export default function Chats() {
     }
     getChats()
   },[user])
-  
-  console.log("Received",receiveMessage);
 
   return (
     <div className='flex mt-4 max-w-8xl mx-14 gap-6'>

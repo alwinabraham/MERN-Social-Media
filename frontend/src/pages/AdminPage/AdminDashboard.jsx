@@ -1,8 +1,10 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import { countAllPost, countAllUsers, dailyPost, monthlyPost, yearlyPost } from '../../api/AdminRequests'
 import BarChartComponent from '../ChartPage/BarChartComponent'
 import NavChartCard from '../ChartPage/NavChartCard'
 import AdminNav from './AdminNav'
+import DataTableComponent from './DataTableComponent'
+import { io } from 'socket.io-client'
 
 const AdminDashboard = () => {
   const [dailyData,setDailyData] = useState()
@@ -11,6 +13,18 @@ const AdminDashboard = () => {
   const [yearlyData,setYearlyData] = useState()
   const [postCount,setPostCount] = useState()
   const [userCount,setUserCount] = useState()
+  const [onlineUsers,setOnlineUsers] = useState()
+  const socket = useRef()
+
+  useEffect(() => {
+    socket.current = io('http://localhost:8800')
+    socket.current.emit('get-users-count')
+    socket.current.on('users-Count',(count)=>{
+      setOnlineUsers(count);
+    })
+  })
+
+  console.log("OnlineUsers",onlineUsers);
 
   const totalPosts = async () =>{
     const {data} = await countAllPost()
@@ -32,13 +46,11 @@ const AdminDashboard = () => {
   const getYearlyPosts = async () => {
     const {data} = await yearlyPost()
     setYearlyData(data)
-    console.log(data);
   }
 
   const getMonthlyPosts = async () => {
     const {data} = await monthlyPost()
     setMonthlyData(data)
-    console.log(data);
   }
 
   useEffect(() => {
@@ -59,7 +71,7 @@ const AdminDashboard = () => {
             <NavChartCard count={postCount} action={"Posts"}/>
             <NavChartCard count={userCount} action={"Users"} />
             <NavChartCard count={newPostToday} action={"Posted Today"} />
-            <NavChartCard />
+            <NavChartCard count={onlineUsers} action={"Currently Active"} />
           </div>
           <div className='flex justify-between'>
             <div className='flex flex-col'>
@@ -75,6 +87,7 @@ const AdminDashboard = () => {
               {yearlyData && <BarChartComponent data={yearlyData} color={"#ffc658"}/>}
             </div>
           </div>
+          <DataTableComponent />
         </div>
         <div className='w-2/12'></div>
       </div>

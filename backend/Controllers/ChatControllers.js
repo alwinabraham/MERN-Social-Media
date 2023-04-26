@@ -2,16 +2,15 @@ const ChatModel = require('../Models/ChatModel')
 const UserModel = require('../Models/UserModel')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 
-module.exports.createChat = async(req,res)=>{
-    console.log(req.body);
-    const newChat = new ChatModel({
+module.exports.createChat = async (req, res) => {
+    const chatData = {
         members: [req.body.senderId, req.body.receiverId]
-    });
+    };
     try {
-        const result = await newChat.save()
-        res.status(200).json(result)
+        const result = ChatModel.create(chatData);
+        res.status(200).json(result);
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json(error);
     }
 }
 

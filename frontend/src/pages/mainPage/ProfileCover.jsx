@@ -5,6 +5,7 @@ import axios from 'axios'
 import {Link, useNavigate} from "react-router-dom"
 import { useDispatch,useSelector } from 'react-redux'
 import { setCheck } from '../../redux/userData'
+import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
 
 export default function ProfileCover(props) {
     
@@ -50,13 +51,10 @@ export default function ProfileCover(props) {
         senderId:user?.user,
         receiverId:target
       }
-
-      useEffect(() => {
-        const chatSetting = async () =>{
-          const {data} = await axios.post("http://localhost:4000/chat",addChat)
-        }
-        chatSetting()
-      },[chat])
+      const handleChat = async () => {
+        const data = await axios.post("http://localhost:4000/chat",addChat)
+        console.log(data);
+    }
 
       useEffect(() => {
         const checkUser = () =>{
@@ -78,9 +76,7 @@ export default function ProfileCover(props) {
         </div>
         <div className='absolute top-24 left-5'>
             <div className='mb-8'>
-            <Avatar size={'big'} 
-            file={value}
-             /> 
+                <ProfileImageComponent userId={data?._id} size={'w-36'}/>
             </div>
             <div className='font-medium'>
                 {data?.bio}
@@ -113,7 +109,7 @@ export default function ProfileCover(props) {
                 Edit
             </button>
             :            
-            <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full" onClick={()=>setChat(true)}>
+            <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full" onClick={()=>handleChat()}>
                 Chat
             </button>}
 

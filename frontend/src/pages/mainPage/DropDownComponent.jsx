@@ -20,11 +20,10 @@ export default function DropdownComponent({postId,userId}) {
     
     const handleReport = async () =>{
       const {data} = await reportPost({userId:userId,postId:postId,reason:report})
-      console.log(data._id);
     }
+    
     const handleDelete = async () =>{
       const {data} = await deletePost({postId:postId})
-      console.log(data);
     }
 
     const handleEdit = async () =>{

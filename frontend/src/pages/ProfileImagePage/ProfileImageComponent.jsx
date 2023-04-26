@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { getImage } from '../../api/NameRequests';
 
-const ProfileImageComponent = ({userId}) => {
+const ProfileImageComponent = ({userId,size}) => {
 
     const [image,setImage] = useState()
 
@@ -15,7 +15,11 @@ const ProfileImageComponent = ({userId}) => {
     
     return (
         <div className='rounded-md overflow-hidden'>
-            <img className='w-12 rounded-full overflow-hidden' src={image} />
+            {size? 
+                <img className='w-36 rounded-full overflow-hidden' src={image} />
+                :
+                <img className='w-12 rounded-full overflow-hidden' src={image} />
+            }
         </div>  
     )
     }

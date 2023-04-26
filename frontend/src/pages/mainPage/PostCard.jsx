@@ -9,6 +9,8 @@ import { createComment, getComment } from '../../api/CommentRequests'
 import DropDownComponent from './DropDownComponent'
 import ReplyComponent from '../CommentPage/ReplyComponent'
 import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
+import { likePost } from '../../api/PostRequests'
+import CommentCountComponent from './CommentCountComponent'
 
 export default function PostCard(props) {
 
@@ -34,7 +36,6 @@ export default function PostCard(props) {
         postId:comment,
         userId:user.user,
         comment:commentValue,
-        sender:user
     }
     
     useEffect(() => {
@@ -46,34 +47,19 @@ export default function PostCard(props) {
     }, [postIdSetter,checkComment])
 
     const addLike = async()=>{
-        try {            
-            const {data} = await axios.post("http://localhost:4000/like_post",{
-                postData
-            })
-            setData(data)
-        } catch (error) {
-        }
+        const {data} = await likePost(postData)
+        setData(data)
     }
 
     const addComment = async()=>{
-        try {
-            const {data} = await createComment(commentData)
-        }catch(error){}
+        const {data} = await createComment(commentData)
     }
 
     const getComments = async()=>{
-        try{
-            const {data} = await getComment({postId:postIdSetter})
-            setShowComment(data)
-        }catch(error){
-            console.log(error);
-        }
+        const {data} = await getComment({postId:postIdSetter})
+        setShowComment(data)
     }
-    useEffect(() => {
-
-    }, [user])
     
-
   return (
     <>
         {posts.map(obj=>(
@@ -112,7 +98,7 @@ export default function PostCard(props) {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                 </svg>
-                {}
+                <CommentCountComponent postId={obj._doc._id} />
                 </button>
                 <button className='flex gap-2 items-center' onClick={()=>setShare(obj._id)}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
