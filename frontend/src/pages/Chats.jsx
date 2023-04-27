@@ -55,7 +55,7 @@ export default function Chats() {
       <div className='w-2/12'>
         <NavigationCard />
         <h2>Chats</h2>
-          <div className='Chat-list'>
+          <div className='Chat-list h-96 overflow-y-scroll p-4'>
             {chats.map((chat)=>(
               <div onClick={()=>setCurrentChat(chat)}>
                 <Conversation data={chat} currentUserId={user.user}/>

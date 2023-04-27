@@ -4,12 +4,15 @@ import Search from './search/search'
 import NotificationCard from './NotificationPage/NotificationCard'
 import { useSelector } from 'react-redux'
 import { getNotification } from '../api/NotificationRequests'
+import { useDispatch } from 'react-redux'
+import { setNotification } from '../redux/userData'
 
 export default function Notification() {
 
+    const dispatch = useDispatch()
     const {user} = useSelector((state)=>state.user)
     const [notifications,setNotifications] = useState()
-    console.log(notifications);
+
 
     useEffect(() => {
         const getUserData = async()=>{
@@ -22,7 +25,7 @@ export default function Notification() {
         getUserData()
     }, [user])
 
-    console.log(notifications);
+    dispatch(setNotification({notification:undefined}))
 
     return (
         <div className='flex mt-4 max-w-8xl mx-14 gap-6'>

@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   search:null,
   check:null,
+  notification:undefined
 };
 
 export const authSlice = createSlice({
@@ -19,10 +20,13 @@ export const authSlice = createSlice({
     },
     setCheck:(state, action) =>{
       state.check = action.payload.check
+    },
+    setNotification:(state,action) =>{
+      state.notification = action.payload.notification
     }
   },
 });
 
-export const { setLogin,setSearch,setCheck } =
+export const { setLogin,setSearch,setCheck,setNotification } =
   authSlice.actions;
 export default authSlice.reducer;

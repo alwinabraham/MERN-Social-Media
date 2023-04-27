@@ -25,7 +25,7 @@ export default function Page() {
     socket.current.on('logged-users',(users)=>{
       setOnlineUsers(users);
     })
-  }, [user])
+  }, [])
 
   // console.log("OnlineUsers",onlineUsers);
 

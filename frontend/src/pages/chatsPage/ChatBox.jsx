@@ -12,7 +12,8 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
     const [userData, setUserData] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
-
+    const [update,setUpdate] = useState(false)
+ 
     const handleChange = (newMessage)=> {
       setNewMessage(newMessage)
     }
@@ -49,10 +50,10 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
     }, [chat]);
   
   
-    // Always scroll to last Message
-    useEffect(()=> {
-      scroll.current?.scrollIntoView({ behavior: "smooth" });
-    },[messages])
+    // // Always scroll to last Message
+    // useEffect(()=> {
+    //   scroll.current?.scrollIntoView({ behavior: "smooth" });
+    // },[update])
   
   
   
@@ -68,6 +69,7 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
     const receiverId = chat.members.find((id)=>id!==currentUserId);
     // send message to socket server
     setSendMessage({...message, receiverId})
+    setUpdate(!update)
     // send message to database
     try {
       const { data } = await addMessage(message);
@@ -86,8 +88,10 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
     if (receivedMessage !== null && receivedMessage?.chatId === chat?._id) {
       setMessages([...messages, receivedMessage]);
     }
-  
   },[receivedMessage])
+
+  const chatBody = document.querySelector('.chat-body');
+  chatBody.scrollTop = chatBody.scrollHeight;
 
   return (
     <>
