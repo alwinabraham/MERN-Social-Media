@@ -5,6 +5,7 @@ import Card from './Card'
 import Avatar from './Avatar'
 import { useSelector, useDispatch } from 'react-redux'
 import { setCheck } from '../../redux/userData'
+import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
 
 export default function PostFormCard() {
 
@@ -46,12 +47,9 @@ export default function PostFormCard() {
   return (
     <Card>
         <form onSubmit={submit}>
-        <div className='flex'>
-            <div>
-                <Avatar />
-            </div>
-            <div className='flex'>
-                <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14' placeholder={'Whats on your mind'} />
+            <div className='flex justify-between gap-2 items-center'>
+            <ProfileImageComponent userId={user.user} />
+                <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14 border rounded-xl' placeholder={'Whats on your mind'} />
                 <div className='flex items-center'>
                     <input id="fileInput" onChange={fileSelected} type="file" className="hidden" accept="image/*"></input>
                     <label htmlFor="fileInput" className="cursor-pointer">
@@ -62,7 +60,6 @@ export default function PostFormCard() {
                     </label>
                 </div>
             </div>
-        </div>
         <div className='flex gap-3 items-center mt-2'>
             <div>
                 <button className='flex gap-1'>

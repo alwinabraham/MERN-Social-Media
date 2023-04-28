@@ -11,9 +11,12 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@material-tailwind/react": "^1.4.2",
+    "@react-pdf/renderer": "^3.1.9",
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.3.4",
     "firebase": "^9.15.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.28",
     "otp-input-react": "^0.3.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",

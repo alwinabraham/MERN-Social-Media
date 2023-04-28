@@ -1,49 +1,20 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
 
-const DataTableComponent = () => {
+const DataTableComponent = ({data}) => {
     const columns =[
         {
-            name:"Name",
-            selector:row=>row.name
+            name:"Date",
+            selector:row=>row.date
         },
         {
-            name:"Email",
-            selector:row=>row.email
-        },
-        {
-            name:"Age",
-            selector:row=>row.age
+            name:"Posts",
+            selector:row=>row.count
         }
     ];
-    const data = [
-        {
-            id:5,
-            name:"alwin",
-            email:"alwin@123.com",
-            age:12
-        },
-        {
-            id:5,
-            name:"alwin",
-            email:"alwin@123.com",
-            age:12
-        },        {
-            id:5,
-            name:"alwin",
-            email:"alwin@123.com",
-            age:12
-        },        {
-            id:5,
-            name:"alwin",
-            email:"alwin@123.com",
-            age:12
-        },
-
-    ]
 
   return (
-    <div>
+    <div >
         <DataTable columns={columns} data={data}>
         </DataTable>
     </div>

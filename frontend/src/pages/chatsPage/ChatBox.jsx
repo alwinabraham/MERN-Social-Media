@@ -90,8 +90,6 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
     }
   },[receivedMessage])
 
-  const chatBody = document.querySelector('.chat-body');
-  chatBody.scrollTop = chatBody.scrollHeight;
 
   return (
     <>

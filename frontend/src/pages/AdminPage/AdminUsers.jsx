@@ -3,6 +3,7 @@ import { getAllUsers } from '../../api/AdminRequests'
 import AdminBlockList from './AdminBlockList'
 import AdminNav from './AdminNav'
 import { useSelector } from 'react-redux'
+import NavigationAdmin from './NavigationAdmin'
 
 const AdminUsers = () => {
 
@@ -18,12 +19,19 @@ const AdminUsers = () => {
   }, [user])
   
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+  <>
       <AdminNav />
-      <div style={{ marginTop: '5rem', alignSelf: 'center'}}>
-      {value && <AdminBlockList user={value}/>}
+      <div className='flex'>
+        <div className='w-2/12 bg-gray-700'>
+          <NavigationAdmin />
+        </div>
+        <div className='w-8/12 bg-gray-600'>
+          {value && <AdminBlockList user={value}/>}
+        </div>
+        <div className='w-2/12 bg-gray-700'>
+        </div>
       </div>
-    </div>
+  </>
   )
 }
 

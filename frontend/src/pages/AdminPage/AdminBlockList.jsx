@@ -33,10 +33,10 @@ const AdminBlockList = ({user}) => {
     <div className=''>
       {user.map(obj=>(
         <>
-          <div className="p-3 max-w-7xl mt-1 bg-white rounded flex justify-between border">
+          <div className="p-3 mt-1 bg-gray-500 rounded flex justify-between">
             <div className='flex items-center gap-7'>
               <img className="w-20 h-20 mb-3 rounded-full shadow-lg" src={obj.imageName} />
-              <p className='font-bold'><NameComponent userId={obj._id}/></p>
+              <p className='font-bold text-white'><NameComponent userId={obj._id}/></p>
             </div>
                 <div className='flex items-center justify-between w-60'>
                   <div className='flex justify-around'>

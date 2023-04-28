@@ -32,7 +32,7 @@ const AdminBlockedPosts = ({posts}) => {
         <div className=''>
         {posts.map(obj=>(
             <>
-            <div className="p-3 max-w-7xl mt-1 bg-white rounded flex justify-between border">
+            <div className="p-3 mt-1 bg-white rounded flex justify-between border">
                 <div className='flex items-center gap-7'>
                 <img className="h-20 w-36 mb-3 shadow-lg" src={obj.post.imageName} />
                 <p><NameComponent userId={obj._doc.userId}/></p>

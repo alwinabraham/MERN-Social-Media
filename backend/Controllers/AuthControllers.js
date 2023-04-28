@@ -76,40 +76,69 @@ module.exports.otp_login = async(req,res,next)=>{
 
 module.exports.register = async (req,res,next)=>{
     try{
-        const name = req.body.name
-        const email = req.body.email
-        let password = req.body.password
-        const phoneno = req.body.phoneno
-        const file = req.file
-        const imageName = generateFileName()
-        const status = "Block"
-
-        const fileBuffer = await sharp(file.buffer)
-          .resize({ height: 1000, width: 1000, fit: "contain" })
-          .toBuffer()
-      
-        await uploadFile(fileBuffer, imageName, file.mimetype)
-
-        const salt = await bcrypt.genSalt();
-        password = await bcrypt.hash(password,salt)
-        
-        const post = await UserModel.create({
-            name,
-            email,
-            imageName,
-            password,
-            phoneno,
-            status,
-        })
-
-        const token = createToken(post._id);
-
-        res.cookie("jwt",token,{
-            withCredentials:true,
-            httpOnly: false,
-            maxAge:maxAge*1000
-        })
-        res.status(201).json({user:post._id, created:true})
+        if(req.file){
+            const name = req.body.name
+            const email = req.body.email
+            let password = req.body.password
+            const phoneno = req.body.phoneno
+            const file = req.file
+            const imageName = generateFileName()
+            const status = "Block"
+    
+            const fileBuffer = await sharp(file.buffer)
+              .resize({ height: 1000, width: 1000, fit: "contain" })
+              .toBuffer()
+            await uploadFile(fileBuffer, imageName, file.mimetype)
+    
+            const salt = await bcrypt.genSalt();
+            password = await bcrypt.hash(password,salt)
+            
+            const post = await UserModel.create({
+                name,
+                email,
+                imageName,
+                password,
+                phoneno,
+                status,
+            })
+    
+            const token = createToken(post._id);
+    
+            res.cookie("jwt",token,{
+                withCredentials:true,
+                httpOnly: false,
+                maxAge:maxAge*1000
+            })
+            res.status(201).json({user:post._id, created:true})
+        }else{
+            const name = req.body.name
+            const email = req.body.email
+            let password = req.body.password
+            const phoneno = req.body.phoneno
+            const imageName = "2246e2f904bba88662702f39c580183368a4675f233b4280c595b37ec4fedbab"
+            const status = "Block"
+    
+            const salt = await bcrypt.genSalt();
+            password = await bcrypt.hash(password,salt)
+            
+            const post = await UserModel.create({
+                name,
+                email,
+                imageName,
+                password,
+                phoneno,
+                status,
+            })
+    
+            const token = createToken(post._id);
+    
+            res.cookie("jwt",token,{
+                withCredentials:true,
+                httpOnly: false,
+                maxAge:maxAge*1000
+            })
+            res.status(201).json({user:post._id, created:true}) 
+        }
     }catch(err){
         const errors = handleErrors(err)
         res.json({errors,created: false})

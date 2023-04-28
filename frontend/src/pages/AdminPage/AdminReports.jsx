@@ -3,6 +3,7 @@ import { getReportedPosts } from '../../api/AdminRequests'
 import AdminBlockedPosts from './AdminBlockedPosts'
 import AdminNav from './AdminNav'
 import { useSelector } from 'react-redux'
+import NavigationAdmin from './NavigationAdmin'
 
 const AdminReports = () => {
 
@@ -19,12 +20,19 @@ const AdminReports = () => {
   
 
   return (
-    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+    <>
       <AdminNav />
-      <div style={{marginTop: '5rem', alignSelf: 'center'}}>
-        {posts && <AdminBlockedPosts posts={posts}/>}
+      <div className='flex'>
+        <div className='w-2/12 bg-gray-700'>
+          <NavigationAdmin />
+        </div>
+        <div className='w-8/12 bg-gray-600'>
+          {posts && <AdminBlockedPosts posts={posts}/>}
+        </div>
+        <div className='w-2/12 bg-gray-700'>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
