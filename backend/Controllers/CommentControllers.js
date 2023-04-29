@@ -1,10 +1,11 @@
 const CommentModel = require('../Models/CommentModel')
 const NotificationModel = require('../Models/NotificationModel')
+const NotifiCounterModel = require('../Models/NotifiCounterModel')
 const PostModel = require('../Models/PostModel')
 const ReplyCommentModel = require("../Models/ReplyCommentModel")
 
 module.exports.createComment = async (req,res) =>{
-    console.log(req.body);
+    console.log("Comment",req.body);
     try{
         const comment = await CommentModel.create(req.body)
         const post = await PostModel.findById(req.body.postId)
@@ -13,11 +14,18 @@ module.exports.createComment = async (req,res) =>{
         const notification = "Commented"
         post.comments.push(comment._id)
         post.save()
+        
         NotificationModel.create({
             userId,
             senderId,
             notification
           })
+
+          await NotifiCounterModel.updateOne(
+            { userId: senderId }, 
+            { $inc: { counter: 1 }}
+          );
+
         res.status(201).send(comment)
     }catch(error){
         res.status(500).send(error)

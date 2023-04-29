@@ -62,11 +62,10 @@ io.on("connection", (socket) => {
   socket.on("send-notification", (data) => {
     const { receiverId } = data;
     const user = loginUsers.find((user) => user.userId === receiverId);
+    console.log("user",user);
     if (user) {
       console.log("user Found");
       io.emit("notification", data);
-      
     }
-  });
-    
+  }); 
 });

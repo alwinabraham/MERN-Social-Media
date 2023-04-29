@@ -21,6 +21,7 @@ module.exports.sendFriendRequest = async (req,res,next)=>{
     const {targetId, userId} = req.body
     try {
       if(req.body.targetId){
+        let isFriend = {friend:false}
         const user = await UserModel.findById(targetId)
         const senderId = targetId
         const notification = "Started following"
@@ -33,17 +34,16 @@ module.exports.sendFriendRequest = async (req,res,next)=>{
             senderId, //sending to user
             notification
           })
-
           await NotifiCounterModel.updateOne(
             { userId: targetId }, 
             { $inc: { counter: 1 }}
           );
-
-        }else{
-          user.followers.pull(userId)
+          isFriend = {friend:true}
+          }else{
+            user.followers.pull(userId)
+          isFriend = {friend:false}
         }
         user.save()
-      
         const target = await UserModel.findById(userId)
         const alreadyReceived = target.following.find((id)=>id == targetId)
         if(!alreadyReceived){
@@ -53,7 +53,7 @@ module.exports.sendFriendRequest = async (req,res,next)=>{
         }
         target.save()
   
-        res.status(201).send({user,target})
+        res.status(201).send({user,target,isFriend})
       }
     } catch (error) {
       res.status(500).send({error})

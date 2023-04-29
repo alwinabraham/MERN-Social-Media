@@ -28,16 +28,20 @@ export default function PostCard(props) {
     const posts = props.post.data
     const [data,setData] = useState()
     const [showModal, setShowModal] = useState(false);
-    const [notifi,setNotifi] = useState()
     const [target,setTarget] = useState()
+    const [postUserId,setPostUserId] = useState()
     const [notifiCount,setNotifiCount] = useState(user.notification)
     
     const socket = useRef()
-    
-    
+
     const sendNotification = {
         receiverId:user.user,
         userId:target
+    }
+
+    const commentNotification = {
+        receiverId:user.user,
+        userId:postUserId
     }
         
     const postData = {
@@ -57,10 +61,9 @@ export default function PostCard(props) {
         try {
             socket.current = io('http://localhost:8800')
             socket.current.on("notification",(data)=>{
-            if(data.userId === user.user){
-                setNotifiCount(notifiCount+1)
-            }
-            setNotifi(data)
+                if(data.userId === user.user){
+                    setNotifiCount(notifiCount+1)
+                }
             })
         } catch (error) {
             console.log(error);         
@@ -84,8 +87,10 @@ export default function PostCard(props) {
     }
 
     const addComment = async()=>{
-        const {data} = await createComment(commentData)
-        console.log("Addcomment",data);
+        console.log(commentData);
+        await createComment(commentData)
+        setCommentValue("")
+        socket.current.emit("send-notification", commentNotification);
     }
 
     const getComments = async()=>{
@@ -144,16 +149,14 @@ export default function PostCard(props) {
                 <div>
                     <Avatar file={obj.imageUrl}/>
                 </div>
-                <form>
                     <div className='flex items-center'>
                         <div className='border grow rounded-full'>
-                            <input className='block border w-full grow p-3 px-4 h-12 overflow-hidden rounded-full' placeholder='leave a comment' onClick={()=>setComment(obj._doc._id)} onChange={(e)=>setCommentValue(e.target.value)} />
+                            <input className='block border w-full grow p-3 px-4 h-12 overflow-hidden rounded-full' value={commentValue} placeholder='leave a comment' onClick={()=>{setComment(obj._doc._id);setPostUserId(obj._doc.userId)}} onChange={(e)=>setCommentValue(e.target.value)} />
                         </div>
                         <div>
-                            <button type='submit' onClick={addComment}>Send</button>
+                            <button onClick={()=>addComment()}>Send</button>
                         </div>
                     </div>
-                </form>
             </div>
             {showModal ? (
                 <>
