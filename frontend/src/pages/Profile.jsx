@@ -8,14 +8,14 @@ import ProfileCover from './mainPage/ProfileCover'
 import Search from './search/search'
 import { useSelector } from 'react-redux'
 
-export default function Page() {
+export default function Page({user}) {
 
   const [id,setId] = useState()
   const [posts,setPosts] = useState()
   const [check,setCheck] = useState()
   const navigate = useNavigate()
   const [cookies,setCookie,removeCookie] = useCookies([])
-  const user = useSelector((state)=>state.user)
+  // const user = useSelector((state)=>state.user)
   console.log(user);
   
   const verifyUser = async ()=>{
@@ -37,25 +37,18 @@ export default function Page() {
   const fetchPosts = async()=>{
       try {
           const {data} =  await axios.post("http://localhost:4000/profile_post",{
-              userId:user?.user
+              userId:user.user
           })
-          if(data.length == 0){
-            setCheck(check+1)
-          }else{
-            setPosts(data)
-          }
+          setPosts(data)
       } catch (error) {
           console.log(error);
       }
   }
+
   useEffect(() => {
     verifyUser()
-  },[user])
-  
-  useEffect(() => {
     fetchPosts()
-  },[check,user])
-
+  },[user])
 
   return (
     <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
@@ -64,8 +57,8 @@ export default function Page() {
       </div>
         <div className='w-10/12'>
           <Search />
-          {id && <ProfileCover data={id} posts={posts} />}
-          {posts && <ProfilePostCard posts={posts} data={id} />}
+          {id && <ProfileCover data={id} post={posts}/>}
+          {posts && <ProfilePostCard post={posts}/>}
         </div>
     </div>
   )

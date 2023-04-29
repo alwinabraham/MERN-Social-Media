@@ -6,10 +6,9 @@ import { useDispatch,useSelector } from 'react-redux'
 import { setCheck } from '../../redux/userData'
 import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
 
-export default function ProfileCover(props) {
+export default function ProfileCover({data,post}) {
     
-    const postNo = props?.posts?.length
-    const data = props.data
+    const postNo = post?.length
     const dispatch = useDispatch()
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate()

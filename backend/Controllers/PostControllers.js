@@ -68,7 +68,6 @@ module.exports.getPosts = async (req,res,next)=>{
 }
 
 module.exports.likePost = async (req,res,next)=>{
-  console.log(req.body);
   try {
         let value = null
         const userId = req.body.userId;

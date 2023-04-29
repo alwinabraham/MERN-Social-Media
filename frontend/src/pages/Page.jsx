@@ -33,9 +33,7 @@ export default function Page() {
   // console.log("OnlineUsers",onlineUsers);
   useEffect(()=>{
     const getNotificationCounter = async () =>{
-      console.log(user.user);
       const {data} = await getNotifiCounter({userId:user.user})
-      console.log(data);
       dispatch(setNotification({notification:data[0].counter}))
     }
     getNotificationCounter()

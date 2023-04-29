@@ -49,8 +49,8 @@ const SearchPage = () => {
         </div>
             <div className='w-10/12'>
             <Search />
-            {SearchUser && <ProfileCover data={SearchUser} posts={posts} />}
-            {posts && <ProfilePostCard data={SearchUser} posts={posts} />}
+            {SearchUser && <ProfileCover data={SearchUser} post={posts} />}
+            {posts && <ProfilePostCard post={posts} />}
             </div>
         </div>
     )

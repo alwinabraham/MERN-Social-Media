@@ -12,6 +12,7 @@ import { likePost } from '../../api/PostRequests'
 import CommentCountComponent from './CommentCountComponent'
 import { io } from 'socket.io-client'
 import { setNotification } from '../../redux/userData'
+import UserDropdownComponent from './UserDropDownComponent '
 
 export default function PostCard(props) {
 
@@ -114,7 +115,11 @@ export default function PostCard(props) {
                         </div>
                     </div>
                     <div>
-                        <DropDownComponent postId={obj._doc._id} userId={user.user}/>
+                        {(obj._doc.userId == user.user) ? 
+                            <UserDropdownComponent postId={obj._doc._id} userId={user.user} />
+                                :
+                            <DropDownComponent postId={obj._doc._id} userId={user.user} />
+                        }
                     </div>
                 </div>
             <div>

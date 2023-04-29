@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {BsFillShieldLockFill, BsTelephoneFill} from "react-icons/bs"
 import OtpInput from "otp-input-react"
@@ -11,7 +11,7 @@ import { Toaster } from 'react-hot-toast'
 import { toast } from 'react-toastify'
 import { signInWithPhoneNumber } from "firebase/auth";
 import axios from "axios"
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLogin } from '../../redux/userData'
 
 export default function OtpLogin() {
@@ -121,6 +121,9 @@ export default function OtpLogin() {
                         <button onClick={onOTPVerify} className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded'>
                             {loading && <CgSpinner size={20} className="mt-1 animate-spin"/>}
                             <span>Verify OTP</span>
+                        </button>
+                        <button onClick={()=>setShowOTP(false)}>
+                            Resend OTP
                         </button>
                     </>:
                     <>
