@@ -9,6 +9,9 @@ const NotificationSchema = new mongoose.Schema({
     },
     senderId:{
         type:String
+    },
+    counter:{
+        type:Number
     }
 },{
     timestamps: true

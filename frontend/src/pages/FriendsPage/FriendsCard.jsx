@@ -1,28 +1,34 @@
-import React,{useState, useEffect} from 'react'
+import React,{ useState, useEffect} from 'react'
 import axios from 'axios'
 import NameComponent from '../mainPage/NameComponent' 
+import { useNavigate } from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux'
+import { sendFriendRequest } from '../../api/FriendsRequests'
+import { setCheck } from '../../redux/userData'
 
 export default function FriendsCard(props) {
 
   const userDetails = props?.users?.data
-  const [addFriend, setAddFriend] = useState()
+  const [friend, setFriend] = useState(undefined)
   const [id,setId] = useState()
-  const [chat,setChat] = useState()
-  const [check,setCheck] = useState()
+  const [chat,setChat] = useState("")
   const [userData,setUserData] = useState()
+  const user = useSelector((state)=>state.user)
+  const dispatch = useDispatch()
   const userValue = userDetails.filter(use => use._id !== id);
+  const navigate = useNavigate()
   
   useEffect(() => {
     verifyUser()
-  },[id])
+  },[user.check])
 
-  const addObject = {
-    targetId:addFriend,
-    userId:id
+  const addFriend = {
+    targetId:friend,
+    userId:user.user
   }
 
   const addChat = {
-    senderId:id,
+    senderId:user.user,
     receiverId:chat
   }
   
@@ -35,22 +41,25 @@ export default function FriendsCard(props) {
         setUserData(data?.user)
   }
 
-  useEffect(() => {
-    const chatSetting = async () =>{
-      const {data} = await axios.post("http://localhost:4000/chat",addChat)
-    }
-    chatSetting()
-  },[chat])
+  // useEffect(() => {
+  //   const chatSetting = async () =>{
+  //     const {data} = await axios.post("http://localhost:4000/chat",addChat)
+  //   }
+  //   chatSetting()
+  // },[chat])
 
   useEffect(() => {
-    const addNewFriend = async()=>{
-        const {data} = await axios.post("http://localhost:4000/send_friendRequest",addObject)
-        setCheck(data?.check)
-        setAddFriend("")
-      }  
-    addNewFriend()
-  }, [addFriend])
+    const addNewFriend = async ()=>{
+        const data = await sendFriendRequest(addFriend)
+        console.log(data);
+        dispatch(setCheck({check:addFriend.targetId}))
+      }
+      setFriend(undefined)
+      addNewFriend()
+  }, [friend])
   
+  console.log(user);
+
   return (
     <>
         {userValue.map(obj=>(
@@ -63,7 +72,7 @@ export default function FriendsCard(props) {
                 <div className='flex items-center justify-between w-60'>
                 <div className='flex justify-around'>
                     <div>
-                      <button onClick={()=>setAddFriend(obj._id)} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <button onClick={()=>setFriend(obj._id)} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 {userData?.following.find((userid)=>{
                                     return userid === obj._id
                                     }) ? "Unfollow":"Follow"}

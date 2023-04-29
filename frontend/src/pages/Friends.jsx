@@ -14,7 +14,6 @@ export default function Friends() {
 
   const navigate = useNavigate();
   const user = useSelector((state)=>state.user)
-  console.log(user);
   const [users, setUsers] = useState()
   const [followingPage,setFollowingPage] = useState(false)
   const [followerPage,setFollowerPage] = useState(false)

@@ -11,12 +11,14 @@ const NameComponent = (props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [name,setName] = useState()
+  const [lastName,setLastName] = useState()
   const user = useSelector((state)=>state.user)
 
   useEffect(() => {
     const getUserName = async ()=>{
       const {data} = await getNameUser(userId)
       setName(data.name)
+      setLastName(data.lastName)
     }
     getUserName() 
   }, [])
@@ -29,7 +31,7 @@ const NameComponent = (props) => {
   
   return (
     <div onClick={handleSearch}>
-      {name}
+      {name} {lastName}
     </div>
   )
 }

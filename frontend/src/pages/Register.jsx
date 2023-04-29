@@ -9,6 +9,7 @@ import { setLogin } from '../redux/userData';
 export default function Register() {
 
     const [name, setName] = useState("")
+    const [lastName,setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [file, setFile] = useState()
     const [password, setPassword] = useState("")
@@ -26,6 +27,7 @@ export default function Register() {
   
         const formData = new FormData();
         formData.append("name", name)
+        formData.append("lastName",lastName)
         formData.append("email", email)
         formData.append("password", password)
         formData.append("phoneno", phoneno)
@@ -37,6 +39,7 @@ export default function Register() {
                 if(data.errors){
                     const {name,email,password,phoneno,image} = data.errors;
                     if(name) generateError(name)
+                    if(lastName) generateError(lastName)
                     else if(email) generateError(email)
                     else if(password) generateError(password)
                     else if(phoneno) generateError(phoneno)
@@ -63,10 +66,16 @@ export default function Register() {
         <hr className='mb-3'></hr>
         <form onSubmit={handleSubmit}>
         <div className='mb-3'>
-            <label htmlFor="name" className='block text-base mb-2'>Name</label>
+            <label htmlFor="name" className='block text-base mb-2'>First Name</label>
             <input type="name" name="name" 
             className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
-            placeholder='Name' value={name} onChange={e => setName(e.target.value)}/>
+            placeholder='First Name' value={name} onChange={e => setName(e.target.value)}/>
+        </div>
+        <div className='mb-3'>
+            <label htmlFor="name" className='block text-base mb-2'>Last Name</label>
+            <input type="name" name="name" 
+            className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
+            placeholder='Last Name' value={lastName} onChange={e => setLastName(e.target.value)}/>
         </div>
         <div className='mb-3'>
             <label htmlFor="email" className='block text-base mb-2'>Email</label>

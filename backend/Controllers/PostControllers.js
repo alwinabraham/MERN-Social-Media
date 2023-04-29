@@ -5,6 +5,7 @@ const sharp = require('sharp')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 const UserModel = require("../Models/UserModel");
 const ReportModel = require("../Models/ReportModel");
+const NotifiCounterModel = require("../Models/NotifiCounterModel");
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
 module.exports.upload_post = async (req,res,next)=>{
@@ -28,6 +29,7 @@ module.exports.upload_post = async (req,res,next)=>{
               imageName,
               content,
               dateAndTime,
+              status
           })
           res.status(201).send(post)
       }else{
@@ -66,6 +68,7 @@ module.exports.getPosts = async (req,res,next)=>{
 }
 
 module.exports.likePost = async (req,res,next)=>{
+  console.log(req.body);
   try {
         let value = null
         const userId = req.body.userId;
@@ -75,18 +78,24 @@ module.exports.likePost = async (req,res,next)=>{
         const likedPost = post.likes.find((id)=>id == req.body.userId)
         if(!likedPost){
           post.likes.push(req.body.userId)
+
           NotificationModel.create({
             userId,
             senderId,
             notification
           })
+
+          await NotifiCounterModel.updateOne(
+            { userId: senderId }, 
+            { $inc: { counter: 1 }}
+          );
+
           value = {value:true}
-        }else{
+          }else{
           post.likes.pull(req.body.userId)
           value = {value:false}
         }
         post.save()
-
         res.status(201).send({likes:post.likes.length,value})
     } catch (error) {
         console.log(error);

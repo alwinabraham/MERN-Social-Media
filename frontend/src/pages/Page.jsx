@@ -6,8 +6,10 @@ import NavigationCard from './mainPage/NavigationCard'
 import PostFormCard from './mainPage/PostFormCard'
 import Search from './search/search'
 import PostCard from './mainPage/PostCard'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import {io} from 'socket.io-client'
+import { setNotification } from '../redux/userData'
+import { getNotifiCounter } from '../api/NotificationRequests'
 
 export default function Page() {
 
@@ -16,6 +18,7 @@ export default function Page() {
   const navigate = useNavigate();
   const [cookies,setCookie,removeCookie] = useCookies([])
   const socket = useRef()
+  const dispatch = useDispatch()
   const [onlineUsers, setOnlineUsers] = useState()
 
   useEffect(() => {
@@ -28,6 +31,15 @@ export default function Page() {
   }, [])
 
   // console.log("OnlineUsers",onlineUsers);
+  useEffect(()=>{
+    const getNotificationCounter = async () =>{
+      console.log(user.user);
+      const {data} = await getNotifiCounter({userId:user.user})
+      console.log(data);
+      dispatch(setNotification({notification:data[0].counter}))
+    }
+    getNotificationCounter()
+  },[])
 
   const verifyUser = async ()=>{
     if(!cookies.jwt){

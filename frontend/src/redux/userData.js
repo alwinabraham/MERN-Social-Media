@@ -5,7 +5,7 @@ const initialState = {
   user: null,
   search:null,
   check:null,
-  notification:undefined
+  notification:0
 };
 
 export const authSlice = createSlice({

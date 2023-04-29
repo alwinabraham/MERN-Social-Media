@@ -3,12 +3,21 @@ const UserModel = require('../Models/UserModel')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 
 module.exports.createChat = async (req, res) => {
+
     const chatData = {
         members: [req.body.senderId, req.body.receiverId]
     };
+    const chat = await ChatModel.findOne({
+        members: {$all: [req.body.senderId, req.body.receiverId]}
+    })
+    console.log(chat);
     try {
-        const result = ChatModel.create(chatData);
-        res.status(200).json(result);
+        if(chat == null){
+            const result = ChatModel.create(chatData);
+            res.status(200).json(result);
+        }else{
+            res.status(200).json(chat);
+        }
     } catch (error) {
         res.status(500).json(error);
     }

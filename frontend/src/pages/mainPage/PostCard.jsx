@@ -15,6 +15,7 @@ import { setNotification } from '../../redux/userData'
 
 export default function PostCard(props) {
 
+    const user = useSelector((state)=>state.user)
     const [post,setPost] = useState()
     const dispatch = useDispatch()
     const [comment,setComment] = useState()
@@ -29,8 +30,7 @@ export default function PostCard(props) {
     const [showModal, setShowModal] = useState(false);
     const [notifi,setNotifi] = useState()
     const [target,setTarget] = useState()
-    const [notifiCount,setNotifiCount] = useState(0)
-    const user = useSelector((state)=>state.user)
+    const [notifiCount,setNotifiCount] = useState(user.notification)
     
     const socket = useRef()
     
@@ -85,6 +85,7 @@ export default function PostCard(props) {
 
     const addComment = async()=>{
         const {data} = await createComment(commentData)
+        console.log("Addcomment",data);
     }
 
     const getComments = async()=>{

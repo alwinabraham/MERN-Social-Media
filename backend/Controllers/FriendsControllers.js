@@ -1,9 +1,11 @@
 const UserModel = require('../Models/UserModel')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
+const NotificationModel = require('../Models/NotificationModel');
+const NotifiCounterModel = require('../Models/NotifiCounterModel');
 
 module.exports.getSuggestions = async (req,res,next)=>{
     try {
-        const user = await UserModel.find({}).sort({ _id: -1 })
+        const user = await UserModel.find({})
           for (let i=0;i<user.length;i++){
             imageUrl = await getObjectSignedUrl(user[i].imageName);
             user[i].imageName = imageUrl
@@ -14,30 +16,47 @@ module.exports.getSuggestions = async (req,res,next)=>{
     }
 }
 
-module.exports.send_friendRequest = async (req,res,next)=>{
+module.exports.sendFriendRequest = async (req,res,next)=>{
+
+    const {targetId, userId} = req.body
     try {
-      const {targetId, userId} = req.body.addObject
-      const user = await UserModel.findById(targetId)
-      const alreadySend = user.followers.find((id)=>id == userId)
-      if(!alreadySend){
-        user.followers.push(userId)
-      }else{
-        user.followers.pull(userId)
-      }
-      user.save()
+      if(req.body.targetId){
+        const user = await UserModel.findById(targetId)
+        const senderId = targetId
+        const notification = "Started following"
+        const alreadySend = user.followers.find((id)=>id == userId)
+        if(!alreadySend){
+          user.followers.push(userId)
 
-      const target = await UserModel.findById(userId)
-      const alreadyReceived = target.following.find((id)=>id == targetId)
-      if(!alreadyReceived){
-        target.following.push(targetId)
-      }else{
-        target.following.pull(targetId)
-      }
-      target.save()
+          NotificationModel.create({
+            userId, //accessing user
+            senderId, //sending to user
+            notification
+          })
 
-      res.status(201).send({user,target})
-    } catch (error) {
+          await NotifiCounterModel.updateOne(
+            { userId: targetId }, 
+            { $inc: { counter: 1 }}
+          );
+
+        }else{
+          user.followers.pull(userId)
+        }
+        user.save()
       
+        const target = await UserModel.findById(userId)
+        const alreadyReceived = target.following.find((id)=>id == targetId)
+        if(!alreadyReceived){
+          target.following.push(targetId)
+        }else{
+          target.following.pull(targetId)
+        }
+        target.save()
+  
+        res.status(201).send({user,target})
+      }
+    } catch (error) {
+      res.status(500).send({error})
     }
 }
 

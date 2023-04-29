@@ -25,7 +25,7 @@ export default function Notification() {
         getUserData()
     }, [user])
 
-    dispatch(setNotification({notification:undefined}))
+    dispatch(setNotification({notification:0}))
 
     return (
         <div className='flex mt-4 max-w-8xl mx-14 gap-6'>

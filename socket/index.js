@@ -62,10 +62,8 @@ io.on("connection", (socket) => {
   socket.on("send-notification", (data) => {
     const { receiverId } = data;
     const user = loginUsers.find((user) => user.userId === receiverId);
-    console.log("Sending from socket to :", receiverId)
-    console.log("Data: ", data)
     if (user) {
-      console.log(user);
+      console.log("user Found");
       io.emit("notification", data);
       
     }

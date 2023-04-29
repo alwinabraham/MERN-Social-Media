@@ -36,13 +36,13 @@ export default function PostFormCard() {
         setFile(file)
     }
 
-    const handleFileSelected = (event) => {
-        const file = event.target.files[0];
-        // Code to display the image, e.g., by setting the src attribute of an image element
-        const imageElement = document.createElement('img');
-        imageElement.src = URL.createObjectURL(file);
-        document.body.appendChild(imageElement);
-      };
+    // const handleFileSelected = (event) => {
+    //     const file = event.target.files[0];
+    //     // Code to display the image, e.g., by setting the src attribute of an image element
+    //     const imageElement = document.createElement('img');
+    //     imageElement.src = URL.createObjectURL(file);
+    //     document.body.appendChild(imageElement);
+    //   };
 
   return (
     <Card>

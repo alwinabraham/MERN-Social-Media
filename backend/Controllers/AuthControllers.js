@@ -1,9 +1,12 @@
 const UserModel = require("../Models/UserModel");
+const dotenv = require("dotenv")
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto')
 const sharp = require('sharp')
 const bcrypt = require('bcrypt')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
+const NotifiCounterModel = require("../Models/NotifiCounterModel");
+const { post } = require("../Routes/AuthRoutes");
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
 const maxAge = 1*24*60*60
@@ -13,6 +16,8 @@ const createToken = (id) =>{
         expiresIn:maxAge
     })
 };
+
+dotenv.config()
 
 const handleErrors = (err) =>{
     let errors = {name:"",email:"",password:"",phoneno:""}; 
@@ -75,15 +80,18 @@ module.exports.otp_login = async(req,res,next)=>{
 }
 
 module.exports.register = async (req,res,next)=>{
+
+    const name = req.body.name
+    const lastName = req.body.lastName
+    const email = req.body.email
+    let password = req.body.password
+    const phoneno = req.body.phoneno
+    const status = "Block"
+    
     try{
         if(req.file){
-            const name = req.body.name
-            const email = req.body.email
-            let password = req.body.password
-            const phoneno = req.body.phoneno
             const file = req.file
             const imageName = generateFileName()
-            const status = "Block"
     
             const fileBuffer = await sharp(file.buffer)
               .resize({ height: 1000, width: 1000, fit: "contain" })
@@ -95,6 +103,7 @@ module.exports.register = async (req,res,next)=>{
             
             const post = await UserModel.create({
                 name,
+                lastName,
                 email,
                 imageName,
                 password,
@@ -103,26 +112,27 @@ module.exports.register = async (req,res,next)=>{
             })
     
             const token = createToken(post._id);
-    
-            res.cookie("jwt",token,{
+
+                await NotifiCounterModel.create({
+                    userId:post._id,
+                    counter:0
+                })
+            
+                res.cookie("jwt",token,{
                 withCredentials:true,
                 httpOnly: false,
                 maxAge:maxAge*1000
             })
             res.status(201).json({user:post._id, created:true})
         }else{
-            const name = req.body.name
-            const email = req.body.email
-            let password = req.body.password
-            const phoneno = req.body.phoneno
-            const imageName = "2246e2f904bba88662702f39c580183368a4675f233b4280c595b37ec4fedbab"
-            const status = "Block"
+            const imageName = process.env.DEFAULT_IMAGE
     
             const salt = await bcrypt.genSalt();
             password = await bcrypt.hash(password,salt)
             
             const post = await UserModel.create({
                 name,
+                lastName,
                 email,
                 imageName,
                 password,
@@ -131,8 +141,13 @@ module.exports.register = async (req,res,next)=>{
             })
     
             const token = createToken(post._id);
-    
-            res.cookie("jwt",token,{
+            
+            await NotifiCounterModel.create({
+                userid:post._id,
+                counter:0
+            })
+            
+                res.cookie("jwt",token,{
                 withCredentials:true,
                 httpOnly: false,
                 maxAge:maxAge*1000
