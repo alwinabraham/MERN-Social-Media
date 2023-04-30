@@ -17,6 +17,7 @@ import AdminLogin from './pages/AdminPage/AdminLogin'
 import AdminDashboard from './pages/AdminPage/AdminDashboard'
 import AdminUsers from './pages/AdminPage/AdminUsers'
 import AdminReports from './pages/AdminPage/AdminReports'
+import Share from './pages/Share'
 
 function App() {
   
@@ -54,7 +55,7 @@ function App() {
         <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
         <Route exact path="/admin/userDetails" element={<AdminUsers />} />
         <Route exact path="/admin/reports" element={<AdminReports />} />
-        <Route exact path="/share" element={<Share />} />
+        <Route exact path="/share/:id" element={<Share />} />
       </Routes>
     </BrowserRouter>
   )

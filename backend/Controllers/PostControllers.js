@@ -67,6 +67,26 @@ module.exports.getPosts = async (req,res,next)=>{
     }
 }
 
+module.exports.sharedPost = async (req,res) => {
+  console.log(req.body);
+  try {
+      const posts = []
+      let post = await PostModel.findById(req.body.id)
+
+      imageUrl = await getObjectSignedUrl(post.imageName);
+      post.imageName = imageUrl
+    
+      userName = await UserModel.findById(post.userId);
+      imageUrl = await getObjectSignedUrl(userName.imageName);
+
+      posts[0] = {...post,name:userName.name,imageUrl:imageUrl}
+        
+      res.send(posts)
+  } catch (error) {
+      console.log(error);
+  }
+}
+
 module.exports.likePost = async (req,res,next)=>{
   try {
         let value = null

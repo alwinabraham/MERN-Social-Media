@@ -59,7 +59,8 @@ export default function Page() {
   }
   
   useEffect(() => {
-    fetchPosts();    
+    fetchPosts();
+
   },[user])
   
   useEffect(() => {

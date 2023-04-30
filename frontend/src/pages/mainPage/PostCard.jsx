@@ -25,6 +25,7 @@ export default function PostCard(props) {
     const [checkComment,setCheckComment] = useState()
     const [showComment,setShowComment] = useState()
     const [share,setShare] = useState()
+    const [shareShowModal,setShareShowModal] = useState(false)
     const [like,setLike] = useState()
     const posts = props.post.data
     const [data,setData] = useState()
@@ -32,9 +33,23 @@ export default function PostCard(props) {
     const [target,setTarget] = useState()
     const [postUserId,setPostUserId] = useState()
     const [notifiCount,setNotifiCount] = useState(user.notification)
-    
     const socket = useRef()
+    const [isCopied,setIsCopied] = useState(false)
 
+    const currentUrl = window.location.href;
+    const [shareUrl, setShareUrl] = useState("");
+
+    const handleCopyClick = () => {
+      const tempInput = document.createElement("input");
+      tempInput.setAttribute("value", shareUrl);
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      setIsCopied(true)
+    };
+    
+    
     const sendNotification = {
         receiverId:user.user,
         userId:target
@@ -143,11 +158,11 @@ export default function PostCard(props) {
                 </svg>
                 <CommentCountComponent postId={obj._doc._id} />
                 </button>
-                <button className='flex gap-2 items-center' onClick={()=>setShare(obj._id)}>
+                <button className='flex gap-2 items-center' onClick={()=>{setShare(obj._doc._id);setShareShowModal(true);setShareUrl(`${currentUrl}share/${obj._doc._id}`);setIsCopied(false)}}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
                 </svg>
-                4
+                Share
                 </button>
             </div>
             <div className='flex mt-2 gap-3'>
@@ -192,6 +207,30 @@ export default function PostCard(props) {
                         {/*footer*/}
                         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                             <button className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)} >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                </>
+            ) : null}
+            
+            {shareShowModal ? (
+                <>
+                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" >
+                    <div className="relative my-6 w-96 mx-auto max-w-3xl">
+                    {/*content*/}
+                    <div className="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*body*/}
+                            <div className="relative p-6 flex-auto">
+                                <input className='p-2 border-gray-500 border mr-2 rounded-full' defaultValue={shareUrl} />
+                                <button onClick={handleCopyClick}>{isCopied?<p className='font-bold text-blue-600'>Copied</p>:<p className='font-bold'>Copy</p>}</button>
+                            </div>
+                        {/*footer*/}
+                        <div className="flex items-center justify-end p-1 border-t border-solid border-slate-200 rounded-b">
+                            <button className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() =>setShareShowModal(false)} >
                                 Close
                             </button>
                         </div>
