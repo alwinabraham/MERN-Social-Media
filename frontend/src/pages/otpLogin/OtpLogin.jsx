@@ -13,6 +13,7 @@ import { signInWithPhoneNumber } from "firebase/auth";
 import axios from "axios"
 import { useDispatch } from 'react-redux';
 import { setLogin } from '../../redux/userData'
+import CounterComponent from './CounterComponent'
 
 export default function OtpLogin() {
    
@@ -122,8 +123,11 @@ export default function OtpLogin() {
                             {loading && <CgSpinner size={20} className="mt-1 animate-spin"/>}
                             <span>Verify OTP</span>
                         </button>
+                        {setTimeout(()=>{
+
+                        },60000)}
                         <button onClick={()=>setShowOTP(false)}>
-                            Resend OTP
+                            <CounterComponent seconds={60} />
                         </button>
                     </>:
                     <>

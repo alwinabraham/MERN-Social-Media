@@ -13,6 +13,7 @@ export default function Register() {
     const [email, setEmail] = useState("")
     const [file, setFile] = useState()
     const [password, setPassword] = useState("")
+    const [repeatPassword,setRepeatPassword] = useState("")
     const [phoneno,setPhoneno] = useState()
     const dispatch = useDispatch();
     
@@ -24,6 +25,36 @@ export default function Register() {
 
     const handleSubmit = async e =>{
         e.preventDefault()
+
+        if(!name || !lastName || !email || !password || !repeatPassword || !phoneno){
+            generateError("Please fill in all fields")
+            return
+        }
+        if(!email.includes('@')){
+            generateError("Please enter a valid email address")
+            return
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            generateError("Please enter a valid email address");
+            return;
+        }
+        if (password !== repeatPassword) {
+            generateError("Passwords do not match")
+            return
+          }
+        // const domain = email.split("@")[1];
+        // if (!["gmail.com", "yahoo.com", "hotmail.com"].includes(domain)) {
+        //     generateError("Please enter an email address from a valid domain");
+        //     return;
+        // }
+        // if(password.length < 8){
+        //     generateError("Password should be at least 8 characters long")
+        //     return
+        // }
+        if (!/^[a-zA-Z]+$/.test(name) || !/^[a-zA-Z]+$/.test(lastName)) {
+            generateError("Name and last name should contain only letters");
+            return;
+        }
   
         const formData = new FormData();
         formData.append("name", name)
@@ -37,9 +68,9 @@ export default function Register() {
             const {data} = await axios.post("http://localhost:4000/register", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             if(data){
                 if(data.errors){
-                    const {name,email,password,phoneno,image} = data.errors;
+                    const {name,lastName,email,password,phoneno,image} = data.errors;
                     if(name) generateError(name)
-                    if(lastName) generateError(lastName)
+                    else if(lastName) generateError(lastName)
                     else if(email) generateError(email)
                     else if(password) generateError(password)
                     else if(phoneno) generateError(phoneno)
@@ -69,25 +100,31 @@ export default function Register() {
             <label htmlFor="name" className='block text-base mb-2'>First Name</label>
             <input type="name" name="name" 
             className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
-            placeholder='First Name' value={name} onChange={e => setName(e.target.value)}/>
+            placeholder='First Name' value={name} onChange={e => setName(e.target.value)} />
         </div>
         <div className='mb-3'>
             <label htmlFor="name" className='block text-base mb-2'>Last Name</label>
             <input type="name" name="name" 
             className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
-            placeholder='Last Name' value={lastName} onChange={e => setLastName(e.target.value)}/>
+            placeholder='Last Name' value={lastName} onChange={e => setLastName(e.target.value)} />
         </div>
         <div className='mb-3'>
             <label htmlFor="email" className='block text-base mb-2'>Email</label>
             <input type="email" name="email" 
             className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
-            placeholder='Email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
+            placeholder='Email' value={email} onChange={(e)=>setEmail(e.target.value)} />
         </div>
         <div className='mb-3'>
             <label htmlFor="password" className='block text-base mb-2'>Password</label>
             <input type="password" name="password" 
             className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
-            placeholder='Password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
+            placeholder='Password' value={password} onChange={(e)=>setPassword(e.target.value)} />
+        </div>
+        <div className='mb-3'>
+            <label htmlFor="repeatPassword" className='block text-base mb-2'>Repeat Password</label>
+            <input type="password" name="repeatPassword" 
+            className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' 
+            placeholder='Repeat Password' value={repeatPassword} onChange={(e)=>setRepeatPassword(e.target.value)} />
         </div>
         <div className='mb-3'>
             <label htmlFor="phoneno" className='block text-base mb-2'>Phone Number</label>

@@ -8,15 +8,14 @@ import ProfileCover from './mainPage/ProfileCover'
 import Search from './search/search'
 import { useSelector } from 'react-redux'
 
-export default function Page({user}) {
+export default function Page({userId}) {
 
   const [id,setId] = useState()
   const [posts,setPosts] = useState()
   const [check,setCheck] = useState()
   const navigate = useNavigate()
   const [cookies,setCookie,removeCookie] = useCookies([])
-  // const user = useSelector((state)=>state.user)
-  console.log(user);
+  const user = useSelector((state)=>state.user)
   
   const verifyUser = async ()=>{
     if(!cookies.jwt){
@@ -37,7 +36,7 @@ export default function Page({user}) {
   const fetchPosts = async()=>{
       try {
           const {data} =  await axios.post("http://localhost:4000/profile_post",{
-              userId:user.user
+              userId:userId.user
           })
           setPosts(data)
       } catch (error) {

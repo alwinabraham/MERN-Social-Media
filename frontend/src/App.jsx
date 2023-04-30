@@ -43,9 +43,9 @@ function App() {
       <Routes>
         <Route exact path="/register" element= {<Register />} />
         <Route exact path="/login" element= {<Login />} />
-        <Route exact path="/" element={check && <Page />} />
+        <Route exact path="/" element={<Page />} />
         <Route exact path="/otp_login" element={check && <OtpLogin />} />
-        <Route exact path="/profile" element={check && <Profile user={user} />} />
+        <Route exact path="/profile" element={check && <Profile userId={user} />} />
         <Route exact path="/friends" element={check && <Friends />} />
         <Route exact path="/chats" element={check && <Chats />} />
         <Route exact path="/notification" element={check && <Notification />} />
@@ -54,6 +54,7 @@ function App() {
         <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
         <Route exact path="/admin/userDetails" element={<AdminUsers />} />
         <Route exact path="/admin/reports" element={<AdminReports />} />
+        <Route exact path="/share" element={<Share />} />
       </Routes>
     </BrowserRouter>
   )
