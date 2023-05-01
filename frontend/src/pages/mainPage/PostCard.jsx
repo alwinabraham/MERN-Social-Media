@@ -124,8 +124,8 @@ export default function PostCard(props) {
                         <Avatar file={obj.imageUrl} />
                         <div>
                             <div className='flex items-center gap-1'>
-                                <span className='flex font-semibold'><NameComponent userId={obj._doc.userId}/></span>
-                                <p> shared a post</p>
+                                <p className='flex font-semibold text-xs sm:text-sm md:text-base xl:text-xl '><NameComponent userId={obj._doc.userId}/></p>
+                                <p className='flex text-xs sm:text-sm md:text-base xl:text-xl'> shared a post</p>
                             </div>
                             <p className='text-gray-500 text-sm'><Timeago date={obj._doc.dateAndTime} /></p>
                         </div>
@@ -139,11 +139,11 @@ export default function PostCard(props) {
                     </div>
                 </div>
             <div>
-                <p className='my-3 text-sm'>
+                <p className='my-3 text-sm sm:text-sm md:text-base xl:text-xl'>
                 {obj._doc.content}
                 </p>
                 <div className='rounded-md overflow-hidden'>
-                <img src={obj._doc.imageName} />
+                    <img src={obj._doc.imageName} />
                 </div>
             </div>
             <div className='mt-3 flex gap-8'>

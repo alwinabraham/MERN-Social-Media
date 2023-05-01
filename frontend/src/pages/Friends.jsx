@@ -52,16 +52,16 @@ export default function Friends() {
   
 
   return (
-    <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+    <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
       <div className='w-2/12'>
         <NavigationCard />
       </div>
         <div className='w-10/12'>
           <Search />
            <div className='flex'>
-            <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(true);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Suggestions</button>
-            <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(false);setFollowerPage(true)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Followers</button>
-            <button onClick={()=>{setFollowingPage(true);setSuggestionsPage(false);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full">Following</button>
+            <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(true);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full text-xs sm:text-sm md:text-md lg:text-lg">Suggestions</button>
+            <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(false);setFollowerPage(true)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full text-xs sm:text-sm md:text-md lg:text-lg">Followers</button>
+            <button onClick={()=>{setFollowingPage(true);setSuggestionsPage(false);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full text-xs sm:text-sm md:text-md lg:text-lg">Following</button>
            </div>
           <div>
           {suggestionsPage && users && <FriendsCard users={users}/>}

@@ -14,7 +14,6 @@ import { getPosts } from '../api/PostRequests'
 
 export default function Page({user}) {
 
-  console.log(user);
   // const user = useSelector((state)=>state.user)
   const [post,setPost] = useState()
   const navigate = useNavigate();
@@ -74,7 +73,7 @@ export default function Page({user}) {
   
 
   return (
-    <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+    <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
       <div className='w-2/12'>
         <NavigationCard />
       </div>

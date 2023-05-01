@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch,useSelector } from 'react-redux'
 import { setCheck } from '../../redux/userData'
 import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
+import ProfileAvatar from './ProfileAvatar'
 
 export default function ProfileCover({data,post}) {
     
@@ -67,41 +68,41 @@ export default function ProfileCover({data,post}) {
     return (
         <Card noPadding={true}>
             <div className='relative overflow-hidden rounded-md'>
-                <div className='h-40 overflow-hidden flex justify-center items-center'>
+                <div className='h-20 sm:h-24 md:h-28 lg:h-36 xl:h-40 overflow-hidden flex justify-center items-center'>
                     <img src='https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80' />
                 </div>
-                <div className='absolute top-24 left-5'>
+                <div className='absolute top-12 left-5 md:top-20'>
                     <div className='mb-8'>
-                        <ProfileImageComponent userId={data?._id} size={'w-36'}/>
+                        <ProfileAvatar userId={data?._id}/>
                     </div>
                     <div className='font-medium'>
                         {data?.bio}
                     </div>
                 </div>
-                <div className='p-4 pb-20'>
-                <div className='flex justify-between text-center'>
-                    <div className='ml-40'>
-                        <h1 className='text-3xl font-bold'>
-                            {data?.name}
+                <div className='p-2 sm:pb-20'>
+                <div className='block sm:flex justify-center ml-  text-center md:flex lg:flex'>
+                    <div className='ml-20 lg:ml-36 md:ml-32 sm:ml-24'>
+                        <h1 className='text-sm font-bold sm:text-xl'>
+                            {data?.name} {data?.lastName}
                         </h1>
                     </div>
-                    <div className='flex gap-4'>
+                    <div className='ml-28 mt-1 flex sm:flex gap-2'>
                         <div>
-                            <p className="text-gray-900 dark:text-white text-lg">Posts</p>
-                            <p>{postNo}</p>
+                            <p className="text-gray-900 dark:text-white text-xs">Posts</p>
+                            <p className='text-xs'>{postNo}</p>
                         </div>
                         <div>
-                            <p className="text-gray-900 dark:text-white text-lg">Followers</p>
-                            <p>{data?.followers.length}</p>
+                            <p className="text-gray-900 dark:text-white text-xs">Followers</p>
+                            <p className='text-xs'>{data?.followers.length}</p>
                         </div>
                         <div>
-                            <p className="text-gray-900 dark:text-white text-lg">Following</p>
-                            <p>{data?.following.length}</p>
+                            <p className="text-gray-900 dark:text-white text-xs">Following</p>
+                            <p className='text-xs'>{data?.following.length}</p>
                         </div>
                     </div>
                     <div>
                     {owner?            
-                    <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full" onClick={() => setShowModal(true)}>
+                    <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold    px-16 ml-16 mt-1 sm:py-2 sm:px-4 rounded-full" onClick={() => setShowModal(true)}>
                         Edit
                     </button>
                     :            

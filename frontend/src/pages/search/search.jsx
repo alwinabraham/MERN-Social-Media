@@ -47,7 +47,7 @@ export default function Search() {
           {results.map((member) => (
             <>
             <div className="flex items-center">
-                <img className="w-16 h-16 mb-3 rounded-full shadow-lg" src={member.imageName} />
+                <img className="w-8 h-8 sm:w-10 sm:h-10 md:h-12 md:w-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 rounded-full m-2 shadow-lg" src={member.imageName} />
                 <div className="w-full p-3 bg-white rounded flex" key={member._id}>
                     <NameComponent userId={member._id}/>
                 </div>

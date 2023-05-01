@@ -51,7 +51,7 @@ export default function Chats() {
   },[user])
 
   return (
-    <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+    <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
       <div className='w-2/12'>
         <NavigationCard />
         <h2>Chats</h2>

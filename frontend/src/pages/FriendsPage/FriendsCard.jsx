@@ -93,29 +93,24 @@ export default function FriendsCard(props) {
 
   return (
     <>
-        {userValue.map(obj=>(
-          <>
-            <div className="p-3 max-w-7xl mt-1 bg-white rounded flex justify-between border">
-            <div className='flex items-center gap-7'>
-              <img className="w-20 h-20 mb-3 rounded-full shadow-lg" src={obj.imageName} />
-              <p className='font-bold'><NameComponent userId={obj._id}/></p>
+      {userValue.map(obj=>(
+        <>
+          <div className="flex justify-between p-3 mt-1 bg-white rounded border">
+            <div className='flex items-center gap-1'>
+              <img className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 mb-3 rounded-full shadow-lg" src={obj.imageName} />
+              <p className='flex font-semibold text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl'><NameComponent userId={obj._id}/></p>
             </div>
-                <div className='flex items-center justify-between w-60'>
-                <div className='flex justify-around'>
-                    <div>
-                      <button onClick={()=>{setFriend(obj._id);setFollow(!follow)}} className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                {userData?.following.find((userid)=>{
-                                    return userid === obj._id
-                                    }) ? "Unfollow":"Follow"}
-                      </button>
-                      {/* <button onClick={()=>setChat(obj._id)} className="items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">
-                        Message
-                      </button> */}
-                    </div>
-                </div>
-                </div>
+            <div className='flex items-center'>
+              <div>
+                <button onClick={()=>{setFriend(obj._id);setFollow(!follow)}} className="inline-flex items-center px-4 py-2 text-center text-white bg-emerald-700 rounded-lg hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 font-semibold text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl">
+                  {userData?.following.find((userid)=>{
+                      return userid === obj._id
+                      }) ? "Unfollow":"Follow"}
+                </button>
+              </div>
             </div>
-          </>
+          </div>
+        </>
         ))}
     </>
   )
