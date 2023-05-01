@@ -44,7 +44,7 @@ function App() {
       <Routes>
         <Route exact path="/register" element= {<Register />} />
         <Route exact path="/login" element= {<Login />} />
-        <Route exact path="/" element={<Page />} />
+        <Route exact path="/" element={<Page user={user} />} />
         <Route exact path="/otp_login" element={check && <OtpLogin />} />
         <Route exact path="/profile" element={check && <Profile userId={user} />} />
         <Route exact path="/friends" element={check && <Friends />} />

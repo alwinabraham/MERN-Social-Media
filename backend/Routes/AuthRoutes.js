@@ -12,7 +12,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage });
 
 router.post("/",checkUser)
-router.get("/:user",getPosts)
+router.post("/getPosts",getPosts)
 router.post("/register",upload.single('image'),register)
 router.post("/login",login)
 router.post("/otp_login",otp_login)

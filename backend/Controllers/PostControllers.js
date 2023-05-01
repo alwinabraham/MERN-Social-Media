@@ -46,7 +46,8 @@ module.exports.upload_post = async (req,res,next)=>{
 }
 
 module.exports.getPosts = async (req,res,next)=>{
-    const user = req.params.user
+
+    const user = req.body.id
     try {
         const post = await PostModel.find({ status: { $ne: 'Unblock' } }).sort({ _id: -1 })
 
@@ -68,7 +69,7 @@ module.exports.getPosts = async (req,res,next)=>{
 }
 
 module.exports.sharedPost = async (req,res) => {
-  console.log(req.body);
+  
   try {
       const posts = []
       let post = await PostModel.findById(req.body.id)
@@ -141,13 +142,11 @@ module.exports.updatePost = async (req,res,next) =>{
 }
 
 module.exports.reportPost = async (req,res,next) => {
-  const {userId,postId,reason} = req.body
+  console.log(req.body);
   try {
-    const report = await ReportModel.create({
-      userId,
-      postId,
-      reason
-    })
+    const report = await ReportModel.create(
+      req.body
+    )
     res.status(200).send(report)
   } catch (error) {
     res.status(500).send(error)

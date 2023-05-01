@@ -1,6 +1,7 @@
 const MessageModel = require('../Models/MessageModel')
 
 module.exports.addMessage = async (req,res) =>{
+    console.log(req.body);
     const {chatId, senderId, text} = req.body
     const message = new MessageModel({
         chatId,

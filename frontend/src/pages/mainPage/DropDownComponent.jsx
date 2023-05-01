@@ -8,15 +8,25 @@ function classNames(...classes) {
 
 export default function DropdownComponent({postId,userId}) {
   
-    const [reportModal,setReportModal] = useState()
-    const [report,setReport] = useState()
+    const [reportModal,setReportModal] = useState("")
+    const [report,setReport] = useState(null)
+
+    const reportObj = {
+      userId:userId,
+      postId:postId,
+      reason:report
+    }
     
     const handleReport = async () =>{
-      const {data} = await reportPost({userId:userId,postId:postId,reason:report})
+      if(reportObj.reason){
+        console.log("report",reportObj);
+        const {data} = await reportPost(reportObj)
+      }
     }
 
     useEffect(() => {
       handleReport()
+      setReport(null)
     }, [report])
     
     return (

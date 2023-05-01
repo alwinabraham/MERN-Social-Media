@@ -10,10 +10,12 @@ import { useSelector,useDispatch } from 'react-redux';
 import {io} from 'socket.io-client'
 import { setNotification } from '../redux/userData'
 import { getNotifiCounter } from '../api/NotificationRequests'
+import { getPosts } from '../api/PostRequests'
 
-export default function Page() {
+export default function Page({user}) {
 
-  const user = useSelector((state)=>state.user)
+  console.log(user);
+  // const user = useSelector((state)=>state.user)
   const [post,setPost] = useState()
   const navigate = useNavigate();
   const [cookies,setCookie,removeCookie] = useCookies([])
@@ -59,23 +61,17 @@ export default function Page() {
   }
   
   useEffect(() => {
+    const fetchPosts = async () =>{
+      const data = await getPosts({id:user.user})
+        setPost(data)
+    }
     fetchPosts();
-
   },[user])
   
   useEffect(() => {
     verifyUser();
   }, [cookies,navigate,removeCookie])
   
-  const fetchPosts = () =>{
-    axios.get(`http://localhost:4000/${user}`)
-        .then((response)=>{
-          setPost(response)
-        })
-        .catch((error)=>{
-            console.log(error);
-        });
-  }
 
   return (
     <div className='flex mt-4 max-w-8xl mx-14 gap-6'>

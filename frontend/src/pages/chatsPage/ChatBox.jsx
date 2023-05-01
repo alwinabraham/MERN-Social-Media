@@ -6,6 +6,11 @@ import InputEmoji from "react-input-emoji"
 import { addMessage } from '../../api/MessageRequests'
 import '../Chats'
 
+function isUrl(str) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return urlRegex.test(str);
+}
+
 const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
 
     console.log("chatbox", receivedMessage);
@@ -106,18 +111,37 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
             }}>
         {chat ? (
             <>
-            <div className='chat-body' style={{display: "flex",flexDirection: "column",gap: "1rem",padding: "1rem",overflowY: "scroll",maxHeight: "calc(80vh - 150px)",}}>
-                {messages?.map((message) => (
-                <div className={message?.senderId === currentUserId ? "message own" : "message"} style={{
+            <div className="chat-body" style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              padding: "1rem",
+              overflowY: "scroll",
+              maxHeight: "calc(80vh - 150px)",
+            }}>
+              {messages?.map((message) => {
+                const isLink = isUrl(message.text);
+                const messageClass = message.senderId === currentUserId ? "message own" : "message";
+                const align = message.senderId === currentUserId ? "flex-end" : "flex-start";
+
+                return (
+                  <div key={message.id} className={messageClass} style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "0.5rem",
-                    alignItems: message?.senderId === currentUserId ? "flex-end" : "flex-start",
-                }}>
-                    <span>{message?.text}</span>
-                    <span style={{ fontSize: "0.7rem", color: "#555" }}><Timeago date={message?.createdAt} /></span>
-                </div>
-                ))}
+                    alignItems: align,
+                  }}>
+                    {isLink ? (
+                      <a className='text-blue-500 underline hover:text-blue-700' href={message.text} target="_blank" rel="noopener noreferrer">{message.text}</a>
+                    ) : (
+                      <span>{message.text}</span>
+                    )}
+                    <span style={{ fontSize: "0.7rem", color: "#555" }}>
+                      <Timeago date={message.createdAt} />
+                    </span>
+                  </div>
+                );
+              })}
             </div>
             <div className='flex'>
                 <div style={{ fontSize: "1.5rem" }}>+</div>

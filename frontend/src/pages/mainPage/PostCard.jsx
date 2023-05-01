@@ -13,6 +13,7 @@ import CommentCountComponent from './CommentCountComponent'
 import { io } from 'socket.io-client'
 import { setNotification } from '../../redux/userData'
 import UserDropdownComponent from './UserDropDownComponent '
+import ShareComponent from '../SharePage/ShareComponent'
 
 export default function PostCard(props) {
 
@@ -178,6 +179,7 @@ export default function PostCard(props) {
                         </div>
                     </div>
             </div>
+            
             {showModal ? (
                 <>
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" >
@@ -225,6 +227,7 @@ export default function PostCard(props) {
                     <div className="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         {/*body*/}
                             <div className="relative p-6 flex-auto">
+                                <ShareComponent urlMessage={shareUrl} />
                                 <input className='p-2 border-gray-500 border mr-2 rounded-full' defaultValue={shareUrl} />
                                 <button onClick={handleCopyClick}>{isCopied?<p className='font-bold text-blue-600'>Copied</p>:<p className='font-bold'>Copy</p>}</button>
                             </div>

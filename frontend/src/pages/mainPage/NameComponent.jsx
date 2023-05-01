@@ -10,10 +10,10 @@ const NameComponent = (props) => {
   const reUserId = userId?.userId
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const user = useSelector((state)=>state.user)
   const [name,setName] = useState()
   const [lastName,setLastName] = useState()
-  const user = useSelector((state)=>state.user)
-
+  
   useEffect(() => {
     const getUserName = async ()=>{
       const {data} = await getNameUser(userId)

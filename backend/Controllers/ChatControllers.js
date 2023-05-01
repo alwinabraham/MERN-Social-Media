@@ -53,6 +53,16 @@ module.exports.getUser = async (req,res)=>{
         res.status(200).json(userData)
     } catch (error) {
         res.status(500).json(error)
+    }
+}
 
+module.exports.getChatId = async (req,res) => {
+    try {
+        const chat = await ChatModel.findOne({
+            members: {$all: [req.body.senderId, req.body.receiverId]}
+        })
+        res.status(200).json(chat)
+    } catch (error) {
+        res.status(500).json(error)
     }
 }
