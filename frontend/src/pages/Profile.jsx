@@ -54,7 +54,7 @@ export default function Page({userId}) {
       <div className='w-2/12'>
         <NavigationCard />
       </div>
-        <div className='w-10/12'>
+      <div className='xl:w-8/12 md:w-10/12 w-10/12'>
           <Search />
           {id && <ProfileCover data={id} post={posts}/>}
           {posts && <ProfilePostCard post={posts}/>}

@@ -50,7 +50,10 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
           console.log(error);
         }
       };
-  
+
+    // const element = document.getElementById('myElement');
+    // element.scrollTop = element.scrollHeight;
+
       if (chat !== null) fetchMessages();
     }, [chat]);
   
@@ -95,7 +98,6 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
     }
   },[receivedMessage])
 
-
   return (
     <>
         <div className='flex items-center'>
@@ -104,12 +106,13 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
             <span className='font-bold text-xl'>{userData?.name}</span>
             </div>
         </div>
-        <div className='ChatBox-container' style={{
+        <div  className='ChatBox-container' style={{
             position: "relative",
             display: "grid",
             gap: "1rem",
             }}>
         {chat ? (
+          <div id="myElement">
             <>
             <div className="chat-body" style={{
               display: "flex",
@@ -156,6 +159,7 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
                 }} onClick={handleSend}>Send</button>
             </div>
             </>
+          </div>
         ) : (
             <span className='chatbox-empty-message' style={{
             display: "flex",

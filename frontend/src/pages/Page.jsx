@@ -77,9 +77,9 @@ export default function Page({user}) {
       <div className='w-2/12'>
         <NavigationCard />
       </div>
-        <div className='w-10/12'>
+        <div className='xl:w-8/12 md:w-10/12 w-10/12'>
           <Search/>
-          <PostFormCard />
+          {user && <PostFormCard />}
           {post && <PostCard post={post} />}
         </div>
     </div>

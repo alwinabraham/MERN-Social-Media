@@ -56,7 +56,7 @@ export default function Friends() {
       <div className='w-2/12'>
         <NavigationCard />
       </div>
-        <div className='w-10/12'>
+      <div className='xl:w-8/12 md:w-10/12 w-10/12'>
           <Search />
            <div className='flex'>
             <button onClick={()=>{setFollowingPage(false);setSuggestionsPage(true);setFollowerPage(false)}} className="m-1 bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full text-xs sm:text-sm md:text-md lg:text-lg">Suggestions</button>

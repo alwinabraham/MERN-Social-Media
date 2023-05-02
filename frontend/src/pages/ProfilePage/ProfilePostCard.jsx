@@ -17,7 +17,6 @@ import ShareComponent from '../SharePage/ShareComponent'
 
 export default function PostCard(props) {
 
-    //heyyyyyyyyyyyyyyyyyyy
     const user = useSelector((state)=>state.user)
     const [post,setPost] = useState()
     const dispatch = useDispatch()

@@ -43,11 +43,11 @@ const SearchPage = () => {
       },[])
     
     return (
-        <div className='flex mt-4 max-w-8xl mx-14 gap-6'>
+        <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
         <div className='w-2/12'>
             <NavigationCard />
         </div>
-            <div className='w-10/12'>
+        <div className='xl:w-8/12 md:w-10/12 w-10/12'>
             <Search />
             {SearchUser && <ProfileCover data={SearchUser} post={posts} />}
             {posts && <ProfilePostCard post={posts} />}

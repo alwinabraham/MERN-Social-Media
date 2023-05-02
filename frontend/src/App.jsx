@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css"
 import Friends from './pages/Friends'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
-import { setLogin,setSearch } from './redux/userData'
+import { setLogin,setSearch,setNotification } from './redux/userData'
 import AdminLogin from './pages/AdminPage/AdminLogin'
 import AdminDashboard from './pages/AdminPage/AdminDashboard'
 import AdminUsers from './pages/AdminPage/AdminUsers'
@@ -23,22 +23,25 @@ function App() {
   
   let check = false;
   const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
-  console.log(user);  
+
   const verifyUser = async ()=>{
-      const {data} = await axios.post(
+    const {data} = await axios.post(
         "http://localhost:4000",{},
         {withCredentials: true}
         );
+
         dispatch(setLogin({user:data?.user?._id}))
       }
       
       useEffect(() => {
         verifyUser()
       }, [])
-    
+      
       check = user.user == null ? false : true    
-    
+      
+      console.log(user);  
   return (
     <BrowserRouter>
       <Routes>

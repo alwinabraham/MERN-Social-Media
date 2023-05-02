@@ -48,7 +48,7 @@ export default function PostFormCard() {
     <Card>
         <form onSubmit={submit}>
             <div className='flex justify-between gap-2 items-center'>
-            <ProfileImageComponent userId={user.user} />
+            <ProfileImageComponent userId={user?.user} />
                 <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14 border rounded-xl' placeholder={'Whats on your mind'} />
                 <div className='flex items-center'>
                     <input id="fileInput" onChange={fileSelected} type="file" className="hidden" accept="image/*"></input>
@@ -89,7 +89,7 @@ export default function PostFormCard() {
                 </button>
             </div>
             <div className='grow text-right'>
-                <button type='submit' className='text-white bg-blue-400 px-6 py-1 rounded-md'>Share</button>
+                <button type='submit' className='text-white bg-blue-400 px-1 text-xs xl:px-6 py-1 xl:text-md rounded-md'>Share</button>
             </div>
         </div>
         </form>

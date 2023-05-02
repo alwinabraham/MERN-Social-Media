@@ -63,7 +63,7 @@ export default function Chats() {
             ))}
           </div>
       </div>
-        <div className='w-10/12'>
+      <div className='xl:w-8/12 md:w-10/12 w-10/12'>
           <Search />
           <div className='Right-side-chat'>
           <ChatBox chat={currentChat} currentUserId = {user.user} setSendMessage={setSendMessage} receivedMessage={receiveMessage} />

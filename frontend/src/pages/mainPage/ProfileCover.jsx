@@ -106,7 +106,7 @@ export default function ProfileCover({data,post}) {
                         Edit
                     </button>
                     :            
-                    <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-full" onClick={()=>handleChat()}>
+                    <button class="bg-emerald-700 hover:bg-emerald-900 text-white font-bold    px-16 ml-16 mt-1 sm:py-2 sm:px-4 rounded-full" onClick={()=>handleChat()}>
                         Chat
                     </button>}
 
