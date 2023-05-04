@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { getFriends } from '../api/FriendsRequests'
 import { useSelector } from 'react-redux'
+import DarkMode from './mainPage/DarkMode'
 
 export default function Friends() {
 
@@ -52,9 +53,10 @@ export default function Friends() {
   
 
   return (
-    <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
+    <div className='flex pt-4 max-w-8xl sm:px-5 sm:gap-6 dark:bg-gray-900'>
       <div className='w-2/12'>
         <NavigationCard />
+        <DarkMode />
       </div>
       <div className='xl:w-8/12 md:w-10/12 w-10/12'>
           <Search />

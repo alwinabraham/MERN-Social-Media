@@ -18,6 +18,7 @@ export default function Search() {
   };
 
   return (
+
     <form className="mb-4 w-full" onSubmit={handleSearch}>
       <div className="relative">
         <svg
@@ -37,7 +38,7 @@ export default function Search() {
         <input
           type="text"
           placeholder="Search"
-          className="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-emerald-700"
+          className="w-full py-3 pl-12 pr-4 dark:text-gray-800 border dark:border-gray-800 rounded-md outline-none dark:bg-gray-800 focus:bg-white focus:border-emerald-700"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
         />
@@ -57,5 +58,6 @@ export default function Search() {
         </ul>
       )}
     </form>
+
   );
 }

@@ -5,6 +5,7 @@ export default function Card({children,noPadding}) {
   if(!noPadding){
     classes+= ' p-1 sm:p-2 md:p-3 xl:p-4'
   }
+
   return (
     <div className={classes}>
         {children}

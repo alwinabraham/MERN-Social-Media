@@ -7,6 +7,7 @@ import { userChats } from '../api/ChatRequests'
 import Conversation from './chatsPage/Conversation'
 import ChatBox from './chatsPage/ChatBox'
 import {io} from 'socket.io-client'
+import DarkMode from './mainPage/DarkMode'
 
 export default function Chats() {
 
@@ -51,9 +52,10 @@ export default function Chats() {
   },[user])
 
   return (
-    <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
+    <div className='flex pt-4 max-w-8xl sm:px-5 sm:gap-6 dark:bg-gray-900 h-full'>
       <div className='w-2/12'>
         <NavigationCard />
+        <DarkMode />
         <h2>Chats</h2>
           <div className='Chat-list h-96 overflow-y-scroll p-4'>
             {chats.map((chat)=>(

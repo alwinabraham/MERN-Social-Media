@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { getNotification } from '../api/NotificationRequests'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../redux/userData'
+import DarkMode from './mainPage/DarkMode'
 
 export default function Notification() {
 
@@ -28,9 +29,10 @@ export default function Notification() {
     dispatch(setNotification({notification:0}))
 
     return (
-        <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
+        <div className='flex pt-4 max-w-8xl sm:px-5 sm:gap-6 dark:bg-gray-900'>
         <div className='w-2/12'>
-        <NavigationCard />
+            <NavigationCard />
+            <DarkMode />
         </div>
         <div className='xl:w-8/12 md:w-10/12 w-10/12'>
             <Search/>

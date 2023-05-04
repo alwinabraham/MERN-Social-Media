@@ -6,6 +6,7 @@ import ProfileCover from './mainPage/ProfileCover'
 import ProfilePostCard from './ProfilePage/ProfilePostCard'
 import { useSelector } from 'react-redux'
 import { getSearchUser } from '../api/SearchPageRequests'
+import DarkMode from './mainPage/DarkMode'
 
 const SearchPage = () => {
 
@@ -46,6 +47,7 @@ const SearchPage = () => {
         <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>
         <div className='w-2/12'>
             <NavigationCard />
+            <DarkMode />
         </div>
         <div className='xl:w-8/12 md:w-10/12 w-10/12'>
             <Search />
