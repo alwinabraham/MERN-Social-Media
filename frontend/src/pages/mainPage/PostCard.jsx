@@ -192,7 +192,7 @@ export default function PostCard(props) {
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" >
                     <div className="relative my-6 w-96 mx-auto max-w-3xl">
                     {/*content*/}
-                    <div className="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none dark:border-gray-800 focus:outline-none dark:bg-gray-800">
                         {/*body*/}
                             <div className="relative p-6 flex-auto">
                             {showComment.map((obj)=>(
@@ -200,22 +200,24 @@ export default function PostCard(props) {
                                     <div className='flex justify-between'>
                                         <div className='flex gap-2'>
                                             <ProfileImageComponent userId={obj.userId} />
-                                            <div>
+                                            <div className='dark:text-gray-200'>
                                                 <NameComponent userId={obj.userId} />
-                                                <p className="font-light">
+                                                <p>
                                                     {obj.comment}
                                                 </p>
                                             </div>
                                         </div>
-                                        <Timeago date={obj.createdAt} />
+                                        <div className='dark:text-gray-200'>
+                                            <Timeago date={obj.createdAt} />
+                                        </div>
                                     </div>
                                 <ReplyComponent commentId={obj._id} />
                                 </div>
                                 ))}
                             </div>
                         {/*footer*/}
-                        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                            <button className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)} >
+                        <div className="flex items-center justify-end p-5 border border-solid border-slate-200 rounded dark:bg-gray-800 dark:border-gray-900">
+                            <button className="text-red-500 background-transparent font-bold uppercase px-6 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)} >
                                 Close
                             </button>
                         </div>
@@ -231,16 +233,16 @@ export default function PostCard(props) {
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" >
                     <div className="relative my-6 w-96 mx-auto max-w-3xl">
                     {/*content*/}
-                    <div className="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                    <div className="border-0  rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none dark:bg-gray-800">
                         {/*body*/}
                             <div className="relative p-6 flex-auto">
                                 <ShareComponent urlMessage={shareUrl} />
-                                <input className='p-2 border-gray-500 border mr-2 rounded-full' defaultValue={shareUrl} />
-                                <button onClick={handleCopyClick}>{isCopied?<p className='font-bold text-blue-600'>Copied</p>:<p className='font-bold'>Copy</p>}</button>
+                                <input className='p-2 border-gray-500 border mr-2 rounded-lg dark:bg-gray-700 dark:border-gray-800 dark:text-gray-200' defaultValue={shareUrl} />
+                                <button onClick={handleCopyClick}>{isCopied?<p className='font-bold text-blue-600'>Copied</p>:<p className='font-bold dark:text-gray-200'>Copy</p>}</button>
                             </div>
                         {/*footer*/}
-                        <div className="flex items-center justify-end p-1 border-t border-solid border-slate-200 rounded-b">
-                            <button className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() =>setShareShowModal(false)} >
+                        <div className="flex items-center justify-end p-1 border-t border-solid border-slate-200 rounded-b dark:border-gray-900">
+                            <button className="text-red-500 background-transparent font-bold uppercase px-6 py-1 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() =>setShareShowModal(false)} >
                                 Close
                             </button>
                         </div>

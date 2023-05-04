@@ -103,16 +103,15 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
         <div className='flex items-center'>
             <img className="w-16 rounded-full overflow-hidden" src={userData?.imageName} />
             <div className="name" style={{ fontSize: "0.8rem" }}>
-            <span className='font-bold text-xl'>{userData?.name}</span>
+            <span className='font-bold text-xl dark:text-gray-200 ml-3'>{userData?.name} {userData?.lastName}</span>
             </div>
         </div>
-        <div  className='ChatBox-container' style={{
+        <div  className='ChatBox-container dark:bg-gray-800 ' style={{
             position: "relative",
             display: "grid",
             gap: "1rem",
             }}>
         {chat ? (
-          <div id="myElement">
             <>
             <div className="chat-body" style={{
               display: "flex",
@@ -135,9 +134,9 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
                     alignItems: align,
                   }}>
                     {isLink ? (
-                      <a className='text-blue-500 underline hover:text-blue-700' href={message.text} target="_blank" rel="noopener noreferrer">{message.text}</a>
+                      <a className='text-blue-500 underline hover:text-blue-700 dark:text-blue-500' href={message.text} target="_blank" rel="noopener noreferrer">{message.text}</a>
                     ) : (
-                      <span>{message.text}</span>
+                      <span className='dark:text-gray-300'>{message.text}</span>
                     )}
                     <span style={{ fontSize: "0.7rem", color: "#555" }}>
                       <Timeago date={message.createdAt} />
@@ -159,9 +158,8 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
                 }} onClick={handleSend}>Send</button>
             </div>
             </>
-          </div>
         ) : (
-            <span className='chatbox-empty-message' style={{
+            <span className='chatbox-empty-message dark:text-gray-300' style={{
             display: "flex",
             alignSelf: "center",
             justifyContent: "center",

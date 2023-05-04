@@ -34,7 +34,7 @@ const ReplyComponent = ({commentId}) => {
     return (
         <>
             <div className='flex justify-end' onClick={()=>setShow(!show)}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 dark:stroke-gray-200">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                 </svg>
             </div>
@@ -46,11 +46,13 @@ const ReplyComponent = ({commentId}) => {
                         <div className='flex gap-2'>
                             <ProfileImageComponent userId={obj.userId} />
                             <div>
-                            <NameComponent userId={obj.userId} />
-                            <p className='mb-3 font-light'>{obj.comment}</p>
+                            <div className='dark:text-gray-200'>
+                                <NameComponent userId={obj.userId} />
+                            </div>
+                            <p className='mb-3 font-light dark:text-gray-200'>{obj.comment}</p>
                             </div>
                         </div>
-                        <div className='flex items-center justify-between'>
+                        <div className='flex items-center justify-between dark:text-gray-200'>
                             <Timeago date={obj.createdAt} />
                         </div>
                     </div>
@@ -58,8 +60,8 @@ const ReplyComponent = ({commentId}) => {
                 </div>
                 <form onSubmit={handleReply}>
                     <div className='m-1 ml-6'>
-                        <input className='border rounded-full p-2 mr-1' name="reply" value={reply} onChange={(e)=>setReply(e.target.value)} placeholder='Reply' />
-                        <button type='submit'>Send</button>
+                        <input className='border rounded-full p-2 mr-1 dark:bg-gray-700 dark:border-gray-800' name="reply" value={reply} onChange={(e)=>setReply(e.target.value)} placeholder='Reply' />
+                        <button className='dark:text-gray-200' type='submit'>Send</button>
                     </div>
                 </form>
             </div>:null}

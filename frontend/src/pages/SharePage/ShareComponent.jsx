@@ -66,7 +66,7 @@ export default function ShareComponent({urlMessage}) {
             <input
             type="text"
             placeholder="Search"
-            className="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-emerald-700"
+            className="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-emerald-700 dark:bg-gray-700 dark:border-gray-800"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             />
@@ -75,9 +75,9 @@ export default function ShareComponent({urlMessage}) {
             <ul className="mt-2">
             {results.map((member) => (
                 <>
-                <div className="flex items-center" onClick={()=>{setReceiver(member._id);handleSend()}}>
-                    <img className="w-16 h-16 mb-3 rounded-full shadow-lg" src={member.imageName} />
-                    <div className="w-full p-3 bg-white rounded flex" key={member._id}>
+                <div className="flex items-center p-1 dark:bg-gray" onClick={()=>{setReceiver(member._id);handleSend()}}>
+                    <img className="w-10 h-10 mb-3 rounded-full shadow-lg" src={member.imageName} />
+                    <div className="w-full p-3 bg-white rounded flex dark:bg-gray-800 dark:text-gray-200" key={member._id}>
                         <ShareNameComponent userId={member._id}/>
                     </div>
                 </div>

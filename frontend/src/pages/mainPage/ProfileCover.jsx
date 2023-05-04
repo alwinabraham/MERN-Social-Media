@@ -67,37 +67,37 @@ export default function ProfileCover({data,post}) {
 
     return (
         <Card noPadding={true}>
-            <div className='relative overflow-hidden rounded-md'>
+            <div className='relative overflow-hidden rounded-md dark:bg-gray-700'>
                 <div className='h-20 sm:h-24 md:h-28 lg:h-36 xl:h-40 overflow-hidden flex justify-center items-center'>
                     <img src='https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1031&q=80' />
                 </div>
-                <div className='absolute top-12 left-5 md:top-20'>
+                <div className='absolute top-12 left-5 md:top-20 rounded-full dark:bg-gray-700'>
                     <div className='mb-8'>
                         <ProfileAvatar userId={data?._id}/>
                     </div>
-                    <div className='font-medium'>
+                    <div className='font-medium dark:bg-gray-700'>
                         {data?.bio}
                     </div>
                 </div>
                 <div className='p-2 sm:pb-20'>
-                <div className='block sm:flex justify-center ml-  text-center md:flex lg:flex'>
+                <div className='block sm:flex justify-center text-center md:flex lg:flex'>
                     <div className='ml-20 lg:ml-36 md:ml-32 sm:ml-24'>
-                        <h1 className='text-sm font-bold sm:text-xl'>
+                        <h1 className='text-sm font-bold sm:text-xl dark:text-gray-200'>
                             {data?.name} {data?.lastName}
                         </h1>
                     </div>
                     <div className='ml-28 mt-1 flex sm:flex gap-2'>
                         <div>
-                            <p className="text-gray-900 dark:text-white text-xs">Posts</p>
-                            <p className='text-xs'>{postNo}</p>
+                            <p className="text-gray-900 dark:text-white text-xs sm:text-lg">Posts</p>
+                            <p className='text-xs sm:text-xl dark:text-gray-200'>{postNo}</p>
                         </div>
                         <div>
-                            <p className="text-gray-900 dark:text-white text-xs">Followers</p>
-                            <p className='text-xs'>{data?.followers.length}</p>
+                            <p className="text-gray-900 dark:text-white text-xs sm:text-lg">Followers</p>
+                            <p className='text-xs sm:text-xl dark:text-gray-200'>{data?.followers.length}</p>
                         </div>
                         <div>
-                            <p className="text-gray-900 dark:text-white text-xs">Following</p>
-                            <p className='text-xs'>{data?.following.length}</p>
+                            <p className="text-gray-900 dark:text-white text-xs sm:text-lg">Following</p>
+                            <p className='text-xs sm:text-xl dark:text-gray-200'>{data?.following.length}</p>
                         </div>
                     </div>
                     <div>

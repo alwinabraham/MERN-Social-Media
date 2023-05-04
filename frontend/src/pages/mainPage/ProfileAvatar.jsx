@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { getImage } from '../../api/NameRequests';
 
-const ProfileAvatar = ({userId,size}) => {
+const ProfileAvatar = ({userId}) => {
 
     const [image,setImage] = useState()
 

@@ -43,6 +43,7 @@ function App() {
       
       console.log(user);  
   return (
+    <body>
     <BrowserRouter>
       <Routes>
         <Route exact path="/register" element= {<Register />} />
@@ -61,6 +62,7 @@ function App() {
         <Route exact path="/share/:id" element={<Share />} />
       </Routes>
     </BrowserRouter>
+    </body>
   )
 }
 

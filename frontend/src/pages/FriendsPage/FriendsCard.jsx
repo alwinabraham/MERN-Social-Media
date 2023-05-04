@@ -95,10 +95,10 @@ export default function FriendsCard(props) {
     <>
       {userValue.map(obj=>(
         <>
-          <div className="flex justify-between p-3 mt-1 bg-white rounded border">
-            <div className='flex items-center gap-1'>
+          <div className="flex justify-between p-3 mt-1 bg-white rounded border dark:border-gray-800 dark:bg-gray-800">
+            <div className='flex items-center gap-3'>
               <img className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 mb-3 rounded-full shadow-lg" src={obj.imageName} />
-              <p className='flex font-semibold text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl'><NameComponent userId={obj._id}/></p>
+              <p className='flex font-semibold text-xs sm:text-sm md:text-md lg:text-lg xl:text-xl dark:text-gray-300'><NameComponent userId={obj._id}/></p>
             </div>
             <div className='flex items-center'>
               <div>

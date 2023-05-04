@@ -56,8 +56,8 @@ export default function Chats() {
       <div className='w-2/12'>
         <NavigationCard />
         <DarkMode />
-        <h2>Chats</h2>
-          <div className='Chat-list h-96 overflow-y-scroll p-4'>
+        <h2 className="text-xl dark:text-gray-300 mt-3">Chats</h2>
+          <div className='Chat-list h-96 overflow-y-scroll p-4 dark:bg-gray-800'>
             {chats.map((chat)=>(
               <div onClick={()=>setCurrentChat(chat)}>
                 <Conversation data={chat} currentUserId={user.user}/>
