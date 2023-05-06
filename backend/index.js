@@ -1,6 +1,5 @@
 const express = require("express")
 const cors = require("cors")
-const mongoose = require("mongoose")
 const authRoutes = require("./Routes/AuthRoutes")
 const app = express()
 const cookieParser = require("cookie-parser")
@@ -13,20 +12,14 @@ const FriendsRoutes = require("./Routes/FriendsRoutes")
 const SearchPageRoutes = require("./Routes/SearchPageRoutes")
 const AdminRoutes = require("./Routes/AdminRoutes")
 const PostRoutes = require("./Routes/PostRoutes")
-
+const connectDB = require("./config/connectDB")
 dotenv.config()
+
 app.listen(4000,()=>{
     console.log(`Server started at 4000`);
 })
 
-mongoose.connect("mongodb+srv://alwin:alwin123@cluster0.gor2ao8.mongodb.net/AlwoSocialMedia",{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-}).then(()=>{
-    console.log("DB connection Successful");
-}).catch(err=>{
-    console.log(err.message);
-})
+connectDB()
 
 app.use(
     cors({
