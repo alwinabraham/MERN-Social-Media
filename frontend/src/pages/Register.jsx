@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom"
 import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios';
@@ -55,7 +55,7 @@ export default function Register() {
         formData.append("phoneno", phoneno)
         formData.append("image", file)
         try {
-            const {data} = await axios.post("http://localhost:4000/register", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
+            const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/register`, formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             if(data){
                 if(data.errors){
                     const {name,lastName,email,password,phoneno,image} = data.errors;

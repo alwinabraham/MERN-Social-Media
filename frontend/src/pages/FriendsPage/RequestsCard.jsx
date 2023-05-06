@@ -8,7 +8,7 @@ export default function RequestsCard(props) {
 
   const FollowersList = async()=>{
     try {            
-        const {data} = await axios.post("http://localhost:4000/followers",{
+        const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/followers`,{
             userId:props.id
         },
         {

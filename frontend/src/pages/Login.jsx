@@ -30,7 +30,7 @@ export default function Login() {
 
     const onSubmit = async (values) => {
         try {
-            const { data } = await axios.post("http://localhost:4000/login", {
+            const { data } = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/login`, {
                 ...values
             },
                 {

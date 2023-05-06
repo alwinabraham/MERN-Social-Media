@@ -30,7 +30,7 @@ export default function ProfileCover({data,post}) {
         formData.append("image", file)
 
         try {
-            const {data} = await axios.post("http://localhost:4000/updateProfile", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
+            const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/updateProfile`, formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             navigate("/profile")
             dispatch(setCheck({check:data._id}))
         } catch (error) {
@@ -48,7 +48,7 @@ export default function ProfileCover({data,post}) {
         receiverId:target
       }
       const handleChat = async () => {
-        await axios.post("http://localhost:4000/chat",addChat)
+        await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/chat`,addChat)
         navigate("/chats")
     }
 

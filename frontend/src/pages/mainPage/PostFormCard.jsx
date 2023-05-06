@@ -22,7 +22,7 @@ export default function PostFormCard() {
         formData.append("image", file)
         formData.append("caption", caption)
         
-        const {data} = await axios.post("http://localhost:4000/upload_post", formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/upload_post`, formData, { headers: {'Content-Type': 'multipart/form-data'}})
         dispatch(setCheck({id:data._id}))
       setCaption("")
       setFile("")

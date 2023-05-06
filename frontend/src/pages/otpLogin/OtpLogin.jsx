@@ -42,7 +42,7 @@ export default function OtpLogin() {
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try {
-            const {data} = await axios.post("http://localhost:4000/otp_login",{
+            const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/otp_login`,{
                 ph
             },
             {

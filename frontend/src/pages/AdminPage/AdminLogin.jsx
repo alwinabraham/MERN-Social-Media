@@ -23,7 +23,7 @@ const AdminLogin = () => {
   const handleSubmit = async (e)=>{
       e.preventDefault()
       try {
-          const {data} = await axios.post("http://localhost:4000/admin/login",{
+          const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/admin/login`,{
               ...values
           },
           {

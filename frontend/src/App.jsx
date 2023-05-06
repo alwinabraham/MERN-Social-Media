@@ -23,22 +23,21 @@ function App() {
   
   let check = false;
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user);
 
   const verifyUser = async ()=>{
     const {data} = await axios.post(
-        "http://localhost:4000",{},
+        `${import.meta.env.VITE_AXIOS_KEY}`,{},
         {withCredentials: true}
         );
         dispatch(setLogin({user:data?.user?._id}))
       }
-      
-      useEffect(() => {
-        verifyUser()
-      }, [])
-      
-      check = user.user == null ? false : true    
+
+  useEffect(() => {
+    verifyUser()
+  }, [])
+
+  check = user.user == null ? false : true    
       
   return (
     <body>

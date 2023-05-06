@@ -22,7 +22,7 @@ export default function Page({userId}) {
       navigate("/login")
     }else{
       const {data} = await axios.post(
-        "http://localhost:4000",{},
+        `${import.meta.env.VITE_AXIOS_KEY}`,{},
         {withCredentials: true}
         );
         setId(data?.user) 
@@ -35,7 +35,7 @@ export default function Page({userId}) {
     
   const fetchPosts = async()=>{
       try {
-          const {data} =  await axios.post("http://localhost:4000/profile_post",{
+          const {data} =  await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/profile_post`,{
               userId:userId.user
           })
           setPosts(data)

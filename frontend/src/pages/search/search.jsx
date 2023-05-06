@@ -10,7 +10,7 @@ export default function Search() {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`http://localhost:4000/search`,{value:query});
+      const response = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/search`,{value:query});
       setResults(response.data);
     } catch (error) {
       console.log(error);

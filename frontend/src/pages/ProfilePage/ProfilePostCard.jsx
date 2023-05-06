@@ -1,7 +1,5 @@
 import React,{useState,useEffect,useRef} from 'react'
-import Card from '../mainPage/Card'
 import NameComponent from '../mainPage/NameComponent'
-import Avatar from '../mainPage/Avatar'
 import { useSelector,useDispatch } from 'react-redux'
 import Timeago from 'react-timeago'
 import { createComment, getComment } from '../../api/CommentRequests'
@@ -39,7 +37,6 @@ export default function PostCard(props) {
     
 
     const currentUrl = window.location.href;
-    // const shareUrl = `${currentUrl}share/${share}`
     const [shareUrl, setShareUrl] = useState("");
 
 

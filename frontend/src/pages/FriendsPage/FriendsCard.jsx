@@ -38,7 +38,7 @@ export default function FriendsCard(props) {
   
   const verifyUser = async ()=>{
       const {data} = await axios.post(
-        "http://localhost:4000",{},{
+        `${import.meta.env.VITE_AXIOS_KEY}`,{},{
           withCredentials:true
         });
         setId(data?.user?._id)

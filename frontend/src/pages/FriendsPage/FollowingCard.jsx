@@ -7,7 +7,7 @@ export default function UsersFriendsCard(props) {
 
   const FollowersList = async()=>{
     try {            
-        const {data} = await axios.post("http://localhost:4000/following",{
+        const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/following`,{
             userId:props.id
         })
         setFollowers(data)

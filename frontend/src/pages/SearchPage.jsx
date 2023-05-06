@@ -4,7 +4,6 @@ import NavigationCard from './mainPage/NavigationCard'
 import Search from './search/search'
 import ProfileCover from './mainPage/ProfileCover'
 import ProfilePostCard from './ProfilePage/ProfilePostCard'
-import { useSelector } from 'react-redux'
 import { getSearchUser } from '../api/SearchPageRequests'
 import DarkMode from './mainPage/DarkMode'
 
@@ -21,7 +20,7 @@ const SearchPage = () => {
 
     const fetchPosts = async()=>{
         try {
-            const {data} =  await axios.post("http://localhost:4000/profile_post",{
+            const {data} =  await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/profile_post`,{
                 userId:localStorage.getItem("targetId")
             })
             if(data.length == 0){

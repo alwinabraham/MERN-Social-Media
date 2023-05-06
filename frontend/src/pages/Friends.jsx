@@ -27,7 +27,7 @@ export default function Friends() {
       navigate("/login")
     }else{
       const {data} = await axios.post(
-        "http://localhost:4000",{},
+        `${import.meta.env.VITE_AXIOS_KEY}`,{},
         {withCredentials: true}
         );
         setUserId(data?.user?._id)

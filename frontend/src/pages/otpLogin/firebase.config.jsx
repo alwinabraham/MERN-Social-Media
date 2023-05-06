@@ -8,7 +8,7 @@ import {getMessaging} from "firebase/messaging"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAuFCy2ZcKZsJOe49QNFVNwC7HEC64mTdo",
+  apiKey: import.meta.env.VITE_FIREBASE_API,
   authDomain: "otp-project-c74fb.firebaseapp.com",
   projectId: "otp-project-c74fb",
   storageBucket: "otp-project-c74fb.appspot.com",
