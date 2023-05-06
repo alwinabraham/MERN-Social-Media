@@ -1,6 +1,5 @@
-import React,{useRef,useEffect,useState} from 'react'
+import React from 'react'
 import {Link, useNavigate} from 'react-router-dom'
-import Card from '../mainPage/Card'
 import { useCookies } from 'react-cookie'
 
 export default function NavigationAdmin() {

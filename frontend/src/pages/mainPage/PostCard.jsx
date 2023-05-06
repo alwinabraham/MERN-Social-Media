@@ -1,5 +1,4 @@
 import React,{useState,useEffect,useRef} from 'react'
-import Card from './Card'
 import NameComponent from './NameComponent'
 import Avatar from './Avatar'
 import { useSelector,useDispatch } from 'react-redux'

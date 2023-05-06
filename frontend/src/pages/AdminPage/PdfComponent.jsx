@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 const PdfComponent = ({data,action}) => {
-  console.log(data);
+
   const [people, setPeople] = useState(data);
 
   const exportPDF = () => {

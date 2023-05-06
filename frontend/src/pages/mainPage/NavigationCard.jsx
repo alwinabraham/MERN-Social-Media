@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 export default function NavigationCard() {
 
-    const activeElement = 'flex gap-4 py-3 bg-emerald-700 text-white -mx-10 px-10 rounded-md shadow-md shadow-gray-300'
     const nonActiveElement = 'flex gap-3 py-1 my-2 hover:bg-blue-500 hover:bg-opacity-20 -mx-4 px-4 rounded-md transition-all hover:scale-110'
 
     const navigate = useNavigate();

@@ -13,7 +13,6 @@ const formatTime = (time) => {
 const CounterComponent = ({seconds}) => {
     
     const [countDown,setCountDown] = useState(seconds)
-    const [show,setShow] = useState(false)
     const timerId = useRef()
 
     useEffect(() => {

@@ -50,11 +50,9 @@ module.exports.blockAUser = async (req,res,next)=>{
             const user = await UserModel.findById(req.body.userId)
             if(user.status == "Block"){
                 await UserModel.updateOne({_id:req.body.userId},{$set:{status:"Unblock"}})
-                console.log("Blocked");
                 res.status(200).json({id:req.body.userId})
             }else{
                 await UserModel.updateOne({_id:req.body.userId},{$set:{status:"Block"}})
-                console.log("UnBlocked");
                 res.status(200).json({id:req.body.userId})
             }
         }
@@ -72,7 +70,6 @@ module.exports.getReportedPosts = async(req,res,next)=>{
             post.imageName = imageUrl
             data[i] = ({...data[i],post:post})
         }
-        // console.log(data);
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json(error)   
@@ -80,18 +77,15 @@ module.exports.getReportedPosts = async(req,res,next)=>{
 }
 
 module.exports.blockAPost = async (req,res,next)=>{
-    console.log(req.body.postId);
     try {
         if(req.body.postId){
             const post = await PostModel.findById(req.body.postId)
             console.log(post);
             if(post.status == "Block"){
                 await PostModel.updateOne({_id:req.body.postId},{$set:{status:"Unblock"}})
-                console.log("Blocked");
                 res.status(200).json({id:req.body.postId})
             }else{
                 await PostModel.updateOne({_id:req.body.postId},{$set:{status:"Block"}})
-                console.log("UnBlocked");
                 res.status(200).json({id:req.body.postId})
             }
         }
@@ -104,7 +98,6 @@ module.exports.dailyPost = async(req,res)=>{
     try {
         PostModel.aggregate([
         {
-            // Group by the date portion of the dataAndTime field
             $group: {
             _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
             count: { $sum: 1 },
@@ -127,7 +120,6 @@ module.exports.dailyPost = async(req,res)=>{
             res.status(500).json({ error: 'Failed to get posts count' });
           });
         }catch(error){
-            console.log(error);
             res.status(500).json({ error: 'Failed to get posts count' });
     }
 }
@@ -136,7 +128,6 @@ module.exports.monthlyPost = async(req,res)=>{
     try {
         PostModel.aggregate([
         {
-            // Group by the month and year portion of the createdAt field
             $group: {
                 _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } },
                 count: { $sum: 1 },
@@ -159,7 +150,6 @@ module.exports.monthlyPost = async(req,res)=>{
             res.status(500).json({ error: 'Failed to get posts count' });
         });
     } catch(error){
-        console.log(error);
         res.status(500).json({ error: 'Failed to get posts count' });
     }
 }
@@ -168,7 +158,6 @@ module.exports.yearlyPost = async(req,res)=>{
     try {
         PostModel.aggregate([
         {
-            // Group by the year portion of the dataAndTime field
             $group: {
             _id: { $dateToString: { format: '%Y', date: '$createdAt' } },
             count: { $sum: 1 },
@@ -191,7 +180,6 @@ module.exports.yearlyPost = async(req,res)=>{
             res.status(500).json({ error: 'Failed to get posts count' });
           });
         }catch(error){
-            console.log(error);
             res.status(500).json({ error: 'Failed to get posts count' });
     }
 }

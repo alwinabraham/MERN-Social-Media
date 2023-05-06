@@ -6,13 +6,16 @@ const sharp = require('sharp')
 const bcrypt = require('bcrypt')
 const { uploadFile, deleteFile, getObjectSignedUrl } = require('../Middlewares/s3');
 const NotifiCounterModel = require("../Models/NotifiCounterModel");
-const { post } = require("../Routes/AuthRoutes");
 const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
+
+dotenv.config()
 
 const maxAge = 1*24*60*60
 
+const secretJwt = process.env.SECRET_JWT
+
 const createToken = (id) =>{
-    return jwt.sign({id},"alwin abraham",{
+    return jwt.sign({id}, secretJwt,{
         expiresIn:maxAge
     })
 };
@@ -41,7 +44,7 @@ const handleErrors = (err) =>{
 }
  
 module.exports.login = async (req,res,next)=>{
-    console.log(req.body);
+
     try{
         const {email,password} = req.body;
         const user = await UserModel.login(email, password)
@@ -161,7 +164,7 @@ module.exports.register = async (req,res,next)=>{
 }
 
 module.exports.updateProfile = async (req,res,next)=>{
-    console.log(req.body);
+
     try {
         if(req.file){
             const file = req.file

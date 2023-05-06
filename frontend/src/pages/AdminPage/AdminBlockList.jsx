@@ -16,7 +16,6 @@ const AdminBlockList = ({user}) => {
   const blockUser =async ()=>{
     try {
       const {data} = await blockAUser(blockObj)
-      console.log(data);
       dispatch(setCheck({check:data?.id}))
     } catch (error) {
       console.log(error); 
@@ -27,7 +26,6 @@ const AdminBlockList = ({user}) => {
     blockUser()
   }, [block])
   
-
   return (
     <>
     <div className=''>

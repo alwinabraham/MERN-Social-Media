@@ -4,7 +4,6 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useDispatch,useSelector } from 'react-redux'
 import { setCheck } from '../../redux/userData'
-import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
 import ProfileAvatar from './ProfileAvatar'
 
 export default function ProfileCover({data,post}) {
@@ -49,7 +48,7 @@ export default function ProfileCover({data,post}) {
         receiverId:target
       }
       const handleChat = async () => {
-        const data = await axios.post("http://localhost:4000/chat",addChat)
+        await axios.post("http://localhost:4000/chat",addChat)
         navigate("/chats")
     }
 

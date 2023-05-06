@@ -15,7 +15,6 @@ import DarkMode from './mainPage/DarkMode'
 
 export default function Page({user}) {
 
-  // const user = useSelector((state)=>state.user)
   const [post,setPost] = useState()
   const navigate = useNavigate();
   const [cookies,setCookie,removeCookie] = useCookies([])
@@ -32,7 +31,6 @@ export default function Page({user}) {
     })
   }, [])
 
-  // console.log("OnlineUsers",onlineUsers);
   useEffect(()=>{
     const getNotificationCounter = async () =>{
       const {data} = await getNotifiCounter({userId:user.user})

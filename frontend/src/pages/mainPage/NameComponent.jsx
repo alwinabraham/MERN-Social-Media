@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import { getNameUser } from '../../api/NameRequests'
-import { useDispatch, useSelector } from 'react-redux';
-import { setSearch,setLogin } from '../../redux/userData';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSearch } from '../../redux/userData';
+import { useNavigate } from 'react-router-dom';
 
 const NameComponent = (props) => {
   
@@ -10,7 +10,6 @@ const NameComponent = (props) => {
   const reUserId = userId?.userId
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const user = useSelector((state)=>state.user)
   const [name,setName] = useState()
   const [lastName,setLastName] = useState()
   

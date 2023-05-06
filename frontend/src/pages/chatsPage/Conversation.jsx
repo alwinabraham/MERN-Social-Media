@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import '../chatsPage/Chats.css'
 import { getUser } from '../../api/ChatRequests'
-import ProfileImageComponent from '../ProfileImagePage/ProfileImageComponent'
 
 export default function Conversation({data, currentUserId}) {
 

@@ -13,12 +13,13 @@ const FriendsRoutes = require("./Routes/FriendsRoutes")
 const SearchPageRoutes = require("./Routes/SearchPageRoutes")
 const AdminRoutes = require("./Routes/AdminRoutes")
 const PostRoutes = require("./Routes/PostRoutes")
+
 dotenv.config()
 app.listen(4000,()=>{
     console.log(`Server started at 4000`);
 })
 
-mongoose.connect("mongodb://localhost:27017/jwt",{
+mongoose.connect("mongodb+srv://alwin:alwin123@cluster0.gor2ao8.mongodb.net/AlwoSocialMedia",{
     useNewUrlParser:true,
     useUnifiedTopology:true
 }).then(()=>{

@@ -26,17 +26,12 @@ export default function ShareComponent({urlMessage}) {
     const handleSend = async()=> {
 
         const {data} = await getChatId({senderId:user.user,receiverId:receiver})
-        console.log(data);
         const message = {
             senderId : user.user,
             text: urlMessage,
             chatId: data._id,
             createdAt:new Date()
         }
-
-        // send message to socket server
-        // setSendMessage({...message, receiverId})
-        // send message to database
         try {
         const { data } = await addMessage(message);
         }

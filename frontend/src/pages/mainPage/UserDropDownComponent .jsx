@@ -1,7 +1,6 @@
-import { Fragment,useState,useEffect } from "react";
+import { Fragment,useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { deletePost, reportPost } from "../../api/PostRequests";
-import { useDispatch,useSelector } from "react-redux"
+import { deletePost } from "../../api/PostRequests";
 import { updatePost } from '../../api/PostRequests'
 
 function classNames(...classes) {
@@ -15,11 +14,11 @@ export default function UserDropdownComponent({postId,userId}) {
     const [content,setContent] = useState()
     
     const handleDelete = async () =>{
-      const {data} = await deletePost({postId:postId})
+      await deletePost({postId:postId})
     }
 
     const handleEdit = async () =>{
-      const {data} = await updatePost({postId:postId,content:content})
+      await updatePost({postId:postId,content:content})
     }
 
     
@@ -31,9 +30,6 @@ export default function UserDropdownComponent({postId,userId}) {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                   </svg>
-                  {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                  </svg> */}
                 </Menu.Button>
             </div>
  

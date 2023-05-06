@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from 'react'
+import React,{ useEffect } from 'react'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import OtpLogin from './pages/otpLogin/OtpLogin'
 import Page from './pages/Page'
@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css"
 import Friends from './pages/Friends'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
-import { setLogin,setSearch,setNotification } from './redux/userData'
+import { setLogin } from './redux/userData'
 import AdminLogin from './pages/AdminPage/AdminLogin'
 import AdminDashboard from './pages/AdminPage/AdminDashboard'
 import AdminUsers from './pages/AdminPage/AdminUsers'
@@ -31,7 +31,6 @@ function App() {
         "http://localhost:4000",{},
         {withCredentials: true}
         );
-
         dispatch(setLogin({user:data?.user?._id}))
       }
       
@@ -41,7 +40,6 @@ function App() {
       
       check = user.user == null ? false : true    
       
-      console.log(user);  
   return (
     <body>
     <BrowserRouter>

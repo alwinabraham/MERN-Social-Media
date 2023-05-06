@@ -39,8 +39,6 @@ export default function OtpLogin() {
             }, auth);
     }
 
-    console.log(ph);
-
     const handleSubmit = async (e)=>{
         e.preventDefault()
         try {
@@ -75,7 +73,6 @@ export default function OtpLogin() {
             window.confirmationResult = confirmationResult;
             setLoading(false)
             setShowOTP(true)
-            toast.success("OTP sended successfully!")
         }).catch((error) => {
             console.log(error);
             setLoading(false)
@@ -85,7 +82,6 @@ export default function OtpLogin() {
     function onOTPVerify(){
         setLoading(true)
         window.confirmationResult.confirm(otp).then(async(res)=>{
-            console.log(res)
             setUser(res.user)
             setLoading(false)
             navigate("/")

@@ -12,7 +12,6 @@ import DarkMode from './mainPage/DarkMode'
 export default function Chats() {
 
   const user = useSelector((state)=>state.user)
-  console.log(user.user);
   const [chats,setChats] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [onlineUsers, setOnlineUsers] = useState([])

@@ -56,7 +56,7 @@ const DarkMode = () => {
     })
 
     return (
-        <div className='duration-100 dark:bg-gray-800 bg-gray-100 rounded-xl mt-1 flex justify-evenly sticky top-80'>
+        <div className='items-center duration-100 dark:bg-gray-800 bg-gray-100 rounded-xl mt-1 pl-3 sticky top-80 md:flex md:justify-around'>
             {
                 options?.map(opt=>(
                 <button key={opt.text} onClick={()=>setTheme(opt.text)} className={`w-8 h-8 leading-9 text-xl rounded-full m-1 ${theme === opt.text && "text-sky-600" }`}>

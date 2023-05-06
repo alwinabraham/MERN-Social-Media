@@ -6,7 +6,6 @@ import { blockAPost } from '../../api/AdminRequests';
 
 const AdminBlockedPosts = ({posts}) => {
 
-    console.log(posts);
     const dispatch = useDispatch()
     const [block,setBlock] = useState()
   
@@ -17,7 +16,6 @@ const AdminBlockedPosts = ({posts}) => {
     const blockPost =async ()=>{
       try {
         const {data} = await blockAPost(blockObj)
-        console.log(data);
         dispatch(setCheck({check:data?.id}))
       } catch (error) {
         console.log(error); 
@@ -27,7 +25,7 @@ const AdminBlockedPosts = ({posts}) => {
     useEffect(() => {
       blockPost()
     }, [block])
-    console.log(posts);
+
     return (
         <div className=''>
         {posts.map(obj=>(

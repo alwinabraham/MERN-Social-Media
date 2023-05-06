@@ -13,7 +13,6 @@ export default function Page({userId}) {
 
   const [id,setId] = useState()
   const [posts,setPosts] = useState()
-  const [check,setCheck] = useState()
   const navigate = useNavigate()
   const [cookies,setCookie,removeCookie] = useCookies([])
   const user = useSelector((state)=>state.user)

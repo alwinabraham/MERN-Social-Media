@@ -19,8 +19,7 @@ export default function DropdownComponent({postId,userId}) {
     
     const handleReport = async () =>{
       if(reportObj.reason){
-        console.log("report",reportObj);
-        const {data} = await reportPost(reportObj)
+        await reportPost(reportObj)
       }
     }
 

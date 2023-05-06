@@ -17,10 +17,6 @@ const Share = () => {
     }
     getSharedPost()
   }, [id])
-  
-  console.log(id);
-  console.log(post);
-
 
   return (
     <div className='flex mt-4 max-w-8xl sm:mx-5 sm:gap-6'>

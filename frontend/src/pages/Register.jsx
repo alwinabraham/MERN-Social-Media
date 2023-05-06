@@ -42,15 +42,6 @@ export default function Register() {
             generateError("Passwords do not match")
             return
           }
-        // const domain = email.split("@")[1];
-        // if (!["gmail.com", "yahoo.com", "hotmail.com"].includes(domain)) {
-        //     generateError("Please enter an email address from a valid domain");
-        //     return;
-        // }
-        // if(password.length < 8){
-        //     generateError("Password should be at least 8 characters long")
-        //     return
-        // }
         if (!/^[a-zA-Z]+$/.test(name) || !/^[a-zA-Z]+$/.test(lastName)) {
             generateError("Name and last name should contain only letters");
             return;
@@ -63,7 +54,6 @@ export default function Register() {
         formData.append("password", password)
         formData.append("phoneno", phoneno)
         formData.append("image", file)
-        console.log(formData);
         try {
             const {data} = await axios.post("http://localhost:4000/register", formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
             if(data){

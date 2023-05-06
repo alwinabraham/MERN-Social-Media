@@ -19,7 +19,7 @@ const ReplyComponent = ({commentId}) => {
     }
 
     const handleReply = async() =>{
-        const {data} = await sendReply(replyObj)
+        await sendReply(replyObj)
     }
 
     const ReplyComments = async () =>{

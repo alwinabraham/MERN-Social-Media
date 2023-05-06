@@ -3,7 +3,6 @@ import axios from 'axios'
 import NameComponent from '../mainPage/NameComponent';
 
 export default function UsersFriendsCard(props) {
-  console.log("hello");
   const [followers,setFollowers] = useState()
 
   const FollowersList = async()=>{

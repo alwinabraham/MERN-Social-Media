@@ -13,7 +13,6 @@ function isUrl(str) {
 
 const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
 
-    console.log("chatbox", receivedMessage);
     const [userData, setUserData] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
@@ -51,19 +50,8 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
         }
       };
 
-    // const element = document.getElementById('myElement');
-    // element.scrollTop = element.scrollHeight;
-
       if (chat !== null) fetchMessages();
     }, [chat]);
-  
-  
-    // // Always scroll to last Message
-    // useEffect(()=> {
-    //   scroll.current?.scrollIntoView({ behavior: "smooth" });
-    // },[update])
-  
-  
   
     // Send Message
     const handleSend = async(e)=> {
@@ -92,7 +80,6 @@ const ChatBox = ({ chat, currentUserId, setSendMessage,  receivedMessage }) => {
   
   // Receive Message from parent component
   useEffect(()=> {
-    console.log("Message Arrived: ", receivedMessage)
     if (receivedMessage !== null && receivedMessage?.chatId === chat?._id) {
       setMessages([...messages, receivedMessage]);
     }

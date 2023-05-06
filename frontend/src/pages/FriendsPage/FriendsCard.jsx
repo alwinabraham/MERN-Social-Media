@@ -1,7 +1,6 @@
 import React,{ useState, useEffect, useRef} from 'react'
 import axios from 'axios'
 import NameComponent from '../mainPage/NameComponent' 
-import { useNavigate } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 import { sendFriendRequest } from '../../api/FriendsRequests'
 import { setCheck, setNotification } from '../../redux/userData'
@@ -19,7 +18,6 @@ export default function FriendsCard(props) {
   const user = useSelector((state)=>state.user)
   const dispatch = useDispatch()
   const userValue = userDetails.filter(use => use._id !== id);
-  const navigate = useNavigate()
   const [notifiCount,setNotifiCount] = useState(user.notification)
 
   const socket = useRef()
@@ -27,8 +25,6 @@ export default function FriendsCard(props) {
   useEffect(() => {
     verifyUser()
   },[user.user,user.check,follow])
-
-  // console.log("follow is",follow);
 
   const addFriend = {
     targetId:friend,
@@ -48,13 +44,6 @@ export default function FriendsCard(props) {
         setId(data?.user?._id)
         setUserData(data?.user)
   }
-
-  // useEffect(() => {
-  //   const chatSetting = async () =>{
-  //     const {data} = await axios.post("http://localhost:4000/chat",addChat)
-  //   }
-  //   chatSetting()
-  // },[chat])
 
   const sendNotification = {
     receiverId:user.user,
@@ -80,9 +69,7 @@ export default function FriendsCard(props) {
   useEffect(() => {
     const addNewFriend = async ()=>{
         const {data} = await sendFriendRequest(addFriend)
-        console.log(data.isFriend.friend);
         if(data.isFriend.friend == true){
-          console.log("Sended");
           socket.current.emit("send-notification", sendNotification);
       }
         dispatch(setCheck({check:addFriend.targetId}))

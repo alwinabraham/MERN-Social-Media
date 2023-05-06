@@ -27,8 +27,6 @@ const AdminDashboard = () => {
     })
   })
 
-  console.log("OnlineUsers",onlineUsers);
-
   const totalPosts = async () =>{
     const {data} = await countAllPost()
     setPostCount(data)
@@ -44,7 +42,6 @@ const AdminDashboard = () => {
     setDailyData(data)
     const today = data.length
     const todayCount = data[today-1].count
-    console.log(data)
     setNewPostToday(todayCount)
 }
   const getYearlyPosts = async () => {

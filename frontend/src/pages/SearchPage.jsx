@@ -24,7 +24,6 @@ const SearchPage = () => {
             const {data} =  await axios.post("http://localhost:4000/profile_post",{
                 userId:localStorage.getItem("targetId")
             })
-            console.log(data);
             if(data.length == 0){
               setCheck(check+1)
             }else{
