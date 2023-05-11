@@ -176,9 +176,9 @@ export default function PostCard(props) {
                 <div>
                     <Avatar file={obj.imageUrl}/>
                 </div>
-                    <div className='flex items-center gap-4'>
+                    <div className='flex items-center gap-2'>
                         <div>
-                            <input className="w-full py-3 pl-12 pr-4 dark:text-gray-800 border dark:border-gray-900 rounded-full outline-none dark:bg-gray-700 focus:bg-white focus:border-emerald-700" value={commentValue} placeholder='leave a comment' onClick={()=>{setComment(obj._doc._id);setPostUserId(obj._doc.userId)}} onChange={(e)=>setCommentValue(e.target.value)} />
+                            <input className="w-full py-3 pl-5 pr-4 dark:text-gray-200 border dark:border-gray-900 rounded-full outline-none dark:bg-gray-700 focus:bg-white focus:border-emerald-700" value={commentValue} placeholder='leave a comment' onClick={()=>{setComment(obj._doc._id);setPostUserId(obj._doc.userId)}} onChange={(e)=>setCommentValue(e.target.value)} />
                         </div>
                         <div>
                             <button className='px-3 py-3 rounded-md text-white bg-blue-900' onClick={()=>addComment()}>Send</button>

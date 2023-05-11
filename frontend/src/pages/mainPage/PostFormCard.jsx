@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
+import {ToastContainer,toast} from "react-toastify"
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { setCheck } from '../../redux/userData'
@@ -13,9 +14,18 @@ export default function PostFormCard() {
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
+
+    const generateError = (err) => toast.error(err,{
+        position:"bottom-right"
+    })
     
     const submit = async event => {
         event.preventDefault()
+
+        if(!file){
+            generateError("Please Upload Image too")
+            return
+        }
         
         const formData = new FormData();
         formData.append("userId", user.user)
@@ -35,20 +45,20 @@ export default function PostFormCard() {
     }
 
   return (
- 
+    <>
         <div className = 'dark:bg-gray-800 border dark:border-gray-800 rounded-md mb-5 overflow-hidden p-1 sm:p-2 md:p-3 xl:p-4'>
             <form onSubmit={submit}>
                 <div className='flex justify-between gap-2 items-center'>
                 <ProfileImageComponent userId={user?.user} />
-                    <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14 dark:bg-gray-700 border dark:border-gray-900 rounded-xl' placeholder={'Whats on your mind'} />
+                    <textarea value={caption} onChange={e => setCaption(e.target.value)} type="text" className='grow p-3 h-14 dark:bg-gray-700 border dark:border-gray-900 dark:text-gray-200 rounded-xl' placeholder={'Whats on your mind'} />
                     <div className='flex items-center'>
-                        <input id="fileInput" onChange={fileSelected} type="file" className="hidden " accept="image/*"></input>
+                        <input name="image" id="fileInput" onChange={fileSelected} type="file" className="hidden " accept="image/*"></input>
                         <label htmlFor="fileInput" className="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 dark:stroke-white">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                             </svg>
                             <p className='dark:text-gray-200 hidden sm:block'>
-                            Click to select an image
+                            Select an image
                             </p>
                         </label>
                     </div>
@@ -85,5 +95,8 @@ export default function PostFormCard() {
                 </div>
             </form>
         </div>
+        <ToastContainer />
+    </>
+
   )
 }

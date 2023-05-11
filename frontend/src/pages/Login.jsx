@@ -66,14 +66,13 @@ export default function Login() {
 
   return (
     <>
-    <div className="flex justify-center items-center h-screen bg-emerald-900">
-        <div className='w-96 p-6 shadow-lg bg-white rounded-md'>
-            <h1 className='text-3xl block text-center font-semibold'>Login</h1>
-            <hr className='mb-3'></hr>
+    <div className="flex justify-center items-center h-screen bg-gray-900">
+        <div className='w-96 p-6 shadow-lg bg-gray-800 rounded-md'>
+            <h1 className='text-3xl block text-center text-gray-200 pb-3 font-semibold'>ALWO.LOGIN</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-3'>
-                <label htmlFor="email" className='block text-base mb-2'>Email</label>
-                <input type="email" name="email" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}
+                <label htmlFor="email" className='block mb-2 text-gray-200'>Email</label>
+                <input type="email" name="email" className='border border-gray-600 text-gray-200 w-full text-base px-2 py-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-full bg-gray-700' placeholder='Email' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}
                 {...register("email", {
                     required: "email is required",
                     pattern: {
@@ -85,8 +84,8 @@ export default function Login() {
                 <p className='text-sm text-red-700'>{errors.email?.message}</p>
             </div>
             <div className='mb-3'>
-                <label htmlFor="password" className='block text-base mb-2'>Password</label>
-                <input type="password" name="password" className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}
+                <label htmlFor="password" className='block text-base mb-2 text-gray-200'>Password</label>
+                <input type="password" name="password" className='border border-gray-600 text-gray-200 w-full text-base px-2 py-2 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-full bg-gray-700' placeholder='Password' onChange={(e)=>setValues({...values,[e.target.name]:e.target.value})}
                 {...register("password", {
                     required: "password is required",
                     pattern: {
@@ -99,14 +98,14 @@ export default function Login() {
             </div>
             <div className='mt-3 flex justify-between items-center'>
                 <div>
-                    <Link to="/register">Register</Link>
+                    <Link to="/register"><p className='text-gray-200'>Register</p></Link>
                 </div>
                 <div>
-                    <Link to="/otp_login">Otp-Login</Link>
+                    <Link to="/otp_login"><p className='text-gray-200'>Otp-Login</p></Link>
                 </div>
             </div>
             <div className="mt-5">
-                <button type='submit' className='border-2 border-emerald-700 bg-emerald-600 text-white py-1 px-5 w-full rounded-md hover:bg-transparent hover:text-emerald-700 font-semibold'>Login</button>
+                <button type='submit' className='border-2 border-gray-900  bg-gray-900 text-white py-1 px-5 w-full rounded-md hover:bg-transparent hover:text-emerald-700 font-semibold'>Login</button>
             </div>
             </form>
         </div>

@@ -1,14 +1,12 @@
 import React,{useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {BsFillShieldLockFill, BsTelephoneFill} from "react-icons/bs"
-import OtpInput from "otp-input-react"
 import {CgSpinner} from "react-icons/cg"
 import PhoneInput from "react-phone-input-2"
 import "react-phone-input-2/lib/style.css"
 import {auth} from "./firebase.config"
 import {RecaptchaVerifier} from 'firebase/auth'
 import { Toaster } from 'react-hot-toast'
-import { toast } from 'react-toastify'
 import { signInWithPhoneNumber } from "firebase/auth";
 import axios from "axios"
 import { useDispatch } from 'react-redux';
@@ -92,7 +90,7 @@ export default function OtpLogin() {
     }
 
   return (
-    <section className='flex items-center bg-emerald-900 justify-center h-screen'>
+    <section className='flex items-center bg-gray-900 justify-center h-screen'>
         <div>
         <Toaster toastOptions={{duration: 4000}} />
         <div id="recaptcha-container"></div>
@@ -101,9 +99,9 @@ export default function OtpLogin() {
             <h2 className='text-center text-white font-medium text-2xl'>
                 Login Success
             </h2>:
-            <div className='w-80 flex flex-col gap-4 rounded-lg p-4'>
+            <div className='w-80 flex flex-col gap-4 rounded-lg p-4 border border-gray-800 bg-gray-800'>
                 <h1 className='text-center leading-normal text-white font-medium text-3xl mb-6'>
-                    Welcome to <br /> Code a program 
+                    LOGIN THROUGH <br /> OTP
                 </h1>
             {
                 showOTP?
@@ -114,14 +112,11 @@ export default function OtpLogin() {
                         <label htmlFor='otp' className='font-bold text-2x1 text-white text-center'>
                             Enter your OTP
                         </label>
-                        <OtpInput value={otp} onChange={setOtp} OTPLength={6} otpType="number" disabled={false} autoFocus className="opt-container "></OtpInput>
-                        <button onClick={onOTPVerify} className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded'>
+                        <input className='p-2 rounded-xl bg-gray-900 text-gray-200' type="number" value={otp} onChange={(e)=>setOtp(e.target.value)} />
+                        <button onClick={onOTPVerify} className='bg-gray-900 shadow-xl w-full flex gap-1 items-center justify-center py-2.5 text-white rounded'>
                             {loading && <CgSpinner size={20} className="mt-1 animate-spin"/>}
                             <span>Verify OTP</span>
                         </button>
-                        {setTimeout(()=>{
-
-                        },60000)}
                         <button onClick={()=>setShowOTP(false)}>
                             <CounterComponent seconds={60} />
                         </button>
@@ -131,10 +126,11 @@ export default function OtpLogin() {
                         <BsTelephoneFill size={30} />
                         </div>
                         <label htmlFor='ph' className='font-bold text-x1 text-white text-center'>
-                            Verify your Phone Number
+                            Verify your Phone Number <br />                             Please add your country Code
                         </label>
-                        <PhoneInput country={"in"} value={ph} onChange={setPh} />
-                        <button onClick={handleSubmit} className='bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded'>
+                        {/* <PhoneInput country={"in"} value={ph} onChange={setPh} /> */}
+                        <input className='p-2 rounded-xl bg-gray-900 text-gray-200' type="number" value={ph} onChange={(e)=>setPh(e.target.value)} required/>
+                        <button onClick={handleSubmit} className='bg-gray-900 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded border border-gray-700'>
                             {loading && <CgSpinner size={20} className="mt-1 animate-spin"/>}
                             <span>Send Code via SMS</span>
                         </button>

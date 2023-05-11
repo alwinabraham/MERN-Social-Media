@@ -40,26 +40,24 @@ function App() {
   check = user.user == null ? false : true    
       
   return (
-    <body>
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/register" element= {<Register />} />
-        <Route exact path="/login" element= {<Login />} />
-        <Route exact path="/" element={<Page user={user} />} />
-        <Route exact path="/otp_login" element={check && <OtpLogin />} />
-        <Route exact path="/profile" element={check && <Profile userId={user} />} />
-        <Route exact path="/friends" element={check && <Friends />} />
-        <Route exact path="/chats" element={check && <Chats />} />
-        <Route exact path="/notification" element={check && <Notification />} />
-        <Route exact path="/searchPage" element={check && <SearchPage />} />
-        <Route exact path="/admin" element={<AdminLogin />} />
-        <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route exact path="/admin/userDetails" element={<AdminUsers />} />
-        <Route exact path="/admin/reports" element={<AdminReports />} />
-        <Route exact path="/share/:id" element={<Share />} />
-      </Routes>
-    </BrowserRouter>
-    </body>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/register" element= {<Register />} />
+          <Route exact path="/login" element= {<Login />} />
+          <Route exact path="/" element={<Page user={user} />} />
+          <Route exact path="/otp_login" element={<OtpLogin />} />
+          <Route exact path="/profile" element={check && <Profile userId={user} />} />
+          <Route exact path="/friends" element={check && <Friends />} />
+          <Route exact path="/chats" element={check && <Chats />} />
+          <Route exact path="/notification" element={check && <Notification />} />
+          <Route exact path="/searchPage" element={check && <SearchPage />} />
+          <Route exact path="/admin" element={<AdminLogin />} />
+          <Route exact path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route exact path="/admin/userDetails" element={<AdminUsers />} />
+          <Route exact path="/admin/reports" element={<AdminReports />} />
+          <Route exact path="/share/:id" element={<Share />} />
+        </Routes>
+      </BrowserRouter>
   )
 }
 

@@ -32,9 +32,7 @@ const CounterComponent = ({seconds}) => {
     
     return (
         <div>
-
             <button className='text-white'>{formatTime(countDown)}</button>
-        
         </div>
     )
 }

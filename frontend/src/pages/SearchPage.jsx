@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import NavigationCard from './mainPage/NavigationCard'
-import Search from './search/search'
 import ProfileCover from './mainPage/ProfileCover'
 import ProfilePostCard from './ProfilePage/ProfilePostCard'
 import { getSearchUser } from '../api/SearchPageRequests'
@@ -48,7 +47,6 @@ const SearchPage = () => {
             <DarkMode />
         </div>
         <div className='xl:w-8/12 md:w-10/12 w-10/12'>
-            <Search />
             {SearchUser && <ProfileCover data={SearchUser} post={posts} />}
             {posts && <ProfilePostCard post={posts} />}
             </div>

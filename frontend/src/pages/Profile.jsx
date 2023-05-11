@@ -5,7 +5,6 @@ import axios from 'axios'
 import NavigationCard from './mainPage/NavigationCard'
 import ProfilePostCard from './ProfilePage/ProfilePostCard'
 import ProfileCover from './mainPage/ProfileCover'
-import Search from './search/search'
 import { useSelector } from 'react-redux'
 import DarkMode from './mainPage/DarkMode'
 
@@ -56,7 +55,6 @@ export default function Page({userId}) {
         <DarkMode />
       </div>
       <div className='xl:w-8/12 md:w-10/12 w-10/12'>
-          <Search />
           {id && <ProfileCover data={id} post={posts}/>}
           {posts && <ProfilePostCard post={posts}/>}
         </div>
