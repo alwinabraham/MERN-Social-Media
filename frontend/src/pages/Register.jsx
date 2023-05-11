@@ -139,7 +139,6 @@ export default function Register() {
         <div className="mt-5">
             <button type='submit' className='border-2 border-gray-900 bg-gray-900 text-white py-1 px-5 w-full rounded-md h hover:text-gray-500 font-semibold'>Register</button>
         </div>
-
         </form>
     </div>
     <ToastContainer />

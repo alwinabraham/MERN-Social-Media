@@ -126,9 +126,9 @@ export default function OtpLogin() {
                         <BsTelephoneFill size={30} />
                         </div>
                         <label htmlFor='ph' className='font-bold text-x1 text-white text-center'>
-                            Verify your Phone Number <br />                             Please add your country Code
+                            Verify your Phone Number <br />
+                            <p className='text-red-600 mt-2'>Please add your country Code</p>                            
                         </label>
-                        {/* <PhoneInput country={"in"} value={ph} onChange={setPh} /> */}
                         <input className='p-2 rounded-xl bg-gray-900 text-gray-200' type="number" value={ph} onChange={(e)=>setPh(e.target.value)} required/>
                         <button onClick={handleSubmit} className='bg-gray-900 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded border border-gray-700'>
                             {loading && <CgSpinner size={20} className="mt-1 animate-spin"/>}

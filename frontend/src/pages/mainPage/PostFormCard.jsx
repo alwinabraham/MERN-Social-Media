@@ -18,6 +18,10 @@ export default function PostFormCard() {
     const generateError = (err) => toast.error(err,{
         position:"bottom-right"
     })
+
+    const generateSucess = (msg) => toast.success(msg,{
+        position:"bottom-right"
+    })
     
     const submit = async event => {
         event.preventDefault()
@@ -33,10 +37,11 @@ export default function PostFormCard() {
         formData.append("caption", caption)
         
         const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/upload_post`, formData, { headers: {'Content-Type': 'multipart/form-data'}})
+        generateSucess("Post Uploaded")
         dispatch(setCheck({id:data._id}))
-      setCaption("")
-      setFile("")
-      navigate("/")
+        setCaption("")
+        setFile("")
+        navigate("/")
     }
   
     const fileSelected = event => {

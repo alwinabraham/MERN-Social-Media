@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Card from './Card'
 import axios from 'axios'
+import {ToastContainer,toast} from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { useDispatch,useSelector } from 'react-redux'
 import { setCheck } from '../../redux/userData'
@@ -20,8 +21,21 @@ export default function ProfileCover({data,post}) {
     const [bio, setBio] = useState(data?.bio)
     const [file, setFile] = useState()
 
+    const generateError = (err) => toast.error(err,{
+        position:"bottom-right"
+    })
+
+    const generateSuccess = (msg) => toast.success(msg,{
+        position:"bottom-right"
+    })
+
     const handleSubmit = async e =>{
         e.preventDefault()
+
+        if(!name){
+            generateError("Please Fill The Name Field")
+            return
+        }
   
         const formData = new FormData();
         formData.append("userId",data._id)
@@ -31,7 +45,9 @@ export default function ProfileCover({data,post}) {
 
         try {
             const {data} = await axios.post(`${import.meta.env.VITE_AXIOS_KEY}/updateProfile`, formData ,{ headers: {'Content-Type': 'multipart/form-data'}})
+            generateSuccess("Your profile Updated")
             navigate("/profile")
+            setShowModal(false)
             dispatch(setCheck({check:data._id}))
         } catch (error) {
             console.log(error);
@@ -134,7 +150,7 @@ export default function ProfileCover({data,post}) {
                                 </button>
                                 </div>
                                 {/*body*/}
-                                <form className="space-y-6" onSubmit={handleSubmit}>
+                                <form className="space-y-3" onSubmit={handleSubmit}>
                                     <div className="relative p-6 flex-auto">
                                             <div >
                                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -166,9 +182,8 @@ export default function ProfileCover({data,post}) {
                                             Close
                                         </button>
                                         <button
-                                            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            className="bg-emerald-700 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit"
-                                            // onClick={() => {setShowModal(false);}}
                                         >
                                             Save Changes
                                         </button>
@@ -184,6 +199,7 @@ export default function ProfileCover({data,post}) {
                 </div>
                 </div>
             </div>
+            <ToastContainer />
         </Card>
     )
 }
