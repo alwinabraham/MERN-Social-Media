@@ -66,8 +66,8 @@ export default function Login() {
 
   return (
     <>
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-        <div className='w-96 p-6 shadow-lg bg-gray-800 rounded-md'>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-900 to-violet-900 ...">
+        <div className='w-96 p-6 shadow-xl bg-gray-800 rounded-md'>
             <h1 className='text-3xl block text-center text-gray-200 pb-3 font-semibold'>ALWO.LOGIN</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
             <div className='mb-3'>

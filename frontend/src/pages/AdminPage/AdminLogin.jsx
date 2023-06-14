@@ -31,9 +31,6 @@ const AdminLogin = () => {
           })
           if(data){
               if(data.errors){
-                  // const {email,password} = data.errors;
-                  // if(email) generateError(email)
-                  // else if(password) generateError(password)
               }else{
                   navigate("/admin/dashboard")
               }

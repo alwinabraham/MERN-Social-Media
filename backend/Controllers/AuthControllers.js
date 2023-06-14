@@ -20,7 +20,6 @@ const createToken = (id) =>{
     })
 };
 
-dotenv.config()
 
 const handleErrors = (err) =>{
     let errors = {name:"",email:"",password:"",phoneno:""}; 

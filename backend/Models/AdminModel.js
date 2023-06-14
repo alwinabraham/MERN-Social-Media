@@ -16,7 +16,6 @@ adminSchema.statics.login = async function(email,password){
     const user = await this.findOne({email});
     if(user){
         const auth = password == user.password
-        console.log(auth);
         if(auth){
             return user;
         }

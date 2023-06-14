@@ -80,8 +80,8 @@ export default function Register() {
       }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-    <div className='w-96 p-6 shadow-lg bg-gray-800 rounded-md'>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-900 to-violet-900 ...">
+    <div className='w-96 p-6 shadow-lg bg-gray-800 rounded-md '>
         <h1 className='text-3xl block text-center font-semibold text-gray-200 pb-3'>Register</h1>
         <form onSubmit={handleSubmit}>
         <div className='mb-3'>
